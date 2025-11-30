@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type MouseEvent } from 'react';
 import type { StarforgedRegion, GameMode } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { 
@@ -7,6 +7,7 @@ import {
   type ShortcutDefinition,
   getShortcutIcon
 } from '../../utils/oracleShortcuts';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 type OracleShortcutsProps = {
   rollMultipleOracles: (shortcut: ShortcutDefinition, region?: StarforgedRegion) => void;
@@ -23,15 +24,41 @@ export function OracleShortcuts({
 }: OracleShortcutsProps) {
   const { t } = useI18n();
   const shortcuts = gameMode === 'ironsworn' ? IRONSWORN_SHORTCUTS : STARFORGED_SHORTCUTS;
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  
+  // Carregar estado inicial: priorizar defaultOpen (vem de allGroupsOpen), senão LocalStorage
+  const [isOpen, setIsOpen] = useState(() => {
+    // Se allGroupsOpen está salvo no LocalStorage, usar ele
+    // Caso contrário, verificar estado individual do grupo de atalhos
+    const allGroupsSaved = localStorage.getItem('allGroupsOpen');
+    if (allGroupsSaved !== null) {
+      // Se há um estado global salvo, usar ele
+      return allGroupsSaved === 'true';
+    }
+    // Se não há estado global, verificar estado individual
+    const saved = localStorage.getItem('shortcutsExpanded');
+    return saved !== null ? saved === 'true' : defaultOpen;
+  });
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
+    // Quando defaultOpen muda (ex: botão expandir/colapsar todos), atualizar
     if (detailsRef.current) {
       detailsRef.current.open = defaultOpen;
       setIsOpen(defaultOpen);
     }
   }, [defaultOpen]);
+
+  // Salvar estado no LocalStorage quando mudar manualmente (clicando no grupo)
+  const handleToggle = (e: MouseEvent) => {
+    e.preventDefault();
+    const newState = !isOpen;
+    setIsOpen(newState);
+    if (detailsRef.current) {
+      detailsRef.current.open = newState;
+    }
+    // Salvar no LocalStorage
+    localStorage.setItem('shortcutsExpanded', String(newState));
+  };
 
   if (shortcuts.length === 0) return null;
 
@@ -50,17 +77,10 @@ export function OracleShortcuts({
         }}
       >
         <summary
-          onClick={(e) => {
-            e.preventDefault();
-            const newState = !isOpen;
-            setIsOpen(newState);
-            if (detailsRef.current) {
-              detailsRef.current.open = newState;
-            }
-          }}
+          onClick={handleToggle}
           className="oracle-summary"
         >
-          <span className="category-icon">{isOpen ? '▼' : '▶'}</span>
+          <span className="category-icon">{isOpen ? <FaChevronDown /> : <FaChevronRight />}</span>
           <span className="category-icon-oracle">{shortcutIcon}</span>
           <span className="category-name">{shortcutTitle}</span>
         </summary>

@@ -2,6 +2,7 @@ import { OracleText } from '../OracleText/OracleText';
 import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { getOracleIcon } from '../../utils/oracleIcons';
+import { FaTimes } from 'react-icons/fa';
 
 type ResultModalProps = {
   log: LogEntry;
@@ -39,7 +40,7 @@ export function ResultModal({
             className="result-modal-close"
             onClick={onClose}
           >
-            ✕
+            <FaTimes />
           </button>
         </div>
         <div className="result-modal-body">

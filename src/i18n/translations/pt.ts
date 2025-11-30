@@ -28,5 +28,6 @@ export const pt = {
   'theme.dark': 'Modo Escuro',
   'theme.light': 'Modo Claro',
   'shortcuts.title': 'Atalhos',
+  'log.autoModal': 'Auto modal',
 } as const;
 

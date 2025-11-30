@@ -9,9 +9,11 @@ type RollLogProps = {
   onRollAgain: (oracleId: string) => void;
   findOracleById: (id: string) => OracleTable | null;
   onClearLog?: () => void;
+  autoShowModal?: boolean;
+  onToggleAutoShowModal?: () => void;
 };
 
-export function RollLog({ logs, onRollAgain, findOracleById, onClearLog }: RollLogProps) {
+export function RollLog({ logs, onRollAgain, findOracleById, onClearLog, autoShowModal = false, onToggleAutoShowModal }: RollLogProps) {
   const { t } = useI18n();
   
   const handleOracleClick = (oracleId: string) => {
@@ -27,15 +29,27 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog }: RollL
         <h3 className="roll-log-title">
           <span className="icon"><FaBook /></span> {t('log.title')}
         </h3>
-        {onClearLog && (
-          <button 
-            onClick={onClearLog}
-            className="clear-log-btn"
-            title={t('log.clear')}
-          >
-            <FaTrash />
-          </button>
-        )}
+        <div className="roll-log-controls">
+          {onToggleAutoShowModal && (
+            <label className="roll-log-auto-modal-switch">
+              <input
+                type="checkbox"
+                checked={autoShowModal}
+                onChange={onToggleAutoShowModal}
+              />
+              <span className="switch-label">{t('log.autoModal') || 'Modal automático'}</span>
+            </label>
+          )}
+          {onClearLog && (
+            <button 
+              onClick={onClearLog}
+              className="clear-log-btn"
+              title={t('log.clear')}
+            >
+              <FaTrash />
+            </button>
+          )}
+        </div>
       </div>
       
       {logs.length === 0 && (

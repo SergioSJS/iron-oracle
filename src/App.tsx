@@ -24,9 +24,16 @@ function App() {
     setSelectedRegion
   } = useGameData();
 
-  const [allGroupsOpen, setAllGroupsOpen] = useState(false);
+  const [allGroupsOpen, setAllGroupsOpen] = useState(() => {
+    const saved = localStorage.getItem('allGroupsOpen');
+    return saved !== null ? saved === 'true' : false;
+  });
   const [showLogModal, setShowLogModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
+  const [autoShowModal, setAutoShowModal] = useState(() => {
+    const saved = localStorage.getItem('autoShowModal');
+    return saved !== null ? saved === 'true' : true;
+  });
   const { isSmallScreen } = useScreenSize();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Verificar preferência salva ou usar dark como padrão
@@ -59,6 +66,7 @@ function App() {
   const handleToggleAllGroups = () => {
     const newState = !allGroupsOpen;
     setAllGroupsOpen(newState);
+    localStorage.setItem('allGroupsOpen', String(newState));
     
     // Manipular diretamente todos os elementos details
     requestAnimationFrame(() => {
@@ -77,12 +85,18 @@ function App() {
     }
   }, [isSmallScreen]);
 
-  // Mostrar modal de resultado automaticamente quando uma nova rolagem é feita em mobile
+  // Mostrar modal de resultado automaticamente quando uma nova rolagem é feita
   useEffect(() => {
-    if (isSmallScreen && logs.length > 0) {
+    // No mobile sempre mostra, no desktop só se o switch estiver ativo
+    if ((isSmallScreen || autoShowModal) && logs.length > 0) {
       setShowResultModal(true);
     }
-  }, [logs.length, isSmallScreen]);
+  }, [logs.length, autoShowModal, isSmallScreen]);
+
+  // Salvar preferência de modal automático
+  useEffect(() => {
+    localStorage.setItem('autoShowModal', String(autoShowModal));
+  }, [autoShowModal]);
 
   // Salvar preferência de tema quando mudar
   useEffect(() => {
@@ -142,6 +156,8 @@ function App() {
               onRollAgain={handleRollAgain}
               findOracleById={findOracleById}
               onClearLog={handleClearLog}
+              autoShowModal={autoShowModal}
+              onToggleAutoShowModal={() => setAutoShowModal(!autoShowModal)}
             />
           </section>
         )}
@@ -149,7 +165,7 @@ function App() {
 
       <ResultModal
         log={logs[0]}
-        isOpen={showResultModal && isSmallScreen && logs.length > 0}
+        isOpen={showResultModal && logs.length > 0}
         onClose={() => setShowResultModal(false)}
         onOracleClick={handleOracleClick}
         findOracleById={findOracleById}
@@ -162,6 +178,8 @@ function App() {
         onRollAgain={handleRollAgain}
         findOracleById={findOracleById}
         onClearLog={handleClearLog}
+        autoShowModal={autoShowModal}
+        onToggleAutoShowModal={() => setAutoShowModal(!autoShowModal)}
       />
     </div>
   );

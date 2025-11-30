@@ -3,6 +3,7 @@ import type { OracleTable, OracleCollection, StarforgedRegion } from '../../type
 import { useI18n } from '../../i18n/context';
 import { translateOracleName } from '../../i18n/oracleTranslations';
 import { getOracleIcon } from '../../utils/oracleIcons';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 type OracleNavigatorProps = {
   data: OracleTable | OracleCollection;
@@ -243,7 +244,7 @@ export function OracleNavigator({
             }}
             className="oracle-summary"
           >
-            <span className="category-icon">{isOpen ? '▼' : '▶'}</span>
+            <span className="category-icon">{isOpen ? <FaChevronDown /> : <FaChevronRight />}</span>
             <span className="category-icon-oracle">{getOracleIcon(data._id, translatedName)}</span>
             <span className="category-name">{translatedName}</span>
           </summary>

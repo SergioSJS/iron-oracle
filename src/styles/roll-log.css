@@ -74,6 +74,14 @@
   margin-bottom: 20px;
   padding-bottom: 12px;
   transition: border-color 0.5s ease;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.roll-log-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .theme-dark.theme-ironsworn .roll-log-title-bar {
@@ -120,6 +128,120 @@
 .theme-light.theme-starforged .roll-log-title {
   color: #5a6b94;
   text-shadow: none;
+}
+
+.roll-log-auto-modal-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.roll-log-auto-modal-switch input[type="checkbox"] {
+  width: 40px;
+  height: 20px;
+  appearance: none;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.theme-dark.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"] {
+  background: rgba(120, 80, 40, 0.3);
+  border: 1px solid rgba(120, 80, 40, 0.5);
+}
+
+.theme-dark.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"]:checked {
+  background: rgba(201, 169, 97, 0.4);
+  border-color: #c9a961;
+}
+
+.theme-dark.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"] {
+  background: rgba(100, 120, 200, 0.3);
+  border: 1px solid rgba(100, 120, 200, 0.5);
+}
+
+.theme-dark.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"]:checked {
+  background: rgba(139, 163, 212, 0.4);
+  border-color: #8ba3d4;
+}
+
+.theme-light.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"] {
+  background: rgba(139, 115, 85, 0.3);
+  border: 1px solid rgba(139, 115, 85, 0.5);
+}
+
+.theme-light.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"]:checked {
+  background: rgba(139, 115, 85, 0.5);
+  border-color: #8b7355;
+}
+
+.theme-light.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"] {
+  background: rgba(100, 120, 200, 0.3);
+  border: 1px solid rgba(100, 120, 200, 0.5);
+}
+
+.theme-light.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"]:checked {
+  background: rgba(100, 120, 200, 0.5);
+  border-color: #6b7ba4;
+}
+
+.roll-log-auto-modal-switch input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  top: 1px;
+  left: 1px;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.roll-log-auto-modal-switch input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
+}
+
+.theme-dark.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"]:checked::before {
+  background: #c9a961;
+}
+
+.theme-dark.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"]:checked::before {
+  background: #8ba3d4;
+}
+
+.theme-light.theme-ironsworn .roll-log-auto-modal-switch input[type="checkbox"]:checked::before {
+  background: #8b7355;
+}
+
+.theme-light.theme-starforged .roll-log-auto-modal-switch input[type="checkbox"]:checked::before {
+  background: #6b7ba4;
+}
+
+.switch-label {
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.theme-dark.theme-ironsworn .switch-label {
+  color: #c9a961;
+}
+
+.theme-dark.theme-starforged .switch-label {
+  color: #8ba3d4;
+}
+
+.theme-light.theme-ironsworn .switch-label {
+  color: #6b5a45;
+}
+
+.theme-light.theme-starforged .switch-label {
+  color: #5a6b94;
 }
 
 .clear-log-btn {

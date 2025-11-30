@@ -10,6 +10,8 @@ type LogModalProps = {
   onRollAgain: (oracleId: string) => void;
   findOracleById: (id: string) => OracleTable | null;
   onClearLog: () => void;
+  autoShowModal?: boolean;
+  onToggleAutoShowModal?: () => void;
 };
 
 export function LogModal({
@@ -18,7 +20,9 @@ export function LogModal({
   logs,
   onRollAgain,
   findOracleById,
-  onClearLog
+  onClearLog,
+  autoShowModal = false,
+  onToggleAutoShowModal
 }: LogModalProps) {
   const { t } = useI18n();
   
@@ -55,6 +59,8 @@ export function LogModal({
           logs={logs} 
           onRollAgain={onRollAgain}
           findOracleById={findOracleById}
+          autoShowModal={autoShowModal}
+          onToggleAutoShowModal={onToggleAutoShowModal}
         />
       </div>
     </div>

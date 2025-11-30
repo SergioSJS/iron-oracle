@@ -2,6 +2,8 @@
 
 Uma aplicação web para rolar tabelas de oráculos dos jogos de RPG de mesa **Ironsworn** e **Ironsworn: Starforged**. Este Progressive Web App (PWA) fornece uma interface intuitiva para acessar e rolar centenas de tabelas de oráculos, com suporte completo para traduções em português e inglês.
 
+🌐 **Acesse o site**: [https://sergiosjs.github.io/iron-oracle/](https://sergiosjs.github.io/iron-oracle/)
+
 [🇺🇸 Read in English / Leia em Inglês](README.md)
 
 ## Funcionalidades

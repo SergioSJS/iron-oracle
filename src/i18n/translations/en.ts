@@ -28,5 +28,6 @@ export const en = {
   'theme.dark': 'Dark Mode',
   'theme.light': 'Light Mode',
   'shortcuts.title': 'Shortcuts',
+  'log.autoModal': 'Auto',
 } as const;
 

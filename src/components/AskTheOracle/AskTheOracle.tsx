@@ -2,7 +2,7 @@ import type { OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { translateOracleName } from '../../i18n/oracleTranslations';
 import { getOracleIcon } from '../../utils/oracleIcons';
-import { FaQuestionCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 type AskTheOracleProps = {
   tables: OracleTable[];
@@ -27,7 +27,7 @@ export function AskTheOracle({ tables, onRoll, allGroupsOpen, onToggleAllGroups 
           className="expand-collapse-btn ask-the-oracle-expand-btn"
           title={allGroupsOpen ? t('buttons.collapse') : t('buttons.expand')}
         >
-          {allGroupsOpen ? '▼' : '▶'}
+          {allGroupsOpen ? <FaChevronDown /> : <FaChevronRight />}
         </button>
       </div>
       <div className="ask-the-oracle-buttons">
