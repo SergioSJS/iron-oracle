@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Oracle tables for Ironsworn and Starforged RPG games" />
+    <meta name="theme-color" content="#c9a961" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Iron Oracle" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Jura:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Iron Oracle - Ironsworn & Starforged</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Redirect if URL doesn't end with slash (for base path compatibility)
+      // This ensures both /iron-oracle and /iron-oracle/ work correctly
+      (function() {
+        var path = window.location.pathname;
+        var base = '/iron-oracle';
+        
+        // If path is exactly the base without trailing slash, redirect
+        if (path === base) {
+          window.location.replace(base + '/');
+          return;
+        }
+        
+        // If path is base + something without trailing slash and not a file, add slash
+        if (path.startsWith(base) && !path.endsWith('/') && !path.match(/\.[a-z]+$/i)) {
+          window.location.replace(path + '/');
+          return;
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iron Oracle - Ironsworn & Starforged</title>
+    <script>
+      // GitHub Pages 404 redirect for SPA
+      // Single Page Apps need this to handle client-side routing
+      var path = window.location.pathname;
+      var base = '/iron-oracle';
+      
+      // Se não termina com barra e não é um arquivo, adicionar barra
+      if (!path.endsWith('/') && !path.match(/\.[a-z]+$/i)) {
+        path = path + '/';
+      }
+      
+      // Se o path não começa com o base, adicionar
+      if (!path.startsWith(base)) {
+        path = base + path;
+      }
+      
+      // Redirecionar para index.html com o path correto
+      window.location.replace(path + 'index.html');
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
+

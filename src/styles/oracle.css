@@ -1,0 +1,644 @@
+.oracle-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.oracle-list-container {
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  height: 600px;
+  overflow-y: auto;
+  flex: 1;
+  transition: all 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .oracle-list-container {
+  background: linear-gradient(135deg, rgba(10, 8, 6, 0.9) 0%, rgba(26, 24, 21, 0.9) 100%);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(120, 80, 40, 0.1);
+}
+
+.theme-dark.theme-starforged .oracle-list-container {
+  border-color: rgba(100, 120, 200, 0.3);
+  background: linear-gradient(135deg, rgba(10, 10, 18, 0.9) 0%, rgba(20, 20, 30, 0.9) 100%);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(100, 120, 200, 0.1);
+}
+
+.theme-light.theme-ironsworn .oracle-list-container {
+  border-color: rgba(139, 115, 85, 0.4);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 240, 232, 0.95) 100%);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(139, 115, 85, 0.2);
+}
+
+.theme-light.theme-starforged .oracle-list-container {
+  border-color: rgba(100, 120, 200, 0.4);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(232, 234, 246, 0.95) 100%);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(100, 120, 200, 0.2);
+}
+
+.oracle-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.oracle-list-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.theme-ironsworn .oracle-list-container::-webkit-scrollbar-thumb {
+  background: rgba(120, 80, 40, 0.5);
+  border-radius: 4px;
+}
+
+.theme-ironsworn .oracle-list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 80, 40, 0.7);
+}
+
+.theme-starforged .oracle-list-container::-webkit-scrollbar-thumb {
+  background: rgba(100, 120, 200, 0.5);
+  border-radius: 4px;
+}
+
+.theme-starforged .oracle-list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 120, 200, 0.7);
+}
+
+.log-section {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+}
+
+/* Container Principal */
+.oracle-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 30px;
+  align-items: start;
+}
+
+/* Controles de navegação - discreto */
+.expand-collapse-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
+  min-width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expand-collapse-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.theme-dark.theme-ironsworn .expand-collapse-btn {
+  color: #c9a961;
+  border-color: rgba(120, 80, 40, 0.3);
+}
+
+.theme-dark.theme-ironsworn .expand-collapse-btn:hover {
+  background: rgba(120, 80, 40, 0.2);
+  border-color: rgba(120, 80, 40, 0.5);
+}
+
+.theme-dark.theme-starforged .expand-collapse-btn {
+  color: #8ba3d4;
+  border-color: rgba(100, 120, 200, 0.3);
+}
+
+.theme-dark.theme-starforged .expand-collapse-btn:hover {
+  background: rgba(100, 120, 200, 0.2);
+  border-color: rgba(100, 120, 200, 0.5);
+}
+
+.theme-light.theme-ironsworn .expand-collapse-btn {
+  color: #6b5a45;
+  border-color: rgba(139, 115, 85, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.theme-light.theme-ironsworn .expand-collapse-btn:hover {
+  background: rgba(139, 115, 85, 0.15);
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+.theme-light.theme-starforged .expand-collapse-btn {
+  color: #5a6b94;
+  border-color: rgba(100, 120, 200, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.theme-light.theme-starforged .expand-collapse-btn:hover {
+  background: rgba(100, 120, 200, 0.15);
+  border-color: rgba(100, 120, 200, 0.6);
+}
+
+/* Seção destacada para "Ask the Oracle" - Horizontal */
+.ask-the-oracle-section {
+  grid-column: 1 / -1;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .ask-the-oracle-section {
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, rgba(139, 115, 85, 0.1) 100%);
+  border: 2px solid rgba(201, 169, 97, 0.4);
+  box-shadow: 
+    0 4px 20px rgba(201, 169, 97, 0.2),
+    inset 0 1px 0 rgba(201, 169, 97, 0.1);
+}
+
+.theme-dark.theme-starforged .ask-the-oracle-section {
+  background: linear-gradient(135deg, rgba(139, 163, 212, 0.1) 0%, rgba(100, 120, 200, 0.1) 100%);
+  border: 2px solid rgba(139, 163, 212, 0.4);
+  box-shadow: 
+    0 4px 20px rgba(139, 163, 212, 0.2),
+    inset 0 1px 0 rgba(139, 163, 212, 0.1);
+}
+
+.theme-light.theme-ironsworn .ask-the-oracle-section {
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.15) 0%, rgba(139, 115, 85, 0.12) 100%);
+  border: 2px solid rgba(139, 115, 85, 0.5);
+  box-shadow: 
+    0 4px 20px rgba(139, 115, 85, 0.15),
+    inset 0 1px 0 rgba(139, 115, 85, 0.2);
+}
+
+.theme-light.theme-starforged .ask-the-oracle-section {
+  background: linear-gradient(135deg, rgba(139, 163, 212, 0.15) 0%, rgba(100, 120, 200, 0.12) 100%);
+  border: 2px solid rgba(100, 120, 200, 0.5);
+  box-shadow: 
+    0 4px 20px rgba(100, 120, 200, 0.15),
+    inset 0 1px 0 rgba(100, 120, 200, 0.2);
+}
+
+.ask-the-oracle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ask-the-oracle-title {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 700;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.5px;
+  transition: all 0.5s ease;
+}
+
+.ask-the-oracle-expand-btn {
+  opacity: 0.7;
+}
+
+.ask-the-oracle-expand-btn:hover {
+  opacity: 1;
+}
+
+.theme-dark.theme-ironsworn .ask-the-oracle-title {
+  color: #c9a961;
+  text-shadow: 
+    0 0 10px rgba(201, 169, 97, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-starforged .ask-the-oracle-title {
+  color: #8ba3d4;
+  text-shadow: 
+    0 0 10px rgba(139, 163, 212, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.theme-light.theme-ironsworn .ask-the-oracle-title {
+  color: #6b5a45;
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.theme-light.theme-starforged .ask-the-oracle-title {
+  color: #5a6b94;
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.ask-the-oracle-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ask-the-oracle-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-dark.theme-ironsworn .ask-the-oracle-btn {
+  background: linear-gradient(135deg, rgba(26, 20, 16, 0.9) 0%, rgba(40, 32, 24, 0.9) 100%);
+  color: #c9a961;
+  border-color: rgba(120, 80, 40, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-ironsworn .ask-the-oracle-btn:hover {
+  background: linear-gradient(135deg, rgba(40, 32, 24, 0.95) 0%, rgba(52, 44, 32, 0.95) 100%);
+  border-color: #c9a961;
+  box-shadow: 
+    0 4px 16px rgba(201, 169, 97, 0.3),
+    0 0 20px rgba(201, 169, 97, 0.1);
+  transform: translateY(-2px);
+}
+
+.theme-dark.theme-starforged .ask-the-oracle-btn {
+  background: linear-gradient(135deg, rgba(20, 20, 30, 0.9) 0%, rgba(30, 30, 45, 0.9) 100%);
+  color: #8ba3d4;
+  border-color: rgba(100, 120, 200, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-starforged .ask-the-oracle-btn:hover {
+  background: linear-gradient(135deg, rgba(30, 30, 45, 0.95) 0%, rgba(40, 40, 60, 0.95) 100%);
+  border-color: #8ba3d4;
+  box-shadow: 
+    0 4px 16px rgba(139, 163, 212, 0.4),
+    0 0 20px rgba(139, 163, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+.theme-light.theme-ironsworn .ask-the-oracle-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 240, 232, 0.95) 100%);
+  color: #6b5a45;
+  border-color: rgba(139, 115, 85, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-light.theme-ironsworn .ask-the-oracle-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(250, 245, 238, 1) 100%);
+  border-color: #8b7355;
+  box-shadow: 
+    0 4px 16px rgba(139, 115, 85, 0.2),
+    0 0 20px rgba(139, 115, 85, 0.05);
+  transform: translateY(-2px);
+}
+
+.theme-light.theme-starforged .ask-the-oracle-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(232, 234, 246, 0.95) 100%);
+  color: #5a6b94;
+  border-color: rgba(100, 120, 200, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-light.theme-starforged .ask-the-oracle-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 242, 250, 1) 100%);
+  border-color: #6b7ba4;
+  box-shadow: 
+    0 4px 16px rgba(100, 120, 200, 0.2),
+    0 0 20px rgba(100, 120, 200, 0.1);
+  transform: translateY(-2px);
+}
+
+.ask-the-oracle-btn:active {
+  transform: translateY(0);
+}
+
+.ask-the-oracle-btn-text {
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .ask-the-oracle-buttons {
+    flex-direction: column;
+  }
+  
+  .ask-the-oracle-btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.oracle-navigation-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .oracle-navigation-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 968px) {
+  .oracle-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ORACLE NAVIGATOR ===== */
+.oracle-item {
+  margin-bottom: 6px;
+}
+
+.oracle-roll-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-dark.theme-ironsworn .oracle-roll-btn {
+  background: linear-gradient(135deg, rgba(26, 20, 16, 0.8) 0%, rgba(40, 32, 24, 0.8) 100%);
+  color: #c9a961;
+  border: 1px solid rgba(120, 80, 40, 0.4);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(120, 80, 40, 0.1);
+}
+
+.theme-dark.theme-starforged .oracle-roll-btn {
+  background: linear-gradient(135deg, rgba(20, 20, 30, 0.8) 0%, rgba(30, 30, 45, 0.8) 100%);
+  color: #8ba3d4;
+  border: 1px solid rgba(100, 120, 200, 0.4);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(100, 120, 200, 0.1);
+}
+
+.theme-light.theme-ironsworn .oracle-roll-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 240, 232, 0.9) 100%);
+  color: #6b5a45;
+  border: 1px solid rgba(139, 115, 85, 0.5);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(139, 115, 85, 0.2);
+}
+
+.theme-light.theme-starforged .oracle-roll-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(232, 234, 246, 0.9) 100%);
+  color: #5a6b94;
+  border: 1px solid rgba(100, 120, 200, 0.5);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(100, 120, 200, 0.2);
+}
+
+.theme-ironsworn .oracle-roll-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.theme-ironsworn .oracle-roll-btn:hover::before {
+  left: 100%;
+}
+
+.theme-ironsworn .oracle-roll-btn:hover {
+  background: linear-gradient(135deg, rgba(40, 32, 24, 0.95) 0%, rgba(52, 44, 32, 0.95) 100%);
+  border-color: #c9a961;
+  box-shadow: 
+    0 4px 16px rgba(201, 169, 97, 0.3),
+    0 0 20px rgba(201, 169, 97, 0.1),
+    inset 0 1px 0 rgba(201, 169, 97, 0.2);
+  transform: translateY(-2px);
+}
+
+.theme-starforged .oracle-roll-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 163, 212, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.theme-starforged .oracle-roll-btn:hover::before {
+  left: 100%;
+}
+
+.theme-starforged .oracle-roll-btn:hover {
+  background: linear-gradient(135deg, rgba(30, 30, 45, 0.95) 0%, rgba(40, 40, 60, 0.95) 100%);
+  border-color: #8ba3d4;
+  box-shadow: 
+    0 4px 16px rgba(139, 163, 212, 0.4),
+    0 0 20px rgba(139, 163, 212, 0.15),
+    inset 0 1px 0 rgba(139, 163, 212, 0.2);
+  transform: translateY(-2px);
+}
+
+.oracle-roll-btn:active {
+  transform: translateY(0);
+}
+
+.dice-icon {
+  font-size: 16px;
+  transition: filter 0.5s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.dice-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-ironsworn .dice-icon {
+  filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.5));
+}
+
+.theme-starforged .dice-icon {
+  filter: drop-shadow(0 0 4px rgba(139, 163, 212, 0.6));
+}
+
+.oracle-name {
+  flex: 1;
+}
+
+.region-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+}
+
+.theme-ironsworn .region-badge {
+  background: rgba(120, 80, 40, 0.3);
+  color: #c9a961;
+  border: 1px solid rgba(120, 80, 40, 0.5);
+}
+
+.theme-starforged .region-badge {
+  background: rgba(100, 120, 200, 0.3);
+  color: #8ba3d4;
+  border: 1px solid rgba(100, 120, 200, 0.5);
+}
+
+.oracle-category {
+  margin-bottom: 4px;
+}
+
+.oracle-details {
+  margin-bottom: 4px;
+}
+
+.oracle-summary {
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.theme-ironsworn .oracle-summary {
+  background: linear-gradient(135deg, rgba(15, 12, 10, 0.8) 0%, rgba(26, 22, 18, 0.8) 100%);
+  color: #8b7355;
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(120, 80, 40, 0.1);
+}
+
+.theme-ironsworn .oracle-summary:hover {
+  background: linear-gradient(135deg, rgba(26, 22, 18, 0.95) 0%, rgba(40, 34, 28, 0.95) 100%);
+  border-color: #8b7355;
+  box-shadow: 
+    0 4px 16px rgba(139, 115, 85, 0.25),
+    0 0 20px rgba(139, 115, 85, 0.1),
+    inset 0 1px 0 rgba(139, 115, 85, 0.2);
+  transform: translateX(4px);
+}
+
+.theme-starforged .oracle-summary {
+  background: linear-gradient(135deg, rgba(15, 15, 25, 0.8) 0%, rgba(25, 25, 40, 0.8) 100%);
+  color: #7b8bb4;
+  border: 1px solid rgba(100, 120, 200, 0.3);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(100, 120, 200, 0.1);
+}
+
+.theme-starforged .oracle-summary:hover {
+  background: linear-gradient(135deg, rgba(25, 25, 40, 0.95) 0%, rgba(35, 35, 55, 0.95) 100%);
+  border-color: #7b8bb4;
+  box-shadow: 
+    0 4px 16px rgba(123, 139, 180, 0.3),
+    0 0 20px rgba(123, 139, 180, 0.15),
+    inset 0 1px 0 rgba(123, 139, 180, 0.2);
+  transform: translateX(4px);
+}
+
+.oracle-summary::-webkit-details-marker {
+  display: none;
+}
+
+.category-icon {
+  font-size: 12px;
+  transition: all 0.2s ease;
+  margin-right: 4px;
+}
+
+.theme-ironsworn .category-icon {
+  color: #8b7355;
+}
+
+.theme-starforged .category-icon {
+  color: #7b8bb4;
+}
+
+.category-icon-oracle {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.oracle-summary:hover .category-icon-oracle {
+  opacity: 1;
+}
+
+.category-name {
+  flex: 1;
+}
+
+.oracle-children {
+  margin-top: 6px;
+  padding-left: 4px;
+  margin-left: 2px;
+  transition: border-color 0.5s ease;
+}
+
+.theme-ironsworn .oracle-children {
+  border-left: 2px solid rgba(120, 80, 40, 0.3);
+}
+
+.theme-starforged .oracle-children {
+  border-left: 2px solid rgba(100, 120, 200, 0.4);
+}
+

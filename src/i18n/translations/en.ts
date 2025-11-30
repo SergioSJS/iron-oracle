@@ -1,0 +1,31 @@
+// Translations in English
+export const en = {
+  // Interface
+  'app.title': 'Oracle',
+  'app.title.game': 'Game',
+  'buttons.expand': 'Expand',
+  'buttons.collapse': 'Collapse',
+  'buttons.clear': 'Clear',
+  'buttons.viewLog': 'View Log',
+  'buttons.expandCollapse': 'Expand/Collapse All',
+  'log.title': 'Roll History',
+  'log.empty': 'No rolls yet...',
+  'log.empty.hint': 'Roll an oracle to get started!',
+  'log.rolled': 'Rolled',
+  'log.clear': 'Clear history',
+  'askTheOracle.title': 'Ask the Oracle',
+  'region.terminus': 'Terminus',
+  'region.outlands': 'Outlands',
+  'region.expanse': 'Expanse',
+  'region.select': 'Select region',
+  'modal.result.title': 'Roll Result',
+  'modal.log.title': 'Roll History',
+  'modal.close': 'Close',
+  'gameMode.ironsworn': 'Ironsworn',
+  'gameMode.starforged': 'Starforged',
+  'result.notFound': 'Result not found',
+  'language.select': 'Select language',
+  'theme.dark': 'Dark Mode',
+  'theme.light': 'Light Mode',
+} as const;
+

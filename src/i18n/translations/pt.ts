@@ -1,0 +1,31 @@
+// Traduções em Português (PT-BR)
+export const pt = {
+  // Interface
+  'app.title': 'Oráculo',
+  'app.title.game': 'Jogo',
+  'buttons.expand': 'Expandir',
+  'buttons.collapse': 'Colapsar',
+  'buttons.clear': 'Limpar',
+  'buttons.viewLog': 'Ver Log',
+  'buttons.expandCollapse': 'Expandir/Colapsar Todos',
+  'log.title': 'Histórico de Rolagens',
+  'log.empty': 'Nenhum dado rolado ainda...',
+  'log.empty.hint': 'Role um oráculo para começar!',
+  'log.rolled': 'Rolou',
+  'log.clear': 'Limpar histórico',
+  'askTheOracle.title': 'Pergunte ao Oráculo',
+  'region.terminus': 'Terminus',
+  'region.outlands': 'Outlands',
+  'region.expanse': 'Expanse',
+  'region.select': 'Selecionar região',
+  'modal.result.title': 'Resultado da Rolagem',
+  'modal.log.title': 'Histórico de Rolagens',
+  'modal.close': 'Fechar',
+  'gameMode.ironsworn': 'Ironsworn',
+  'gameMode.starforged': 'Starforged',
+  'result.notFound': 'Resultado não encontrado',
+  'language.select': 'Selecionar idioma',
+  'theme.dark': 'Modo Escuro',
+  'theme.light': 'Modo Claro',
+} as const;
+

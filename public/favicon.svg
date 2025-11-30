@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a961;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b7355;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Fundo circular -->
+  <circle cx="50" cy="50" r="48" fill="url(#grad)" stroke="#1a1815" stroke-width="2"/>
+  <!-- Dado 1 -->
+  <circle cx="30" cy="30" r="8" fill="#1a1815" opacity="0.9"/>
+  <circle cx="30" cy="30" r="5" fill="#c9a961"/>
+  <!-- Dado 2 -->
+  <circle cx="70" cy="30" r="8" fill="#1a1815" opacity="0.9"/>
+  <circle cx="70" cy="30" r="5" fill="#c9a961"/>
+  <!-- Dado 3 (centro) -->
+  <circle cx="50" cy="50" r="10" fill="#1a1815" opacity="0.9"/>
+  <circle cx="50" cy="50" r="7" fill="#c9a961"/>
+  <!-- Dado 4 -->
+  <circle cx="30" cy="70" r="8" fill="#1a1815" opacity="0.9"/>
+  <circle cx="30" cy="70" r="5" fill="#c9a961"/>
+  <!-- Dado 5 -->
+  <circle cx="70" cy="70" r="8" fill="#1a1815" opacity="0.9"/>
+  <circle cx="70" cy="70" r="5" fill="#c9a961"/>
+</svg>
+

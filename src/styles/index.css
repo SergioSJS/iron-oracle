@@ -1,0 +1,8 @@
+/* Importar todos os módulos CSS */
+@import './base.css';
+@import './header.css';
+@import './oracle.css';
+@import './roll-log.css';
+@import './modals.css';
+@import './tooltip.css';
+
