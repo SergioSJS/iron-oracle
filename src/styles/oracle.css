@@ -656,3 +656,33 @@
    
    Não precisa de estilos específicos, usa os mesmos estilos dos grupos de oráculos */
 
+/* Ajustes mobile para atalhos */
+@media (max-width: 768px) {
+  .oracle-children .oracle-roll-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .oracle-children .dice-icon {
+    font-size: 14px;
+  }
+  
+  .oracle-children .dice-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .oracle-summary {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .category-icon {
+    font-size: 11px;
+  }
+  
+  .category-icon-oracle {
+    font-size: 13px;
+  }
+}
+

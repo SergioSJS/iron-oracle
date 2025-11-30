@@ -22,6 +22,8 @@ export function ResultModal({
   
   if (!isOpen) return null;
 
+  const isShortcut = log.roll === 0 && !log.result && log.childRolls && log.childRolls.length > 0;
+
   return (
     <div 
       className={`result-modal-overlay active`}
@@ -42,54 +44,91 @@ export function ResultModal({
         </div>
         <div className="result-modal-body">
           <div className="result-modal-entry">
-            <div className="result-modal-header-info">
-              <span className="result-modal-name">
-                {log.oracleId && (
-                  <span className="dice-icon">{getOracleIcon(log.oracleId, log.oracleName)}</span>
-                )}
+            {!isShortcut && (
+              <>
+                <div className="result-modal-header-info">
+                  <span className="result-modal-name">
+                    {log.oracleId && (
+                      <span className="dice-icon">{getOracleIcon(log.oracleId, log.oracleName)}</span>
+                    )}
+                    {log.oracleName}
+                  </span>
+                  <span className="result-modal-roll">
+                    <span className="roll-label">{t('log.rolled')}:</span>
+                    <span className="roll-value">{log.roll}</span>
+                  </span>
+                </div>
+                
+                <div className="result-modal-result">
+                  <OracleText 
+                    text={log.result}
+                    originalText={log.originalResult}
+                    onOracleClick={onOracleClick}
+                    findOracleById={findOracleById}
+                  />
+                </div>
+              </>
+            )}
+
+            {isShortcut && (
+              <div className="result-modal-shortcut-title">
                 {log.oracleName}
-              </span>
-              <span className="result-modal-roll">
-                <span className="roll-label">{t('log.rolled')}:</span>
-                <span className="roll-value">{log.roll}</span>
-              </span>
-            </div>
-            
-            <div className="result-modal-result">
-              <OracleText 
-                text={log.result}
-                originalText={log.originalResult}
-                onOracleClick={onOracleClick}
-                findOracleById={findOracleById}
-              />
-            </div>
+              </div>
+            )}
 
             {log.childRolls && log.childRolls.length > 0 && (
-              <div className="result-modal-children">
-                {log.childRolls.map((childRoll) => (
-                  <div key={childRoll.id} className="result-modal-child">
-                    <div className="result-modal-child-header">
-                      <span className="result-modal-child-name">
+              <div className={`result-modal-children ${isShortcut ? 'result-modal-children-shortcut' : ''}`}>
+                {isShortcut ? (
+                  // Para atalhos, mostrar de forma compacta inline
+                  log.childRolls.map((childRoll) => (
+                    <div key={childRoll.id} className="result-modal-child-simple">
+                      <span className="result-modal-child-icon">
                         {childRoll.oracleId && (
                           <span className="dice-icon">{getOracleIcon(childRoll.oracleId, childRoll.oracleName)}</span>
                         )}
-                        {childRoll.oracleName}
                       </span>
-                      <span className="result-modal-child-roll">
-                        <span className="roll-label">{t('log.rolled')}:</span>
+                      <span className="result-modal-child-name-simple">{childRoll.oracleName}</span>
+                      <span className="result-modal-child-roll-simple">
                         <span className="roll-value">{childRoll.roll}</span>
                       </span>
+                      <span className="result-modal-child-separator">:</span>
+                      <span className="result-modal-child-result-simple">
+                        <OracleText 
+                          text={childRoll.result}
+                          originalText={childRoll.originalResult}
+                          onOracleClick={onOracleClick}
+                          findOracleById={findOracleById}
+                        />
+                      </span>
                     </div>
-                    <div className="result-modal-child-result">
-                      <OracleText 
-                        text={childRoll.result}
-                        originalText={childRoll.originalResult}
-                        onOracleClick={onOracleClick}
-                        findOracleById={findOracleById}
-                      />
+                  ))
+                ) : (
+                  // Para rolagens normais, mostrar como cards
+                  log.childRolls.map((childRoll) => (
+                    <div key={childRoll.id} className="result-modal-child">
+                      <div className="result-modal-child-header">
+                        <span className="result-modal-child-name">
+                          {childRoll.oracleId && (
+                            <span className="dice-icon">{getOracleIcon(childRoll.oracleId, childRoll.oracleName)}</span>
+                          )}
+                          {childRoll.oracleName}
+                        </span>
+                        <span className="result-modal-child-roll">
+                          <span className="roll-label">{t('log.rolled')}:</span>
+                          <span className="roll-value">{childRoll.roll}</span>
+                        </span>
+                      </div>
+                      <div className="result-modal-child-result">
+                        <OracleText 
+                          text={childRoll.result}
+                          originalText={childRoll.originalResult}
+                          onOracleClick={onOracleClick}
+                          findOracleById={findOracleById}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             )}
           </div>

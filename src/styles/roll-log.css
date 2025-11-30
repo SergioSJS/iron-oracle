@@ -191,6 +191,8 @@
   position: relative;
   z-index: 1;
   overflow: visible;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .theme-dark.theme-ironsworn .roll-log-entry {
@@ -339,9 +341,12 @@
   font-size: 15px;
   line-height: 1.5;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
   position: relative;
   z-index: 2;
   overflow: visible;
+  max-width: 100%;
 }
 
 .theme-dark .roll-log-result {
@@ -398,9 +403,9 @@
 
 .roll-log-child-simple {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   line-height: 1.5;
 }
 
@@ -453,7 +458,10 @@
   font-size: 15px;
   line-height: 1.5;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
   min-width: 0;
+  max-width: 100%;
 }
 
 .theme-dark .roll-log-child-result-simple {
@@ -600,5 +608,51 @@
   background: rgba(100, 120, 200, 0.15);
   border-color: #6b7ba4;
   box-shadow: 0 2px 6px rgba(100, 120, 200, 0.3);
+}
+
+/* Ajustes mobile para evitar quebra de layout */
+@media (max-width: 768px) {
+  .roll-log-entry {
+    padding: 10px;
+    overflow-x: hidden;
+  }
+  
+  .roll-log-child-simple {
+    gap: 6px;
+  }
+  
+  .roll-log-child-name-simple {
+    font-size: 13px;
+  }
+  
+  .roll-log-child-result-simple {
+    font-size: 13px;
+    min-width: 0;
+    flex: 1 1 100%;
+    order: 10; /* Sempre vai para o final */
+  }
+  
+  /* No mobile, quando o resultado é muito longo, quebra para nova linha */
+  .roll-log-child-simple {
+    align-items: flex-start;
+  }
+  
+  .roll-log-child-separator {
+    order: 9;
+  }
+  
+  .roll-log-child-roll-simple .roll-value {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+  
+  .roll-log-result {
+    font-size: 13px;
+  }
+  
+  /* Garantir que elementos inline não quebrem o layout */
+  .roll-log-child-simple > * {
+    max-width: 100%;
+  }
 }
 

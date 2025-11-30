@@ -389,12 +389,15 @@
   font-size: 1.1em;
   line-height: 1.6;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
   transition: color 0.5s ease;
   padding: 16px;
   border-radius: 8px;
   position: relative;
   z-index: 2;
   overflow: visible;
+  max-width: 100%;
 }
 
 .theme-dark.theme-ironsworn .result-modal-result {
@@ -524,10 +527,167 @@
   font-size: 0.95em;
   line-height: 1.5;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
   transition: color 0.5s ease;
   position: relative;
   z-index: 2;
   overflow: visible;
+  max-width: 100%;
+}
+
+.result-modal-shortcut-title {
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+  transition: all 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-shortcut-title {
+  color: #c9a961;
+  text-shadow: 0 0 8px rgba(201, 169, 97, 0.3);
+  border-bottom-color: rgba(120, 80, 40, 0.3);
+}
+
+.theme-dark.theme-starforged .result-modal-shortcut-title {
+  color: #8ba3d4;
+  text-shadow: 0 0 8px rgba(139, 163, 212, 0.4);
+  border-bottom-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-ironsworn .result-modal-shortcut-title {
+  color: #6b5a45;
+  border-bottom-color: rgba(139, 115, 85, 0.4);
+}
+
+.theme-light.theme-starforged .result-modal-shortcut-title {
+  color: #5a6b94;
+  border-bottom-color: rgba(100, 120, 200, 0.5);
+}
+
+.result-modal-children-shortcut {
+  padding-left: 0 !important;
+  border-left: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.theme-dark.theme-ironsworn .result-modal-children-shortcut,
+.theme-dark.theme-starforged .result-modal-children-shortcut,
+.theme-light.theme-ironsworn .result-modal-children-shortcut,
+.theme-light.theme-starforged .result-modal-children-shortcut {
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
+/* Estilos para visualização compacta de atalhos no modal */
+.result-modal-child-simple {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  line-height: 1.5;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.result-modal-child-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.result-modal-child-name-simple {
+  font-weight: 600;
+  font-size: 0.95em;
+  flex-shrink: 0;
+  transition: color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-child-name-simple {
+  color: #8b7355;
+}
+
+.theme-dark.theme-starforged .result-modal-child-name-simple {
+  color: #7b8bb4;
+}
+
+.theme-light.theme-ironsworn .result-modal-child-name-simple {
+  color: #6b5a45;
+}
+
+.theme-light.theme-starforged .result-modal-child-name-simple {
+  color: #5a6b94;
+}
+
+.result-modal-child-roll-simple {
+  flex-shrink: 0;
+}
+
+.result-modal-child-roll-simple .roll-value {
+  font-size: 0.9em;
+  padding: 2px 6px;
+}
+
+.result-modal-child-separator {
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.result-modal-child-result-simple {
+  flex: 1;
+  font-size: 0.95em;
+  line-height: 1.5;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.theme-dark.theme-ironsworn .result-modal-child-result-simple {
+  color: #b4a490;
+}
+
+.theme-dark.theme-starforged .result-modal-child-result-simple {
+  color: #a4b4c4;
+}
+
+.theme-light.theme-ironsworn .result-modal-child-result-simple {
+  color: #2a2418;
+}
+
+.theme-light.theme-starforged .result-modal-child-result-simple {
+  color: #1a1f2e;
+}
+
+/* Ajustes mobile para modal */
+@media (max-width: 768px) {
+  .result-modal-child-simple {
+    gap: 6px;
+  }
+  
+  .result-modal-child-name-simple {
+    font-size: 0.85em;
+  }
+  
+  .result-modal-child-result-simple {
+    font-size: 0.85em;
+    flex: 1 1 100%;
+    order: 10;
+  }
+  
+  .result-modal-child-separator {
+    order: 9;
+  }
+  
+  .result-modal-child-simple > * {
+    max-width: 100%;
+  }
 }
 
 .theme-dark.theme-ironsworn .result-modal-child-result {
