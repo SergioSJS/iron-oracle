@@ -25,39 +25,114 @@ export function OracleShortcuts({
   const { t } = useI18n();
   const shortcuts = gameMode === 'ironsworn' ? IRONSWORN_SHORTCUTS : STARFORGED_SHORTCUTS;
   
-  // Carregar estado inicial: priorizar defaultOpen (vem de allGroupsOpen), senão LocalStorage
+  // Carregar estado inicial do LocalStorage (sempre priorizar localStorage)
+  // O localStorage tem prioridade absoluta sobre defaultOpen
+  // Padrão: expandido (true) se não houver valor no localStorage
+  const storageKey = 'shortcutsExpanded';
   const [isOpen, setIsOpen] = useState(() => {
-    // Se allGroupsOpen está salvo no LocalStorage, usar ele
-    // Caso contrário, verificar estado individual do grupo de atalhos
-    const allGroupsSaved = localStorage.getItem('allGroupsOpen');
-    if (allGroupsSaved !== null) {
-      // Se há um estado global salvo, usar ele
-      return allGroupsSaved === 'true';
+    try {
+      const saved = localStorage.getItem(storageKey);
+      console.log(`🔍 [OracleShortcuts] Inicializando:`, {
+        storageKey,
+        saved,
+        defaultOpen,
+        willUseSaved: saved !== null,
+        finalValue: saved !== null ? saved === 'true' : true // Padrão: expandido
+      });
+      if (saved !== null) {
+        // Se há valor salvo, usar ele (ignorar defaultOpen)
+        return saved === 'true';
+      }
+    } catch (e) {
+      // Se houver erro ao acessar localStorage, continuar
+      console.warn('Erro ao acessar localStorage:', e);
     }
-    // Se não há estado global, verificar estado individual
-    const saved = localStorage.getItem('shortcutsExpanded');
-    return saved !== null ? saved === 'true' : defaultOpen;
+    // Se não há estado salvo, usar true (expandido) como padrão
+    return true;
   });
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  const skipNextToggle = useRef(false);
+  const justSavedFromClick = useRef(false);
+  const prevDefaultOpen = useRef<boolean | undefined>(undefined);
 
+  // Sincronizar o elemento details com o estado inicial na montagem
   useEffect(() => {
-    // Quando defaultOpen muda (ex: botão expandir/colapsar todos), atualizar
     if (detailsRef.current) {
-      detailsRef.current.open = defaultOpen;
-      setIsOpen(defaultOpen);
+      console.log(`🔧 [OracleShortcuts] Sincronizando details na montagem:`, {
+        isOpen,
+        detailsOpen: detailsRef.current.open,
+        willSetTo: isOpen
+      });
+      // Marcar para ignorar o próximo onToggle (que será disparado pela mudança do open)
+      skipNextToggle.current = true;
+      detailsRef.current.open = isOpen;
+      // Resetar a flag após um pequeno delay
+      setTimeout(() => {
+        skipNextToggle.current = false;
+      }, 100);
     }
-  }, [defaultOpen]);
+  }, []); // Apenas na montagem inicial
+
+  // Atualizar quando defaultOpen mudar externamente (botão expandir/colapsar todos)
+  // Mas apenas se não for a montagem inicial
+  useEffect(() => {
+    // Na primeira montagem, apenas salvar o defaultOpen atual e não fazer nada
+    if (prevDefaultOpen.current === undefined) {
+      prevDefaultOpen.current = defaultOpen;
+      console.log(`🚫 [OracleShortcuts] Primeira montagem, ignorando defaultOpen`);
+      return;
+    }
+
+    // Só atualizar se defaultOpen realmente mudou
+    if (prevDefaultOpen.current === defaultOpen) {
+      return;
+    }
+
+    prevDefaultOpen.current = defaultOpen;
+
+    // Quando defaultOpen muda (ex: botão expandir/colapsar todos), atualizar
+    console.log(`🌐 [OracleShortcuts] defaultOpen mudou:`, {
+      defaultOpen,
+      currentIsOpen: isOpen
+    });
+    setIsOpen(defaultOpen);
+    if (detailsRef.current) {
+      skipNextToggle.current = true;
+      detailsRef.current.open = defaultOpen;
+      setTimeout(() => {
+        skipNextToggle.current = false;
+      }, 100);
+    }
+    // Salvar no LocalStorage quando mudado pelo botão global
+    localStorage.setItem(storageKey, String(defaultOpen));
+  }, [defaultOpen, storageKey]);
 
   // Salvar estado no LocalStorage quando mudar manualmente (clicando no grupo)
   const handleToggle = (e: MouseEvent) => {
     e.preventDefault();
     const newState = !isOpen;
+    console.log(`🖱️ [OracleShortcuts] Click no summary:`, {
+      oldState: isOpen,
+      newState,
+      storageKey
+    });
     setIsOpen(newState);
     if (detailsRef.current) {
       detailsRef.current.open = newState;
     }
+    // Marcar que já salvamos do click, para o onToggle não salvar novamente
+    justSavedFromClick.current = true;
     // Salvar no LocalStorage
-    localStorage.setItem('shortcutsExpanded', String(newState));
+    try {
+      localStorage.setItem(storageKey, String(newState));
+      console.log(`💾 [OracleShortcuts] Salvo no localStorage ${storageKey}:`, newState);
+    } catch (e) {
+      console.error(`❌ [OracleShortcuts] Erro ao salvar no localStorage:`, e);
+    }
+    // Resetar a flag após um pequeno delay
+    setTimeout(() => {
+      justSavedFromClick.current = false;
+    }, 100);
   };
 
   if (shortcuts.length === 0) return null;
@@ -72,8 +147,38 @@ export function OracleShortcuts({
         open={isOpen}
         className="oracle-details"
         onToggle={(e) => {
+          // Ignorar se for a montagem inicial ou mudança programática
+          if (skipNextToggle.current) {
+            console.log(`⏭️ [OracleShortcuts] Ignorando onToggle (mudança programática)`);
+            return;
+          }
+          
+          // Ignorar se já salvamos do onClick
+          if (justSavedFromClick.current) {
+            console.log(`⏭️ [OracleShortcuts] Ignorando onToggle (já salvo do onClick)`);
+            return;
+          }
+          
           const target = e.currentTarget;
+          // Só processar se o estado realmente mudou
+          if (target.open === isOpen) {
+            console.log(`⏭️ [OracleShortcuts] Ignorando onToggle (estado não mudou)`);
+            return;
+          }
+          
+          console.log(`🔄 [OracleShortcuts] onToggle:`, {
+            oldState: isOpen,
+            newState: target.open,
+            storageKey
+          });
           setIsOpen(target.open);
+          // Salvar no LocalStorage quando mudar (apenas se não foi do onClick)
+          try {
+            localStorage.setItem(storageKey, String(target.open));
+            console.log(`💾 [OracleShortcuts] Salvo no localStorage ${storageKey}:`, target.open);
+          } catch (e) {
+            console.error(`❌ [OracleShortcuts] Erro ao salvar no localStorage:`, e);
+          }
         }}
       >
         <summary

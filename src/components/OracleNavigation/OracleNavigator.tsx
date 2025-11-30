@@ -57,36 +57,90 @@ export function OracleNavigator({
     });
   }
   
-  // Calcular se deve estar aberto baseado em defaultOpen ou nível
-  const shouldBeOpenByDefault = defaultOpen || level < 1;
-  const [isOpen, setIsOpen] = useState(shouldBeOpenByDefault);
-  const detailsRef = useRef<HTMLDetailsElement>(null);
-  
-  // Atualizar quando defaultOpen mudar externamente
-  useEffect(() => {
-    const shouldBeOpen = defaultOpen || level < 1;
-    setIsOpen(shouldBeOpen);
-    // Forçar o elemento details a atualizar
-    if (detailsRef.current) {
-      detailsRef.current.open = shouldBeOpen;
-    }
-  }, [defaultOpen, level]);
-  
-  // Escutar mudanças externas no DOM (quando o botão expandir/colapsar é clicado)
-  useEffect(() => {
-    if (!detailsRef.current) return;
-    
-    const details = detailsRef.current;
-    const observer = new MutationObserver(() => {
-      if (details.open !== isOpen) {
-        setIsOpen(details.open);
+  // Carregar estado inicial do LocalStorage (sempre priorizar localStorage)
+  // O localStorage tem prioridade absoluta sobre defaultOpen
+  const storageKey = `oracleGroupExpanded-${data._id}`;
+  const [isOpen, setIsOpen] = useState(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      console.log(`🔍 [OracleNavigator] Inicializando ${data._id}:`, {
+        storageKey,
+        saved,
+        defaultOpen,
+        level,
+        willUseSaved: saved !== null,
+        finalValue: saved !== null ? saved === 'true' : (defaultOpen || level < 1)
+      });
+      if (saved !== null) {
+        // Se há valor salvo, usar ele (ignorar defaultOpen)
+        return saved === 'true';
       }
+    } catch (e) {
+      // Se houver erro ao acessar localStorage, continuar
+      console.warn('Erro ao acessar localStorage:', e);
+    }
+    // Se não há estado salvo, usar defaultOpen ou nível
+    return defaultOpen || level < 1;
+  });
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+  const skipNextToggle = useRef(false);
+  const justSavedFromClick = useRef(false);
+  const prevDefaultOpen = useRef<boolean | undefined>(undefined);
+
+  // Sincronizar o elemento details com o estado inicial na montagem
+  useEffect(() => {
+    if (detailsRef.current) {
+      console.log(`🔧 [OracleNavigator] Sincronizando details na montagem ${data._id}:`, {
+        isOpen,
+        detailsOpen: detailsRef.current.open,
+        willSetTo: isOpen
+      });
+      // Marcar para ignorar o próximo onToggle (que será disparado pela mudança do open)
+      skipNextToggle.current = true;
+      detailsRef.current.open = isOpen;
+      // Resetar a flag após um pequeno delay
+      setTimeout(() => {
+        skipNextToggle.current = false;
+      }, 100);
+    }
+  }, []); // Apenas na montagem inicial
+
+  // Atualizar quando defaultOpen mudar externamente (botão expandir/colapsar todos)
+  // Mas apenas se não for a montagem inicial
+  useEffect(() => {
+    // Na primeira montagem, apenas salvar o defaultOpen atual e não fazer nada
+    if (prevDefaultOpen.current === undefined) {
+      prevDefaultOpen.current = defaultOpen;
+      console.log(`🚫 [OracleNavigator] Primeira montagem ${data._id}, ignorando defaultOpen`);
+      return;
+    }
+
+    // Só atualizar se defaultOpen realmente mudou
+    if (prevDefaultOpen.current === defaultOpen) {
+      return;
+    }
+
+    prevDefaultOpen.current = defaultOpen;
+
+    // Quando defaultOpen muda (ex: botão expandir/colapsar todos), atualizar
+    const shouldBeOpen = defaultOpen || level < 1;
+    console.log(`🌐 [OracleNavigator] defaultOpen mudou ${data._id}:`, {
+      defaultOpen,
+      level,
+      shouldBeOpen,
+      currentIsOpen: isOpen
     });
-    
-    observer.observe(details, { attributes: true, attributeFilter: ['open'] });
-    
-    return () => observer.disconnect();
-  }, [isOpen]);
+    setIsOpen(shouldBeOpen);
+    if (detailsRef.current) {
+      skipNextToggle.current = true;
+      detailsRef.current.open = shouldBeOpen;
+      setTimeout(() => {
+        skipNextToggle.current = false;
+      }, 100);
+    }
+    // Salvar no LocalStorage quando mudado pelo botão global
+    localStorage.setItem(storageKey, String(shouldBeOpen));
+  }, [defaultOpen, level, storageKey]);
 
   // Se tem rows, é uma tabela rolável
   if ('rows' in data && data.rows && data.rows.length > 0) {
@@ -228,10 +282,40 @@ export function OracleNavigator({
           open={isOpen} 
           className="oracle-details"
           data-level={level}
-          onToggle={(e) => {
-            const target = e.currentTarget;
-            setIsOpen(target.open);
-          }}
+        onToggle={(e) => {
+          // Ignorar se for a montagem inicial ou mudança programática
+          if (skipNextToggle.current) {
+            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (mudança programática)`);
+            return;
+          }
+          
+          // Ignorar se já salvamos do onClick
+          if (justSavedFromClick.current) {
+            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (já salvo do onClick)`);
+            return;
+          }
+          
+          const target = e.currentTarget;
+          // Só processar se o estado realmente mudou
+          if (target.open === isOpen) {
+            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (estado não mudou)`);
+            return;
+          }
+          
+          console.log(`🔄 [OracleNavigator] onToggle ${data._id}:`, {
+            oldState: isOpen,
+            newState: target.open,
+            storageKey
+          });
+          setIsOpen(target.open);
+          // Salvar no LocalStorage quando mudar (apenas se não foi do onClick)
+          try {
+            localStorage.setItem(storageKey, String(target.open));
+            console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, target.open);
+          } catch (e) {
+            console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
+          }
+        }}
         >
           <summary
             onClick={(e) => {
@@ -284,22 +368,52 @@ export function OracleNavigator({
         onToggle={(e) => {
           // Sincronizar estado quando o usuário clica diretamente no details
           const target = e.currentTarget;
+          console.log(`🔄 [OracleNavigator] onToggle ${data._id}:`, {
+            oldState: isOpen,
+            newState: target.open,
+            storageKey
+          });
           setIsOpen(target.open);
+          // Salvar no LocalStorage quando mudar
+          try {
+            localStorage.setItem(storageKey, String(target.open));
+            console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, target.open);
+          } catch (e) {
+            console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
+          }
         }}
       >
-        <summary
-          onClick={(e) => {
-            e.preventDefault();
-            const newState = !isOpen;
-            setIsOpen(newState);
-            // Forçar o details a abrir/fechar
-            if (detailsRef.current) {
-              detailsRef.current.open = newState;
-            }
-          }}
-          className="oracle-summary"
-        >
-          <span className="category-icon">{isOpen ? '▼' : '▶'}</span>
+          <summary
+            onClick={(e) => {
+              e.preventDefault();
+              const newState = !isOpen;
+              console.log(`🖱️ [OracleNavigator] Click no summary ${data._id}:`, {
+                oldState: isOpen,
+                newState,
+                storageKey
+              });
+              setIsOpen(newState);
+              // Forçar o details a abrir/fechar
+              if (detailsRef.current) {
+                detailsRef.current.open = newState;
+              }
+              // Marcar que já salvamos do click, para o onToggle não salvar novamente
+              justSavedFromClick.current = true;
+              // Salvar no LocalStorage quando mudar manualmente
+              try {
+                localStorage.setItem(storageKey, String(newState));
+                console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, newState);
+              } catch (e) {
+                console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
+              }
+              // Resetar a flag após um pequeno delay
+              setTimeout(() => {
+                justSavedFromClick.current = false;
+              }, 100);
+            }}
+            className="oracle-summary"
+          >
+          <span className="category-icon">{isOpen ? <FaChevronDown /> : <FaChevronRight />}</span>
           <span className="category-icon-oracle">{getOracleIcon(data._id, translatedName)}</span>
           <span className="category-name">{translatedName}</span>
         </summary>
