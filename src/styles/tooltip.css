@@ -39,6 +39,17 @@
   animation: tooltipFadeIn 0.3s ease;
 }
 
+/* Ajustes para mobile */
+@media (max-width: 768px) {
+  .oracle-tooltip-portal {
+    max-width: calc(100vw - 20px) !important;
+    min-width: 200px !important;
+    width: auto !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
 @keyframes tooltipFadeIn {
   from {
     opacity: 0;

@@ -120,6 +120,13 @@
   text-shadow: none;
 }
 
+.log-modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-modal-clear,
 .log-modal-close {
   padding: 6px 12px;
   background: rgba(180, 60, 40, 0.2);
@@ -127,12 +134,15 @@
   border: 1px solid rgba(180, 60, 40, 0.4);
   border-radius: 6px;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
   transition: all 0.2s ease;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.log-modal-clear:hover,
 .log-modal-close:hover {
   background: rgba(180, 60, 40, 0.4);
   border-color: rgba(180, 60, 40, 0.6);
@@ -145,6 +155,10 @@
   border: none;
   border-radius: 0;
   box-shadow: none;
+}
+
+.log-modal-content .roll-log-title-bar {
+  display: none;
 }
 
 /* Modal para resultado da última rolagem em mobile */

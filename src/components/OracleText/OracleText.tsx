@@ -28,19 +28,32 @@ export function OracleText({ text, originalText, onOracleClick, findOracleById }
     
     const rect = textRef.current.getBoundingClientRect();
     const tooltipHeight = 200;
+    const tooltipWidth = 300; // Largura estimada do tooltip
     const spaceAbove = rect.top;
+    const spaceBelow = window.innerHeight - rect.bottom;
     
-    // Posicionar acima se houver espaço, senão abaixo
-    // Com position: fixed, usamos coordenadas da viewport
-    // Quando acima, o tooltip usa translateY(-100%), então top = rect.top - 10px (espaçamento)
-    // Quando abaixo, top = rect.bottom + 10
-    const top = spaceAbove > tooltipHeight 
+    // Determinar posição vertical (acima ou abaixo)
+    const isAbove = spaceAbove > tooltipHeight && spaceAbove > spaceBelow;
+    const top = isAbove 
       ? rect.top - 10
       : rect.bottom + 10;
     
+    // Determinar posição horizontal (centralizar, mas ajustar se necessário)
+    let left = rect.left + (rect.width / 2);
+    
+    // Ajustar se o tooltip sair da tela à esquerda
+    if (left - (tooltipWidth / 2) < 10) {
+      left = tooltipWidth / 2 + 10;
+    }
+    
+    // Ajustar se o tooltip sair da tela à direita
+    if (left + (tooltipWidth / 2) > window.innerWidth - 10) {
+      left = window.innerWidth - (tooltipWidth / 2) - 10;
+    }
+    
     setTooltipPosition({
       top,
-      left: rect.left + (rect.width / 2)
+      left
     });
     setShowTooltip(true);
   };
@@ -97,13 +110,19 @@ export function OracleText({ text, originalText, onOracleClick, findOracleById }
         {shouldShowTooltip && showTooltip && originalText && (() => {
           const rect = textRef.current?.getBoundingClientRect();
           const spaceAbove = rect ? rect.top : 0;
+          const spaceBelow = window.innerHeight - (rect ? rect.bottom : 0);
           const tooltipHeight = 200;
-          const isAbove = spaceAbove > tooltipHeight;
+          const isAbove = spaceAbove > tooltipHeight && spaceAbove > spaceBelow;
+          const isMobile = window.innerWidth < 768;
           const appContainer = document.querySelector('.app-container');
           const themeClass = appContainer?.classList.contains('theme-starforged') ? 'theme-starforged' : 'theme-ironsworn';
           const bgColor = themeClass === 'theme-starforged' ? '#14141e' : '#1a1410';
           const borderColor = themeClass === 'theme-starforged' ? '#8ba3d4' : '#c9a961';
           const glowColor = themeClass === 'theme-starforged' ? 'rgba(139, 163, 212, 0.5)' : 'rgba(201, 169, 97, 0.5)';
+          
+          // Em mobile, usar largura menor e ajustar posicionamento
+          const maxWidth = isMobile ? 'calc(100vw - 20px)' : '500px';
+          const minWidth = isMobile ? '200px' : '250px';
           
           return createPortal(
             <div 
@@ -118,13 +137,14 @@ export function OracleText({ text, originalText, onOracleClick, findOracleById }
                 backgroundColor: bgColor,
                 color: '#d4c4a8',
                 border: `2px solid ${borderColor}`,
-                padding: '10px 14px',
+                padding: isMobile ? '8px 12px' : '10px 14px',
                 borderRadius: '6px',
-                fontSize: '13px',
+                fontSize: isMobile ? '12px' : '13px',
                 lineHeight: '1.5',
                 whiteSpace: 'pre-wrap',
-                maxWidth: '500px',
-                minWidth: '250px',
+                maxWidth: maxWidth,
+                minWidth: minWidth,
+                width: isMobile ? 'auto' : undefined,
                 wordWrap: 'break-word',
                 textAlign: 'left',
                 boxShadow: `0 4px 16px rgba(0, 0, 0, 1), 0 0 24px ${glowColor}`,
@@ -199,13 +219,19 @@ export function OracleText({ text, originalText, onOracleClick, findOracleById }
         {showTooltip && originalText && (() => {
           const rect = textRef.current?.getBoundingClientRect();
           const spaceAbove = rect ? rect.top : 0;
+          const spaceBelow = window.innerHeight - (rect ? rect.bottom : 0);
           const tooltipHeight = 200;
-          const isAbove = spaceAbove > tooltipHeight;
+          const isAbove = spaceAbove > tooltipHeight && spaceAbove > spaceBelow;
+          const isMobile = window.innerWidth < 768;
           const appContainer = document.querySelector('.app-container');
           const themeClass = appContainer?.classList.contains('theme-starforged') ? 'theme-starforged' : 'theme-ironsworn';
           const bgColor = themeClass === 'theme-starforged' ? '#14141e' : '#1a1410';
           const borderColor = themeClass === 'theme-starforged' ? '#8ba3d4' : '#c9a961';
           const glowColor = themeClass === 'theme-starforged' ? 'rgba(139, 163, 212, 0.5)' : 'rgba(201, 169, 97, 0.5)';
+          
+          // Em mobile, usar largura menor e ajustar posicionamento
+          const maxWidth = isMobile ? 'calc(100vw - 20px)' : '500px';
+          const minWidth = isMobile ? '200px' : '250px';
           
           return createPortal(
             <div 
@@ -220,13 +246,14 @@ export function OracleText({ text, originalText, onOracleClick, findOracleById }
                 backgroundColor: bgColor,
                 color: '#d4c4a8',
                 border: `2px solid ${borderColor}`,
-                padding: '10px 14px',
+                padding: isMobile ? '8px 12px' : '10px 14px',
                 borderRadius: '6px',
-                fontSize: '13px',
+                fontSize: isMobile ? '12px' : '13px',
                 lineHeight: '1.5',
                 whiteSpace: 'pre-wrap',
-                maxWidth: '500px',
-                minWidth: '250px',
+                maxWidth: maxWidth,
+                minWidth: minWidth,
+                width: isMobile ? 'auto' : undefined,
                 wordWrap: 'break-word',
                 textAlign: 'left',
                 boxShadow: `0 4px 16px rgba(0, 0, 0, 1), 0 0 24px ${glowColor}`,

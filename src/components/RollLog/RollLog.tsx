@@ -2,6 +2,7 @@ import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { OracleText } from '../OracleText/OracleText';
 import { useI18n } from '../../i18n/context';
 import { getOracleIcon } from '../../utils/oracleIcons';
+import { FaBook, FaTrash } from 'react-icons/fa';
 
 type RollLogProps = {
   logs: LogEntry[];
@@ -24,7 +25,7 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog }: RollL
     <div className="roll-log-container">
       <div className="roll-log-title-bar">
         <h3 className="roll-log-title">
-          <span className="icon">📜</span> {t('log.title')}
+          <span className="icon"><FaBook /></span> {t('log.title')}
         </h3>
         {onClearLog && (
           <button 
@@ -32,7 +33,7 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog }: RollL
             className="clear-log-btn"
             title={t('log.clear')}
           >
-            🗑️
+            <FaTrash />
           </button>
         )}
       </div>

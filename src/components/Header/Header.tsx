@@ -1,5 +1,7 @@
 import type { GameMode, StarforgedRegion } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
+import { FaSun, FaMoon, FaBook } from 'react-icons/fa';
+import { GiPlanetCore } from 'react-icons/gi';
 
 type HeaderProps = {
   gameMode: GameMode;
@@ -32,65 +34,67 @@ export function Header({
         <span className="title-text">
           <span className="title-game">{t(`gameMode.${gameMode}` as any)}</span>
         </span>
+      </h1>
+      
+      <div className="header-controls">
+        {gameMode === 'starforged' && (
+          <div className="region-selector-wrapper">
+            <select
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value as StarforgedRegion)}
+              className="region-selector"
+              title={t('region.select')}
+            >
+              <option value="terminus">{t('region.terminus')}</option>
+              <option value="outlands">{t('region.outlands')}</option>
+              <option value="expanse">{t('region.expanse')}</option>
+            </select>
+            <GiPlanetCore className="region-selector-icon" />
+          </div>
+        )}
         <button
           onClick={() => setIsDarkMode(!isDarkMode)}
-          className="theme-toggle-btn theme-toggle-btn-inline"
+          className="theme-toggle-btn"
           title={isDarkMode ? t('theme.light') : t('theme.dark')}
         >
-          {isDarkMode ? '☀️' : '🌙'}
+          {isDarkMode ? <FaSun /> : <FaMoon />}
         </button>
-        {gameMode === 'starforged' && (
-          <select
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value as StarforgedRegion)}
-            className="region-selector region-selector-inline"
-            title={t('region.select')}
-          >
-            <option value="terminus">{t('region.terminus')}</option>
-            <option value="outlands">{t('region.outlands')}</option>
-            <option value="expanse">{t('region.expanse')}</option>
-          </select>
-        )}
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value as 'pt' | 'en')}
-          className="language-selector language-selector-inline"
+          className="language-selector"
           title={t('language.select')}
         >
           <option value="pt">🇧🇷 PT</option>
           <option value="en">🇺🇸 EN</option>
         </select>
-      </h1>
-      
-      <div className="header-controls">
-        <div className="mode-selector">
+        {gameMode !== 'ironsworn' && (
           <button 
             onClick={() => setGameMode('ironsworn')} 
-            className={`mode-btn ${gameMode === 'ironsworn' ? 'active' : ''}`}
+            className="mode-btn"
           >
             <span className="mode-icon ironsworn-icon">⚒</span>
             <span className="mode-text">{t('gameMode.ironsworn')}</span>
           </button>
+        )}
+        {gameMode !== 'starforged' && (
           <button 
             onClick={() => setGameMode('starforged')}
-            className={`mode-btn ${gameMode === 'starforged' ? 'active' : ''}`}
+            className="mode-btn"
           >
             <span className="mode-icon starforged-icon">✦</span>
             <span className="mode-text">{t('gameMode.starforged')}</span>
           </button>
-        </div>
-        
-        <div className="header-region-controls">
-          {isSmallScreen && (
-            <button 
-              onClick={onShowLogModal}
-              className="action-btn log-modal-btn"
-              title={t('buttons.viewLog')}
-            >
-              📜 {t('buttons.viewLog')} ({logsCount})
-            </button>
-          )}
-        </div>
+        )}
+        {isSmallScreen && (
+          <button 
+            onClick={onShowLogModal}
+            className="action-btn log-modal-btn"
+            title={t('buttons.viewLog')}
+          >
+            <FaBook /> {t('buttons.viewLog')} ({logsCount})
+          </button>
+        )}
       </div>
     </header>
   );

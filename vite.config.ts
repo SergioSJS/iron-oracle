@@ -9,40 +9,67 @@ export default defineConfig({
     {
       name: 'redirect-no-trailing-slash',
       configureServer(server) {
-        server.middlewares.use((req, res, next) => {
-          const url = req.url || '';
-          const base = '/iron-oracle';
-          
-          // Ignorar arquivos estáticos (com extensão) e assets
-          if (url.match(/\.[a-z]+$/i) || url.startsWith('/assets/') || url.includes('?')) {
+        // Usar um middleware que roda ANTES do Vite processar
+        return () => {
+          server.middlewares.use((req, res, next) => {
+            const url = req.url || '';
+            const base = '/iron-oracle';
+            
+            // Ignorar tudo que não é relacionado ao base path
+            if (!url.startsWith(base)) {
+              next();
+              return;
+            }
+            
+            // Ignorar arquivos estáticos (com extensão)
+            if (url.match(/\.[a-z]+$/i)) {
+              next();
+              return;
+            }
+            
+            // Ignorar query strings e assets
+            if (url.includes('?') || url.startsWith('/assets/')) {
+              next();
+              return;
+            }
+            
+            // Se a URL é exatamente o base sem barra, redirecionar
+            if (url === base) {
+              res.writeHead(301, { Location: base + '/' });
+              res.end();
+              return;
+            }
+            
+            // Se a URL começa com base mas não termina com barra, redirecionar
+            if (url.startsWith(base) && !url.endsWith('/')) {
+              res.writeHead(301, { Location: url + '/' });
+              res.end();
+              return;
+            }
+            
             next();
-            return;
-          }
-          
-          // Se a URL é exatamente o base sem barra, redirecionar
-          if (url === base) {
-            res.writeHead(301, { Location: base + '/' });
-            res.end();
-            return;
-          }
-          
-          // Se a URL começa com base mas não termina com barra, redirecionar
-          if (url.startsWith(base) && !url.endsWith('/')) {
-            res.writeHead(301, { Location: url + '/' });
-            res.end();
-            return;
-          }
-          
-          next();
-        });
+          });
+        };
       },
       configurePreviewServer(server) {
         server.middlewares.use((req, res, next) => {
           const url = req.url || '';
           const base = '/iron-oracle';
           
-          // Ignorar arquivos estáticos (com extensão) e assets
-          if (url.match(/\.[a-z]+$/i) || url.startsWith('/assets/') || url.includes('?')) {
+          // Ignorar tudo que não é relacionado ao base path
+          if (!url.startsWith(base)) {
+            next();
+            return;
+          }
+          
+          // Ignorar arquivos estáticos (com extensão)
+          if (url.match(/\.[a-z]+$/i)) {
+            next();
+            return;
+          }
+          
+          // Ignorar query strings e assets
+          if (url.includes('?') || url.startsWith('/assets/')) {
             next();
             return;
           }

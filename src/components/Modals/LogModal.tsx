@@ -1,6 +1,7 @@
 import { RollLog } from '../RollLog/RollLog';
 import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
+import { FaTimes, FaTrash } from 'react-icons/fa';
 
 type LogModalProps = {
   isOpen: boolean;
@@ -34,18 +35,26 @@ export function LogModal({
       >
         <div className="log-modal-header">
           <h3>{t('modal.log.title')}</h3>
-          <button 
-            className="log-modal-close"
-            onClick={onClose}
-          >
-            ✕
-          </button>
+          <div className="log-modal-header-actions">
+            <button 
+              onClick={onClearLog}
+              className="log-modal-clear"
+              title={t('log.clear')}
+            >
+              <FaTrash />
+            </button>
+            <button 
+              className="log-modal-close"
+              onClick={onClose}
+            >
+              <FaTimes />
+            </button>
+          </div>
         </div>
         <RollLog 
           logs={logs} 
           onRollAgain={onRollAgain}
           findOracleById={findOracleById}
-          onClearLog={onClearLog}
         />
       </div>
     </div>

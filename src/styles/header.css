@@ -13,18 +13,37 @@
 
 @media (max-width: 768px) {
   .app-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   
   .app-title {
-    font-size: 1.8em;
-    width: 100%;
+    font-size: 1.4em;
+    flex: 1;
+    min-width: 0;
+    gap: 0;
+  }
+  
+  .title-text {
+    font-size: 0.85em;
   }
   
   .header-controls {
-    width: 100%;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    width: auto;
+    flex-wrap: nowrap;
+  }
+  
+  .log-modal-btn {
+    font-size: 10px;
+    padding: 6px 8px;
+    white-space: nowrap;
+    height: 34px;
   }
 }
 
@@ -128,30 +147,52 @@
 
 .header-controls {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
-.header-region-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  margin-top: 8px;
+.region-selector-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.mode-selector {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+.region-selector-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.theme-dark.theme-starforged .region-selector-icon {
+  color: #8ba3d4;
+  filter: drop-shadow(0 0 4px rgba(139, 163, 212, 0.4));
+}
+
+.theme-light.theme-starforged .region-selector-icon {
+  color: #5a6b94;
+}
+
+.theme-dark.theme-ironsworn .region-selector-icon {
+  color: #c9a961;
+  filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
+}
+
+.theme-light.theme-ironsworn .region-selector-icon {
+  color: #6b5a45;
 }
 
 /* Estilos base compartilhados - TODOS com o mesmo tamanho */
 .language-selector,
 .region-selector,
-.theme-toggle-btn-inline {
+.theme-toggle-btn,
+.mode-btn {
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -165,31 +206,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
   box-sizing: border-box;
 }
 
-.theme-toggle-btn-inline:first-child {
-  margin-left: 0;
-}
-
-/* Quando inline, o botão de tema não deve usar os estilos do .theme-toggle-btn */
-.theme-toggle-btn.theme-toggle-btn-inline {
-  padding: 8px 12px !important;
-  border-radius: 6px !important;
-  font-size: 12px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
-  border-width: 1px !important;
-  min-width: auto !important;
-  min-height: auto !important;
-  height: 36px !important;
-  width: auto !important;
-}
-
-/* Ajustar o tamanho do ícone dentro do botão inline */
-.theme-toggle-btn-inline {
-  font-size: 14px !important;
-  line-height: 1;
+.header-controls .theme-toggle-btn {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .language-selector,
@@ -204,6 +228,10 @@
   font-size: 12px !important; /* Garantir tamanho consistente */
 }
 
+.region-selector-wrapper .region-selector {
+  padding-left: 32px;
+}
+
 /* Garantir que as opções dentro dos selects também tenham o mesmo tamanho */
 .language-selector option,
 .region-selector option {
@@ -211,72 +239,67 @@
   padding: 4px;
 }
 
-.language-selector-inline,
-.region-selector-inline {
-  /* margin-left já está no grupo base */
-  vertical-align: middle;
-  display: inline-block;
-}
+/* Estilos inline removidos - agora tudo está no header-settings-group */
 
-.theme-dark.theme-ironsworn .language-selector,
-.theme-dark.theme-ironsworn .region-selector,
-.theme-dark.theme-ironsworn .theme-toggle-btn-inline {
+.theme-dark.theme-ironsworn .header-controls .language-selector,
+.theme-dark.theme-ironsworn .header-controls .region-selector,
+.theme-dark.theme-ironsworn .header-controls .theme-toggle-btn {
   background: linear-gradient(135deg, rgba(26, 20, 16, 0.9) 0%, rgba(40, 32, 24, 0.9) 100%);
   color: #d4c4a8;
   border-color: rgba(120, 80, 40, 0.4);
 }
 
-.theme-dark.theme-ironsworn .language-selector:hover,
-.theme-dark.theme-ironsworn .region-selector:hover,
-.theme-dark.theme-ironsworn .theme-toggle-btn-inline:hover {
+.theme-dark.theme-ironsworn .header-controls .language-selector:hover,
+.theme-dark.theme-ironsworn .header-controls .region-selector:hover,
+.theme-dark.theme-ironsworn .header-controls .theme-toggle-btn:hover {
   border-color: rgba(120, 80, 40, 0.7);
   box-shadow: 0 4px 12px rgba(120, 80, 40, 0.3);
   background: linear-gradient(135deg, rgba(40, 32, 24, 0.95) 0%, rgba(52, 44, 32, 0.95) 100%);
 }
 
-.theme-dark.theme-starforged .language-selector,
-.theme-dark.theme-starforged .region-selector,
-.theme-dark.theme-starforged .theme-toggle-btn-inline {
+.theme-dark.theme-starforged .header-controls .language-selector,
+.theme-dark.theme-starforged .header-controls .region-selector,
+.theme-dark.theme-starforged .header-controls .theme-toggle-btn {
   background: linear-gradient(135deg, rgba(20, 20, 30, 0.9) 0%, rgba(30, 30, 45, 0.9) 100%);
   color: #b4c4d8;
   border-color: rgba(100, 120, 200, 0.4);
 }
 
-.theme-dark.theme-starforged .language-selector:hover,
-.theme-dark.theme-starforged .region-selector:hover,
-.theme-dark.theme-starforged .theme-toggle-btn-inline:hover {
+.theme-dark.theme-starforged .header-controls .language-selector:hover,
+.theme-dark.theme-starforged .header-controls .region-selector:hover,
+.theme-dark.theme-starforged .header-controls .theme-toggle-btn:hover {
   border-color: rgba(100, 120, 200, 0.7);
   box-shadow: 0 4px 12px rgba(100, 120, 200, 0.3);
   background: linear-gradient(135deg, rgba(30, 30, 45, 0.95) 0%, rgba(40, 40, 60, 0.95) 100%);
 }
 
-.theme-light.theme-ironsworn .language-selector,
-.theme-light.theme-ironsworn .region-selector,
-.theme-light.theme-ironsworn .theme-toggle-btn-inline {
+.theme-light.theme-ironsworn .header-controls .language-selector,
+.theme-light.theme-ironsworn .header-controls .region-selector,
+.theme-light.theme-ironsworn .header-controls .theme-toggle-btn {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 240, 232, 0.9) 100%);
   color: #2a2418;
   border-color: rgba(139, 115, 85, 0.5);
 }
 
-.theme-light.theme-ironsworn .language-selector:hover,
-.theme-light.theme-ironsworn .region-selector:hover,
-.theme-light.theme-ironsworn .theme-toggle-btn-inline:hover {
+.theme-light.theme-ironsworn .header-controls .language-selector:hover,
+.theme-light.theme-ironsworn .header-controls .region-selector:hover,
+.theme-light.theme-ironsworn .header-controls .theme-toggle-btn:hover {
   border-color: rgba(139, 115, 85, 0.8);
   box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 245, 238, 0.95) 100%);
 }
 
-.theme-light.theme-starforged .language-selector,
-.theme-light.theme-starforged .region-selector,
-.theme-light.theme-starforged .theme-toggle-btn-inline {
+.theme-light.theme-starforged .header-controls .language-selector,
+.theme-light.theme-starforged .header-controls .region-selector,
+.theme-light.theme-starforged .header-controls .theme-toggle-btn {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(232, 234, 246, 0.9) 100%);
   color: #1a1f2e;
   border-color: rgba(100, 120, 200, 0.5);
 }
 
-.theme-light.theme-starforged .language-selector:hover,
-.theme-light.theme-starforged .region-selector:hover,
-.theme-light.theme-starforged .theme-toggle-btn-inline:hover {
+.theme-light.theme-starforged .header-controls .language-selector:hover,
+.theme-light.theme-starforged .header-controls .region-selector:hover,
+.theme-light.theme-starforged .header-controls .theme-toggle-btn:hover {
   border-color: rgba(100, 120, 200, 0.8);
   box-shadow: 0 4px 12px rgba(100, 120, 200, 0.2);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 242, 250, 0.95) 100%);
@@ -298,23 +321,28 @@
 }
 
 @media (max-width: 968px) {
+  .header-controls {
+    gap: 6px;
+  }
+  
   .language-selector,
   .region-selector,
-  .theme-toggle-btn-inline {
+  .theme-toggle-btn,
+  .mode-btn {
     padding: 8px 10px;
     padding-right: 30px;
     font-size: 11px !important; /* Garantir tamanho consistente em mobile */
     height: 34px; /* Altura ligeiramente menor em mobile */
   }
   
+  .header-controls .theme-toggle-btn {
+    padding: 8px 10px !important;
+    padding-right: 10px !important;
+  }
+  
   .language-selector option,
   .region-selector option {
     font-size: 11px;
-  }
-  
-  .theme-toggle-btn.theme-toggle-btn-inline {
-    padding: 8px 10px !important;
-    height: 34px !important;
   }
 }
 
@@ -346,6 +374,9 @@
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .theme-ironsworn .action-btn {
@@ -389,24 +420,11 @@
   }
 }
 
+/* .mode-btn já está incluído nos estilos base compartilhados acima */
 .mode-btn {
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-family: 'Georgia', serif;
-  height: 36px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid;
-  box-sizing: border-box;
 }
 
 .theme-dark.theme-ironsworn .mode-btn {
@@ -540,74 +558,8 @@
   opacity: 0.65;
 }
 
-/* Botão de toggle de tema */
-.theme-toggle-btn {
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 20px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  border: 2px solid;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 48px;
-  min-height: 48px;
-}
-
-/* .theme-toggle-btn-inline já está definido acima junto com language-selector e region-selector */
-
-.theme-dark.theme-ironsworn .theme-toggle-btn {
-  border-color: rgba(120, 80, 40, 0.4);
-  color: #c9a961;
-}
-
-.theme-dark.theme-ironsworn .theme-toggle-btn:hover {
-  border-color: rgba(120, 80, 40, 0.7);
-  box-shadow: 0 4px 12px rgba(120, 80, 40, 0.3);
-  background: rgba(40, 32, 24, 0.3);
-  transform: translateY(-2px);
-}
-
-.theme-dark.theme-starforged .theme-toggle-btn {
-  border-color: rgba(100, 120, 200, 0.4);
-  color: #8ba3d4;
-}
-
-.theme-dark.theme-starforged .theme-toggle-btn:hover {
-  border-color: rgba(100, 120, 200, 0.7);
-  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.3);
-  background: rgba(30, 30, 45, 0.3);
-  transform: translateY(-2px);
-}
-
-.theme-light.theme-ironsworn .theme-toggle-btn {
-  border-color: rgba(139, 115, 85, 0.5);
-  color: #8b7355;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.theme-light.theme-ironsworn .theme-toggle-btn:hover {
-  border-color: rgba(139, 115, 85, 0.8);
-  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
-  background: rgba(255, 255, 255, 0.7);
-  transform: translateY(-2px);
-}
-
-.theme-light.theme-starforged .theme-toggle-btn {
-  border-color: rgba(100, 120, 200, 0.5);
-  color: #6b7ba4;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.theme-light.theme-starforged .theme-toggle-btn:hover {
-  border-color: rgba(100, 120, 200, 0.8);
-  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.2);
-  background: rgba(255, 255, 255, 0.7);
-  transform: translateY(-2px);
-}
+/* Estilos do botão de tema quando está no grupo de configurações já estão definidos acima */
+/* Os estilos de tema (dark/light) para .header-settings-group .theme-toggle-btn também já estão acima */
 
 /* Em mobile, mostrar apenas os ícones nos botões de modo */
 @media (max-width: 968px) {

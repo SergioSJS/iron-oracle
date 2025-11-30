@@ -2,6 +2,7 @@ import type { OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { translateOracleName } from '../../i18n/oracleTranslations';
 import { getOracleIcon } from '../../utils/oracleIcons';
+import { FaQuestionCircle } from 'react-icons/fa';
 
 type AskTheOracleProps = {
   tables: OracleTable[];
@@ -18,7 +19,9 @@ export function AskTheOracle({ tables, onRoll, allGroupsOpen, onToggleAllGroups 
   return (
     <div className="ask-the-oracle-section">
       <div className="ask-the-oracle-header">
-        <h3 className="ask-the-oracle-title">⭐ {t('askTheOracle.title')}</h3>
+        <h3 className="ask-the-oracle-title">
+          <FaQuestionCircle /> {t('askTheOracle.title')}
+        </h3>
         <button 
           onClick={onToggleAllGroups}
           className="expand-collapse-btn ask-the-oracle-expand-btn"
