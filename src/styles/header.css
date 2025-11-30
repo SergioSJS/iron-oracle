@@ -36,14 +36,64 @@
     gap: 4px;
     flex-shrink: 0;
     width: auto;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    overflow: visible;
   }
   
   .log-modal-btn {
-    font-size: 10px;
-    padding: 6px 8px;
-    white-space: nowrap;
+    padding: 0 8px;
+    min-width: 34px;
+    width: auto;
     height: 34px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+  
+  .log-modal-btn svg {
+    font-size: 16px;
+    margin: 0;
+    flex-shrink: 0;
+    display: block;
+  }
+  
+  .log-modal-btn .log-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: rgba(180, 60, 40, 0.9);
+    color: #fff;
+    border-radius: 10px;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0 4px;
+    border: 2px solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .theme-dark.theme-ironsworn .log-modal-btn .log-badge {
+    border-color: rgba(120, 80, 40, 0.6);
+  }
+  
+  .theme-dark.theme-starforged .log-modal-btn .log-badge {
+    border-color: rgba(100, 120, 200, 0.6);
+  }
+  
+  .theme-light.theme-ironsworn .log-modal-btn .log-badge {
+    border-color: rgba(139, 115, 85, 0.8);
+  }
+  
+  .theme-light.theme-starforged .log-modal-btn .log-badge {
+    border-color: rgba(100, 120, 200, 0.8);
   }
 }
 
@@ -226,10 +276,25 @@
   background-position: right 8px center;
   padding-right: 32px;
   font-size: 12px !important; /* Garantir tamanho consistente */
+  box-sizing: border-box;
+}
+
+.language-selector {
+  text-transform: none;
+  font-size: 20px !important;
+  padding: 8px 24px 8px 8px;
+  text-align: center;
 }
 
 .region-selector-wrapper .region-selector {
   padding-left: 32px;
+}
+
+@media (max-width: 968px) {
+  .region-selector-wrapper .region-selector {
+    padding-left: 28px;
+    padding-right: 6px;
+  }
 }
 
 /* Garantir que as opções dentro dos selects também tenham o mesmo tamanho */
@@ -338,6 +403,26 @@
   .header-controls .theme-toggle-btn {
     padding: 8px 10px !important;
     padding-right: 10px !important;
+  }
+  
+  .language-selector {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    padding: 8px 8px 8px 8px;
+    font-size: 18px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .region-selector {
+    max-width: 100px;
+    padding-right: 24px;
+    font-size: 10px !important;
+  }
+  
+  .region-selector-wrapper .region-selector {
+    max-width: 100px;
   }
   
   .language-selector option,
@@ -524,14 +609,21 @@
 }
 
 .mode-icon {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 6px;
-  font-size: 14px;
+  font-size: 20px;
   opacity: 0.6;
   filter: grayscale(0.5) brightness(0.8);
   transition: all 0.3s ease;
   line-height: 1;
   vertical-align: middle;
+}
+
+.mode-icon svg {
+  width: 1em;
+  height: 1em;
 }
 
 .mode-btn:hover .mode-icon {
@@ -550,11 +642,11 @@
 }
 
 .ironsworn-icon {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .starforged-icon {
-  font-size: 14px;
+  font-size: 20px;
   opacity: 0.65;
 }
 
@@ -577,15 +669,20 @@
   
   .mode-icon {
     margin-right: 0;
-    font-size: 14px;
+    font-size: 20px;
+  }
+  
+  .mode-icon svg {
+    width: 1em;
+    height: 1em;
   }
   
   .ironsworn-icon {
-    font-size: 14px;
+    font-size: 20px;
   }
   
   .starforged-icon {
-    font-size: 14px;
+    font-size: 20px;
   }
 }
 

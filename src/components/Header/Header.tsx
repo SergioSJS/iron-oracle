@@ -1,7 +1,7 @@
 import type { GameMode, StarforgedRegion } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { FaSun, FaMoon, FaBook } from 'react-icons/fa';
-import { GiPlanetCore } from 'react-icons/gi';
+import { GiPlanetCore, GiBattleAxe, GiSpaceship } from 'react-icons/gi';
 
 type HeaderProps = {
   gameMode: GameMode;
@@ -65,15 +65,15 @@ export function Header({
           className="language-selector"
           title={t('language.select')}
         >
-          <option value="pt">🇧🇷 PT</option>
-          <option value="en">🇺🇸 EN</option>
+          <option value="pt">🇧🇷</option>
+          <option value="en">🇺🇸</option>
         </select>
         {gameMode !== 'ironsworn' && (
           <button 
             onClick={() => setGameMode('ironsworn')} 
             className="mode-btn"
           >
-            <span className="mode-icon ironsworn-icon">⚒</span>
+            <span className="mode-icon ironsworn-icon"><GiBattleAxe /></span>
             <span className="mode-text">{t('gameMode.ironsworn')}</span>
           </button>
         )}
@@ -82,7 +82,7 @@ export function Header({
             onClick={() => setGameMode('starforged')}
             className="mode-btn"
           >
-            <span className="mode-icon starforged-icon">✦</span>
+            <span className="mode-icon starforged-icon"><GiSpaceship /></span>
             <span className="mode-text">{t('gameMode.starforged')}</span>
           </button>
         )}
@@ -90,9 +90,10 @@ export function Header({
           <button 
             onClick={onShowLogModal}
             className="action-btn log-modal-btn"
-            title={t('buttons.viewLog')}
+            title={`${t('buttons.viewLog')} (${logsCount})`}
           >
-            <FaBook /> {t('buttons.viewLog')} ({logsCount})
+            <FaBook />
+            {logsCount > 0 && <span className="log-badge">{logsCount}</span>}
           </button>
         )}
       </div>
