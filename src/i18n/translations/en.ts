@@ -27,5 +27,6 @@ export const en = {
   'language.select': 'Select language',
   'theme.dark': 'Dark Mode',
   'theme.light': 'Light Mode',
+  'shortcuts.title': 'Shortcuts',
 } as const;
 

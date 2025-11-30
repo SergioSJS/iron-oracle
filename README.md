@@ -13,10 +13,12 @@ A web application for rolling oracle tables from **Ironsworn** and **Ironsworn: 
   - **Starforged**: Space theme with Orbitron font
 - 🌓 **Light/Dark Mode**: Toggle between light and dark themes
 - 📱 **Progressive Web App**: Installable on mobile and desktop devices
+- 🔌 **Works Offline**: After the first visit, the app works completely offline using Service Worker
 - 💾 **Persistent Settings**: All preferences (theme, language, game mode, region) are saved automatically
 - 🔄 **Automatic Sub-rolls**: Automatically rolls linked tables when results reference other oracles
 - 📜 **Roll History**: Track all your rolls with a detailed history log
 - 🎯 **Region Support**: For Starforged, select between Terminus, Outlands, and Expanse regions
+- ⚡ **Roll Shortcuts**: Pre-configured buttons that roll multiple tables at once, such as "Complete Character", "Planet", "Action and Theme", etc.
 
 ## Acknowledgments
 
@@ -103,6 +105,7 @@ iron-oracle/
 │   │   ├── Header/        # Application header with controls
 │   │   ├── Modals/        # Modal dialogs (Result, Log)
 │   │   ├── OracleNavigation/ # Recursive oracle navigation component
+│   │   ├── OracleShortcuts/  # Roll shortcut component for quick access
 │   │   ├── OracleText/    # Text component with tooltip support
 │   │   └── RollLog/       # Roll history component
 │   ├── hooks/             # Custom React hooks
@@ -128,6 +131,7 @@ iron-oracle/
 │   ├── utils/             # Utility functions
 │   │   ├── oracleDataUtils.ts # Oracle data processing utilities
 │   │   ├── oracleIcons.tsx    # Icon mapping for oracles
+│   │   ├── oracleShortcuts.tsx # Roll shortcut definitions and utilities
 │   │   └── oracleUtils.ts     # Oracle rolling and parsing utilities
 │   ├── App.tsx             # Main application component
 │   └── main.tsx            # Application entry point
@@ -155,6 +159,16 @@ Recursive component that renders the hierarchical oracle structure. Handles:
 - Rendering categories/collections as collapsible sections
 - Special handling for Ironsworn name tables
 - Region-based oracle filtering for Starforged
+
+### `src/components/OracleShortcuts/OracleShortcuts.tsx`
+Component that renders shortcut buttons for quick access to common oracle combinations. Displays as a collapsible group similar to other oracle categories, with icons for each shortcut.
+
+### `src/utils/oracleShortcuts.tsx`
+Defines shortcut structures and utilities:
+- `ShortcutDefinition` and `ShortcutRoll` types
+- `IRONSWORN_SHORTCUTS` and `STARFORGED_SHORTCUTS` arrays
+- `getShortcutIcon` function for icon mapping
+- Helper functions for finding and selecting oracles
 
 ### `src/i18n/oracleTranslations/`
 Contains Portuguese translations for all oracle tables. The translations are modularized by game:
@@ -185,6 +199,59 @@ Maps oracle IDs to appropriate icons from `react-icons`. Provides visual consist
 1. Add UI text translations in `src/i18n/translations/[lang].ts`
 2. Add oracle translations in `src/i18n/oracleTranslations/[game].ts`
 3. Update `TRANSLATION_STATUS.md` to track progress
+
+### Creating New Shortcuts
+
+Shortcuts allow you to roll multiple oracle tables at once, grouping the results in a single log entry. To create a new shortcut:
+
+1. **Open the shortcuts file**:
+   - For Ironsworn: `src/utils/oracleShortcuts.tsx` → `IRONSWORN_SHORTCUTS`
+   - For Starforged: `src/utils/oracleShortcuts.tsx` → `STARFORGED_SHORTCUTS`
+
+2. **Add a new shortcut definition**:
+```typescript
+{
+  name: 'Shortcut Name',
+  rolls: [
+    { oracleId: 'classic/oracles/oracle/id' }, // Roll once
+    { oracleId: 'classic/oracles/oracle/id', count: 2 }, // Roll twice
+    { oracleId: ['id1', 'id2', 'id3'] }, // Randomly select between IDs
+  ]
+}
+```
+
+3. **Available parameters**:
+   - `oracleId`: String with the complete oracle ID, or array of IDs for random selection
+   - `count`: Number of times to roll (default: 1)
+   - `condition`: Optional function `(region?: StarforgedRegion) => boolean` to conditionally include
+
+4. **Usage examples**:
+   - **Random selection**: Use an array of IDs to randomly select between tables
+   - **Multiple rolls**: Use `count` to roll the same table multiple times
+   - **Dynamic IDs**: For planets, use `/planets/desert/` as placeholder - will be replaced by the rolled class
+   - **Region specific**: For Starforged, use `/terminus` as placeholder - will be replaced by the selected region
+
+5. **Special cases already implemented**:
+   - **Character names (Ironsworn)**: Use array with name IDs - will be randomly selected
+   - **Settlement names (Ironsworn)**: Use array with settlement name IDs - will be randomly selected
+   - **Planets (Starforged)**: Use `/planets/desert/` as placeholder - will be adjusted by the rolled class
+   - **Vital Planet**: If the class is "vital", diversity and biomes are automatically added
+
+6. **Add icon** (optional):
+   - Edit the `getShortcutIcon` function in `src/utils/oracleShortcuts.tsx`
+   - Add a condition for your shortcut name returning the appropriate icon
+
+**Complete example**:
+```typescript
+{
+  name: 'My New Shortcut',
+  rolls: [
+    { oracleId: 'classic/oracles/action_and_theme/action' },
+    { oracleId: 'classic/oracles/action_and_theme/theme' },
+    { oracleId: 'classic/oracles/character/descriptor', count: 3 }
+  ]
+}
+```
 
 ## Deployment to GitHub Pages
 
@@ -244,6 +311,11 @@ export default defineConfig({
    - The `404.html` file will be used automatically
 
 3. **HTTPS**: GitHub Pages serves over HTTPS, which is required for PWA features like service workers.
+
+4. **Offline Functionality**: The app uses Service Worker to cache all assets. After the first online visit, the app will work completely offline. To test:
+   - Access the app once with internet
+   - Enable airplane mode or disable internet
+   - The app will continue to work normally
 
 ## License
 

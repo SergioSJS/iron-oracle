@@ -179,13 +179,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   overflow: visible;
 }
 
 .roll-log-entry {
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   position: relative;
@@ -245,9 +245,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .roll-log-name {
@@ -286,7 +286,7 @@
 .roll-log-roll {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   font-size: 12px;
 }
 
@@ -304,7 +304,7 @@
 
 .roll-value {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 15px;
   padding: 2px 6px;
   border-radius: 4px;
   transition: all 0.5s ease;
@@ -336,8 +336,8 @@
 
 .roll-log-result {
   margin-top: 6px;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 15px;
+  line-height: 1.5;
   word-wrap: break-word;
   position: relative;
   z-index: 2;
@@ -354,7 +354,7 @@
 
 /* Rolagens filhas (automáticas) */
 .roll-log-children {
-  margin-top: 8px;
+  margin-top: 10px;
   padding-left: 12px;
   border-left: 2px solid rgba(78, 205, 196, 0.4);
   display: flex;
@@ -362,114 +362,108 @@
   gap: 6px;
 }
 
-.roll-log-child {
-  border-radius: 4px;
-  padding: 8px 10px;
-  transition: all 0.2s ease;
-  overflow: visible;
+.roll-log-children-shortcut {
+  margin-top: 0;
+  padding-left: 0;
+  border-left: none;
+  gap: 8px;
 }
 
-.theme-dark.theme-ironsworn .roll-log-child {
-  background: rgba(120, 80, 40, 0.1);
-  border: 1px solid rgba(120, 80, 40, 0.3);
+.roll-log-shortcut-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: all 0.5s ease;
 }
 
-.theme-dark.theme-ironsworn .roll-log-child:hover {
-  background: rgba(120, 80, 40, 0.15);
-  border-color: rgba(120, 80, 40, 0.5);
+.theme-dark.theme-ironsworn .roll-log-shortcut-title {
+  color: #c9a961;
+  text-shadow: 0 0 8px rgba(201, 169, 97, 0.3);
 }
 
-.theme-dark.theme-starforged .roll-log-child {
-  background: rgba(100, 120, 200, 0.1);
-  border: 1px solid rgba(100, 120, 200, 0.3);
+.theme-dark.theme-starforged .roll-log-shortcut-title {
+  color: #8ba3d4;
+  text-shadow: 0 0 8px rgba(139, 163, 212, 0.4);
 }
 
-.theme-dark.theme-starforged .roll-log-child:hover {
-  background: rgba(100, 120, 200, 0.15);
-  border-color: rgba(100, 120, 200, 0.5);
+.theme-light.theme-ironsworn .roll-log-shortcut-title {
+  color: #6b5a45;
+  text-shadow: none;
 }
 
-.theme-light.theme-ironsworn .roll-log-child {
-  background: rgba(139, 115, 85, 0.08);
-  border: 1px solid rgba(139, 115, 85, 0.3);
+.theme-light.theme-starforged .roll-log-shortcut-title {
+  color: #5a6b94;
+  text-shadow: none;
 }
 
-.theme-light.theme-ironsworn .roll-log-child:hover {
-  background: rgba(139, 115, 85, 0.12);
-  border-color: rgba(139, 115, 85, 0.5);
-}
-
-.theme-light.theme-starforged .roll-log-child {
-  background: rgba(100, 120, 200, 0.08);
-  border: 1px solid rgba(100, 120, 200, 0.3);
-}
-
-.theme-light.theme-starforged .roll-log-child:hover {
-  background: rgba(100, 120, 200, 0.12);
-  border-color: rgba(100, 120, 200, 0.5);
-}
-
-.roll-log-child-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.roll-log-child-name {
-  font-weight: 600;
-  font-size: 12px;
-  transition: color 0.5s ease;
+.roll-log-child-simple {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  flex-wrap: nowrap;
+  line-height: 1.5;
 }
 
-.roll-log-child-name .dice-icon {
+.roll-log-child-icon {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 
-.theme-dark.theme-ironsworn .roll-log-child-name {
+.roll-log-child-name-simple {
+  font-weight: 600;
+  font-size: 15px;
+  flex-shrink: 0;
+  transition: color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .roll-log-child-name-simple {
   color: #8b7355;
 }
 
-.theme-dark.theme-starforged .roll-log-child-name {
+.theme-dark.theme-starforged .roll-log-child-name-simple {
   color: #7b8bb4;
 }
 
-.theme-light.theme-ironsworn .roll-log-child-name {
+.theme-light.theme-ironsworn .roll-log-child-name-simple {
   color: #6b5a45;
 }
 
-.theme-light.theme-starforged .roll-log-child-name {
+.theme-light.theme-starforged .roll-log-child-name-simple {
   color: #5a6b94;
 }
 
-.roll-log-child-roll {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
+.roll-log-child-roll-simple {
+  flex-shrink: 0;
 }
 
-.roll-log-child-result {
-  font-size: 12px;
-  line-height: 1.3;
+.roll-log-child-roll-simple .roll-value {
+  font-size: 15px;
+  padding: 2px 6px;
+}
+
+.roll-log-child-separator {
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.roll-log-child-result-simple {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.5;
   word-wrap: break-word;
-  position: relative;
-  z-index: 2;
-  overflow: visible;
+  min-width: 0;
 }
 
-.theme-dark .roll-log-child-result {
+.theme-dark .roll-log-child-result-simple {
   color: #c4b4a0;
 }
 
-.theme-light .roll-log-child-result {
+.theme-light .roll-log-child-result-simple {
   color: #2a2418;
 }
+
 
 .roll-log-extras {
   margin-top: 12px;

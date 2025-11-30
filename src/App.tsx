@@ -19,6 +19,7 @@ function App() {
     currentRuleset,
     rollOracle,
     findOracleById,
+    rollMultipleOracles,
     selectedRegion,
     setSelectedRegion
   } = useGameData();
@@ -128,6 +129,7 @@ function App() {
           oracles={otherOracles}
           rollOracle={rollOracle}
           findOracleById={findOracleById}
+          rollMultipleOracles={rollMultipleOracles}
           allGroupsOpen={allGroupsOpen}
           selectedRegion={selectedRegion}
           gameMode={gameMode}

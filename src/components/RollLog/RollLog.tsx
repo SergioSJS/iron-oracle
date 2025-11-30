@@ -46,80 +46,89 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog }: RollL
       )}
       
       <div className="roll-log-entries">
-        {logs.map(log => (
-          <div key={log.id} className="roll-log-entry">
-            <div className="roll-log-header">
-              <span className="roll-log-name">
-                {log.oracleId && (
-                  <span className="dice-icon">{getOracleIcon(log.oracleId, log.oracleName)}</span>
-                )}
-                {log.oracleName}
-              </span>
-              <span className="roll-log-roll">
-                <span className="roll-label">{t('log.rolled')}:</span>
-                <span className="roll-value">{log.roll}</span>
-              </span>
-            </div>
-            
-            <div className="roll-log-result">
-              <OracleText 
-                text={log.result}
-                originalText={log.originalResult}
-                onOracleClick={handleOracleClick}
-                findOracleById={findOracleById}
-              />
-            </div>
+        {logs.map(log => {
+          const isShortcut = log.roll === 0 && !log.result && log.childRolls && log.childRolls.length > 0;
+          
+          return (
+            <div key={log.id} className="roll-log-entry">
+              {!isShortcut && (
+                <>
+                  <div className="roll-log-header">
+                    <span className="roll-log-name">
+                      {log.oracleId && (
+                        <span className="dice-icon">{getOracleIcon(log.oracleId, log.oracleName)}</span>
+                      )}
+                      {log.oracleName}
+                    </span>
+                    <span className="roll-log-roll">
+                      <span className="roll-label">{t('log.rolled')}:</span>
+                      <span className="roll-value">{log.roll}</span>
+                    </span>
+                  </div>
+                  
+                  <div className="roll-log-result">
+                    <OracleText 
+                      text={log.result}
+                      originalText={log.originalResult}
+                      onOracleClick={handleOracleClick}
+                      findOracleById={findOracleById}
+                    />
+                  </div>
+                </>
+              )}
 
-            {/* Rolagens filhas (automáticas) */}
-            {log.childRolls && log.childRolls.length > 0 && (
-              <div className="roll-log-children">
-                {log.childRolls.map((childRoll) => (
-                  <div key={childRoll.id} className="roll-log-child">
-                    <div className="roll-log-child-header">
-                      <span className="roll-log-child-name">
-                        {childRoll.oracleId && (
-                          <span className="dice-icon">{getOracleIcon(childRoll.oracleId, childRoll.oracleName)}</span>
-                        )}
-                        {childRoll.oracleName}
+              {/* Rolagens filhas (automáticas) */}
+              {log.childRolls && log.childRolls.length > 0 && (
+                <div className={`roll-log-children ${isShortcut ? 'roll-log-children-shortcut' : ''}`}>
+                  {isShortcut && (
+                    <div className="roll-log-shortcut-title">
+                      {log.oracleName}
+                    </div>
+                  )}
+                  {log.childRolls.map((childRoll) => (
+                    <div key={childRoll.id} className="roll-log-child-simple">
+                      <span className="roll-log-child-icon">
+                        {childRoll.oracleId && getOracleIcon(childRoll.oracleId, childRoll.oracleName)}
                       </span>
-                      <span className="roll-log-child-roll">
-                        <span className="roll-label">{t('log.rolled')}:</span>
+                      <span className="roll-log-child-name-simple">{childRoll.oracleName}</span>
+                      <span className="roll-log-child-roll-simple">
                         <span className="roll-value">{childRoll.roll}</span>
                       </span>
+                      <span className="roll-log-child-separator">:</span>
+                      <span className="roll-log-child-result-simple">
+                        <OracleText 
+                          text={childRoll.result}
+                          originalText={childRoll.originalResult}
+                          onOracleClick={handleOracleClick}
+                          findOracleById={findOracleById}
+                        />
+                      </span>
                     </div>
-                    <div className="roll-log-child-result">
-                      <OracleText 
-                        text={childRoll.result}
-                        originalText={childRoll.originalResult}
-                        onOracleClick={handleOracleClick}
-                        findOracleById={findOracleById}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
 
-            {/* Botões para rolagens extras (quando não foram roladas automaticamente) */}
-            {log.extraRolls && log.extraRolls.length > 0 && (
-              <div className="roll-log-extras">
-                {log.extraRolls.map((oracleId) => {
-                  const oracle = findOracleById(oracleId);
-                  const oracleName = oracle?.name || oracleId.split('/').pop() || 'Oracle';
-                  return (
-                    <button
-                      key={oracleId}
-                      onClick={() => handleOracleClick(oracleId)}
-                      className="roll-log-extra-btn"
-                    >
-                      🎲 {oracleName}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        ))}
+              {/* Botões para rolagens extras (quando não foram roladas automaticamente) */}
+              {log.extraRolls && log.extraRolls.length > 0 && (
+                <div className="roll-log-extras">
+                  {log.extraRolls.map((oracleId) => {
+                    const oracle = findOracleById(oracleId);
+                    const oracleName = oracle?.name || oracleId.split('/').pop() || 'Oracle';
+                    return (
+                      <button
+                        key={oracleId}
+                        onClick={() => handleOracleClick(oracleId)}
+                        className="roll-log-extra-btn"
+                      >
+                        🎲 {oracleName}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -13,10 +13,12 @@ Uma aplicação web para rolar tabelas de oráculos dos jogos de RPG de mesa **I
   - **Starforged**: Tema espacial com fonte Orbitron
 - 🌓 **Modo Claro/Escuro**: Alternar entre temas claro e escuro
 - 📱 **Progressive Web App**: Instalável em dispositivos móveis e desktop
+- 🔌 **Funciona Offline**: Após a primeira visita, o app funciona completamente offline usando Service Worker
 - 💾 **Configurações Persistentes**: Todas as preferências (tema, idioma, modo de jogo, região) são salvas automaticamente
 - 🔄 **Sub-rolagens Automáticas**: Rola automaticamente tabelas vinculadas quando resultados referenciam outros oráculos
 - 📜 **Histórico de Rolagens**: Acompanhe todas as suas rolagens com um log detalhado
 - 🎯 **Suporte a Regiões**: Para Starforged, selecione entre as regiões Terminus, Outlands e Expanse
+- ⚡ **Atalhos de Rolagem**: Botões pré-configurados que rolam múltiplas tabelas de uma vez, como "Personagem Completo", "Planeta", "Ação e Tema", etc.
 
 ## Agradecimentos
 
@@ -103,6 +105,7 @@ iron-oracle/
 │   │   ├── Header/        # Cabeçalho da aplicação com controles
 │   │   ├── Modals/        # Diálogos modais (Resultado, Log)
 │   │   ├── OracleNavigation/ # Componente de navegação recursiva de oráculos
+│   │   ├── OracleShortcuts/  # Componente de atalhos de rolagem rápida
 │   │   ├── OracleText/    # Componente de texto com suporte a tooltip
 │   │   └── RollLog/       # Componente de histórico de rolagens
 │   ├── hooks/             # Hooks React customizados
@@ -128,6 +131,7 @@ iron-oracle/
 │   ├── utils/             # Funções utilitárias
 │   │   ├── oracleDataUtils.ts # Utilitários de processamento de dados de oráculos
 │   │   ├── oracleIcons.tsx    # Mapeamento de ícones para oráculos
+│   │   ├── oracleShortcuts.tsx # Definições e utilitários de atalhos de rolagem
 │   │   └── oracleUtils.ts     # Utilitários de rolagem e parsing de oráculos
 │   ├── App.tsx             # Componente principal da aplicação
 │   └── main.tsx            # Ponto de entrada da aplicação
@@ -155,6 +159,16 @@ Componente recursivo que renderiza a estrutura hierárquica de oráculos. Trata:
 - Renderização de categorias/coleções como seções colapsáveis
 - Tratamento especial para tabelas de nomes do Ironsworn
 - Filtragem de oráculos baseada em região para Starforged
+
+### `src/components/OracleShortcuts/OracleShortcuts.tsx`
+Componente que renderiza botões de atalhos para acesso rápido a combinações comuns de oráculos. Exibido como um grupo colapsável similar a outras categorias de oráculos, com ícones para cada atalho.
+
+### `src/utils/oracleShortcuts.tsx`
+Define estruturas e utilitários de atalhos:
+- Tipos `ShortcutDefinition` e `ShortcutRoll`
+- Arrays `IRONSWORN_SHORTCUTS` e `STARFORGED_SHORTCUTS`
+- Função `getShortcutIcon` para mapeamento de ícones
+- Funções auxiliares para encontrar e selecionar oráculos
 
 ### `src/i18n/oracleTranslations/`
 Contém traduções em português para todas as tabelas de oráculos. As traduções são modularizadas por jogo:
@@ -185,6 +199,59 @@ Mapeia IDs de oráculos para ícones apropriados de `react-icons`. Fornece consi
 1. Adicione traduções de texto da UI em `src/i18n/translations/[lang].ts`
 2. Adicione traduções de oráculos em `src/i18n/oracleTranslations/[game].ts`
 3. Atualize `TRANSLATION_STATUS.md` para acompanhar o progresso
+
+### Criando Novos Atalhos
+
+Os atalhos permitem rolar múltiplas tabelas de oráculos de uma vez, agrupando os resultados em uma única entrada no log. Para criar um novo atalho:
+
+1. **Abra o arquivo de atalhos**:
+   - Para Ironsworn: `src/utils/oracleShortcuts.tsx` → `IRONSWORN_SHORTCUTS`
+   - Para Starforged: `src/utils/oracleShortcuts.tsx` → `STARFORGED_SHORTCUTS`
+
+2. **Adicione uma nova definição de atalho**:
+```typescript
+{
+  name: 'Nome do Atalho',
+  rolls: [
+    { oracleId: 'classic/oracles/oracle/id' }, // Rola uma vez
+    { oracleId: 'classic/oracles/oracle/id', count: 2 }, // Rola duas vezes
+    { oracleId: ['id1', 'id2', 'id3'] }, // Seleciona aleatoriamente entre os IDs
+  ]
+}
+```
+
+3. **Parâmetros disponíveis**:
+   - `oracleId`: String com o ID completo do oráculo, ou array de IDs para seleção aleatória
+   - `count`: Número de vezes para rolar (padrão: 1)
+   - `condition`: Função opcional `(region?: StarforgedRegion) => boolean` para incluir condicionalmente
+
+4. **Exemplos de uso**:
+   - **Seleção aleatória**: Use um array de IDs para selecionar aleatoriamente entre tabelas
+   - **Múltiplas rolagens**: Use `count` para rolar a mesma tabela várias vezes
+   - **IDs dinâmicos**: Para planetas, use `/planets/desert/` como placeholder - será substituído pela classe rolada
+   - **Região específica**: Para Starforged, use `/terminus` como placeholder - será substituído pela região selecionada
+
+5. **Casos especiais já implementados**:
+   - **Nomes de personagens (Ironsworn)**: Use array com IDs de nomes - será selecionado aleatoriamente
+   - **Nomes de assentamentos (Ironsworn)**: Use array com IDs de nomes de assentamento - será selecionado aleatoriamente
+   - **Planetas (Starforged)**: Use `/planets/desert/` como placeholder - será ajustado pela classe rolada
+   - **Planeta Vital**: Se a classe for "vital", diversity e biomes são adicionados automaticamente
+
+6. **Adicionar ícone** (opcional):
+   - Edite a função `getShortcutIcon` em `src/utils/oracleShortcuts.tsx`
+   - Adicione uma condição para o nome do seu atalho retornando o ícone apropriado
+
+**Exemplo completo**:
+```typescript
+{
+  name: 'Meu Novo Atalho',
+  rolls: [
+    { oracleId: 'classic/oracles/action_and_theme/action' },
+    { oracleId: 'classic/oracles/action_and_theme/theme' },
+    { oracleId: 'classic/oracles/character/descriptor', count: 3 }
+  ]
+}
+```
 
 ## Deploy no GitHub Pages
 
@@ -244,6 +311,11 @@ export default defineConfig({
    - O arquivo `404.html` será usado automaticamente
 
 3. **HTTPS**: GitHub Pages serve sobre HTTPS, que é necessário para recursos de PWA como service workers.
+
+4. **Funcionamento Offline**: O app usa Service Worker para cachear todos os assets. Após a primeira visita online, o app funcionará completamente offline. Para testar:
+   - Acesse o app uma vez com internet
+   - Ative o modo avião ou desative a internet
+   - O app continuará funcionando normalmente
 
 ## Licença
 

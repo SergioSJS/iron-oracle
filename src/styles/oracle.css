@@ -645,3 +645,14 @@
   border-left: 2px solid rgba(100, 120, 200, 0.4);
 }
 
+/* ===== ORACLE SHORTCUTS ===== */
+/* Os atalhos usam as mesmas classes dos grupos de oráculos:
+   - oracle-category
+   - oracle-details
+   - oracle-summary
+   - oracle-children
+   - oracle-item
+   - oracle-roll-btn
+   
+   Não precisa de estilos específicos, usa os mesmos estilos dos grupos de oráculos */
+

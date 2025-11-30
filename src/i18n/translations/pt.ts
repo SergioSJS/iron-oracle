@@ -27,5 +27,6 @@ export const pt = {
   'language.select': 'Selecionar idioma',
   'theme.dark': 'Modo Escuro',
   'theme.light': 'Modo Claro',
+  'shortcuts.title': 'Atalhos',
 } as const;
 
