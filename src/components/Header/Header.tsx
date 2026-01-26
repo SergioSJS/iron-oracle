@@ -1,7 +1,8 @@
 import type { GameMode, StarforgedRegion } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
-import { FaSun, FaMoon, FaBook } from 'react-icons/fa';
+import { FaSun, FaMoon, FaBook, FaSearch, FaTimes } from 'react-icons/fa';
 import { GiPlanetCore, GiBattleAxe, GiSpaceship } from 'react-icons/gi';
+import { useState, useRef, useEffect } from 'react';
 
 type HeaderProps = {
   gameMode: GameMode;
@@ -13,6 +14,8 @@ type HeaderProps = {
   onShowLogModal: () => void;
   isDarkMode: boolean;
   setIsDarkMode: (dark: boolean) => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 };
 
 export function Header({
@@ -24,9 +27,31 @@ export function Header({
   logsCount,
   onShowLogModal,
   isDarkMode,
-  setIsDarkMode
+  setIsDarkMode,
+  searchQuery,
+  onSearchChange
 }: HeaderProps) {
   const { t, language, setLanguage } = useI18n();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  const handleSearchToggle = () => {
+    if (isSearchOpen && searchQuery) {
+      onSearchChange('');
+    }
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  const handleSearchClear = () => {
+    onSearchChange('');
+    setIsSearchOpen(false);
+  };
 
   return (
     <header className="app-header">
@@ -52,6 +77,13 @@ export function Header({
             <GiPlanetCore className="region-selector-icon" />
           </div>
         )}
+        <button
+          onClick={handleSearchToggle}
+          className={`search-btn ${isSearchOpen ? 'active' : ''}`}
+          title={t('search.placeholder')}
+        >
+          <FaSearch />
+        </button>
         <button
           onClick={() => setIsDarkMode(!isDarkMode)}
           className="theme-toggle-btn"
@@ -89,7 +121,7 @@ export function Header({
         {isSmallScreen && (
           <button 
             onClick={onShowLogModal}
-            className="action-btn log-modal-btn"
+            className="log-modal-btn"
             title={`${t('buttons.viewLog')} (${logsCount})`}
           >
             <FaBook />
@@ -97,6 +129,28 @@ export function Header({
           </button>
         )}
       </div>
+      {isSearchOpen && (
+        <div className="header-search-bar">
+          <FaSearch className="search-icon" />
+          <input
+            ref={searchInputRef}
+            type="text"
+            className="search-input"
+            placeholder={t('search.placeholder')}
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+          {searchQuery && (
+            <button 
+              className="search-clear"
+              onClick={handleSearchClear}
+              aria-label="Clear search"
+            >
+              <FaTimes />
+            </button>
+          )}
+        </div>
+      )}
     </header>
   );
 }

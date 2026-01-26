@@ -31,6 +31,7 @@ export function OracleNavigation({
       <section className="oracle-section">
         <div className="oracle-list-container">
           <OracleShortcuts
+            key={`shortcuts-${allGroupsOpen}`}
             rollMultipleOracles={rollMultipleOracles}
             gameMode={gameMode}
             selectedRegion={selectedRegion}

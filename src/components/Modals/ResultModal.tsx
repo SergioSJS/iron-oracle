@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { OracleText } from '../OracleText/OracleText';
 import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { getOracleIcon } from '../../utils/oracleIcons';
-import { FaTimes } from 'react-icons/fa';
+import { formatLogAsText } from '../../utils/logUtils';
+import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
+import { FaTimes, FaCopy, FaCheck } from 'react-icons/fa';
 
 type ResultModalProps = {
   log: LogEntry;
@@ -20,10 +23,26 @@ export function ResultModal({
   findOracleById
 }: ResultModalProps) {
   const { t } = useI18n();
+  const { copied, copyToClipboard } = useCopyToClipboard();
+  
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
   
   if (!isOpen) return null;
 
   const isShortcut = log.roll === 0 && !log.result && log.childRolls && log.childRolls.length > 0;
+
+  const handleCopy = () => {
+    const text = formatLogAsText(log);
+    copyToClipboard(text);
+  };
 
   return (
     <div 
@@ -36,12 +55,22 @@ export function ResultModal({
       >
         <div className="result-modal-header">
           <h3>{t('modal.result.title')}</h3>
-          <button 
-            className="result-modal-close"
-            onClick={onClose}
-          >
-            <FaTimes />
-          </button>
+          <div className="result-modal-actions">
+            <button 
+              className={`result-modal-copy ${copied ? 'copied' : ''}`}
+              onClick={handleCopy}
+              title={t('copy.button')}
+            >
+              {copied ? <FaCheck /> : <FaCopy />}
+              {copied ? t('copy.success') : t('copy.button')}
+            </button>
+            <button 
+              className="result-modal-close"
+              onClick={onClose}
+            >
+              <FaTimes />
+            </button>
+          </div>
         </div>
         <div className="result-modal-body">
           <div className="result-modal-entry">
@@ -80,19 +109,20 @@ export function ResultModal({
             {log.childRolls && log.childRolls.length > 0 && (
               <div className={`result-modal-children ${isShortcut ? 'result-modal-children-shortcut' : ''}`}>
                 {isShortcut ? (
-                  // Para atalhos, mostrar de forma compacta inline
+                  // Para atalhos, mostrar inline compacto
                   log.childRolls.map((childRoll) => (
                     <div key={childRoll.id} className="result-modal-child-simple">
-                      <span className="result-modal-child-icon">
-                        {childRoll.oracleId && (
-                          <span className="dice-icon">{getOracleIcon(childRoll.oracleId, childRoll.oracleName)}</span>
-                        )}
+                      <span className="result-modal-child-header-simple">
+                        <span className="result-modal-child-icon">
+                          {childRoll.oracleId && (
+                            <span className="dice-icon">{getOracleIcon(childRoll.oracleId, childRoll.oracleName)}</span>
+                          )}
+                        </span>
+                        <span className="result-modal-child-name-simple">{childRoll.oracleName}</span>
+                        <span className="result-modal-child-roll-simple">
+                          <span className="roll-value">{childRoll.roll}</span>
+                        </span>
                       </span>
-                      <span className="result-modal-child-name-simple">{childRoll.oracleName}</span>
-                      <span className="result-modal-child-roll-simple">
-                        <span className="roll-value">{childRoll.roll}</span>
-                      </span>
-                      <span className="result-modal-child-separator">:</span>
                       <span className="result-modal-child-result-simple">
                         <OracleText 
                           text={childRoll.result}
@@ -101,6 +131,35 @@ export function ResultModal({
                           findOracleById={findOracleById}
                         />
                       </span>
+                      
+                      {/* Renderizar childRolls aninhados */}
+                      {childRoll.childRolls && childRoll.childRolls.length > 0 && (
+                        <div className="result-modal-nested-children">
+                          {childRoll.childRolls.map((nestedRoll) => (
+                            <div key={nestedRoll.id} className="result-modal-child-nested">
+                              <span className="result-modal-child-header-simple">
+                                <span className="result-modal-child-icon">
+                                  {nestedRoll.oracleId && (
+                                    <span className="dice-icon">{getOracleIcon(nestedRoll.oracleId, nestedRoll.oracleName)}</span>
+                                  )}
+                                </span>
+                                <span className="result-modal-child-name-simple">{nestedRoll.oracleName}</span>
+                                <span className="result-modal-child-roll-simple">
+                                  <span className="roll-value">{nestedRoll.roll}</span>
+                                </span>
+                              </span>
+                              <span className="result-modal-child-result-simple">
+                                <OracleText 
+                                  text={nestedRoll.result}
+                                  originalText={nestedRoll.originalResult}
+                                  onOracleClick={onOracleClick}
+                                  findOracleById={findOracleById}
+                                />
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))
                 ) : (

@@ -7,7 +7,7 @@
 }
 
 .theme-ironsworn .oracle-text-with-tooltip {
-  border-bottom-color: rgba(201, 169, 97, 0.4);
+  border-bottom-color: rgba(201, 169, 97, 0.5);
 }
 
 .theme-ironsworn .oracle-text-with-tooltip:hover {
@@ -16,7 +16,7 @@
 }
 
 .theme-starforged .oracle-text-with-tooltip {
-  border-bottom-color: rgba(139, 163, 212, 0.4);
+  border-bottom-color: rgba(139, 163, 212, 0.5);
 }
 
 .theme-starforged .oracle-text-with-tooltip:hover {
@@ -61,7 +61,7 @@
 
 .theme-ironsworn .oracle-tooltip-portal {
   background: #1a1410 !important;
-  color: #d4c4a8 !important;
+  color: #e4d4b8 !important;
   border: 2px solid #c9a961 !important;
   box-shadow: 
     0 4px 16px rgba(0, 0, 0, 1),
@@ -71,7 +71,7 @@
 
 .theme-starforged .oracle-tooltip-portal {
   background: #14141e !important;
-  color: #d4c4a8 !important;
+  color: #e4d4b8 !important;
   border: 2px solid #8ba3d4 !important;
   box-shadow: 
     0 4px 16px rgba(0, 0, 0, 1),

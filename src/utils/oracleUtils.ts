@@ -67,6 +67,27 @@ export function extractOracleLinks(text: string): string[] {
 }
 
 /**
+ * Expande coleções conhecidas em seus sub-oráculos roleaveis
+ * Por exemplo: starforged/collections/oracles/vaults -> vários oráculos de vault
+ */
+export function expandCollectionToOracles(collectionId: string): string[] {
+  // Mapeamento de coleções conhecidas para seus oráculos iniciais
+  const collectionExpansions: Record<string, string[]> = {
+    'starforged/collections/oracles/vaults': [
+      'starforged/oracles/vaults/location',
+      'starforged/oracles/vaults/scale',
+      'starforged/oracles/vaults/form',
+      'starforged/oracles/vaults/shape',
+      'starforged/oracles/vaults/material',
+      'starforged/oracles/vaults/outer_first_look'
+    ],
+    // Adicionar outras coleções conforme necessário
+  };
+
+  return collectionExpansions[collectionId] || [];
+}
+
+/**
  * Extrai todas as referências de oráculos de uma linha de resultado
  */
 export function extractOracleReferences(row: OracleRow): string[] {
@@ -74,7 +95,35 @@ export function extractOracleReferences(row: OracleRow): string[] {
   const oracleRolls = row.oracle_rolls?.map((r: any) => r.oracle) || [];
   const textLinks = extractOracleLinks(row.text);
   
-  return [...new Set([...explicitOracles, ...textLinks, ...oracleRolls])];
+  // Combinar todas as referências
+  const allReferences = [...new Set([...explicitOracles, ...textLinks, ...oracleRolls])];
+  
+  // Expandir coleções conhecidas
+  const expandedReferences: string[] = [];
+  for (const ref of allReferences) {
+    const expansion = expandCollectionToOracles(ref);
+    if (expansion.length > 0) {
+      // É uma coleção - adicionar todos os sub-oráculos
+      expandedReferences.push(...expansion);
+    } else {
+      // Não é uma coleção (ou não conhecida) - adicionar como está
+      expandedReferences.push(ref);
+    }
+  }
+  
+  return [...new Set(expandedReferences)];
+}
+
+/**
+ * Remove links markdown do formato [text](id:path) de um texto
+ * Substitui pelo texto do link quando autoRolled=true, ou mantém o link clicável quando false
+ */
+export function cleanOracleLinks(text: string, autoRolled: boolean = true): string {
+  if (!autoRolled) return text;
+  
+  // Remove os links markdown, mantendo apenas o texto
+  const linkRegex = /\[([^\]]+)\]\(id:([^)]+)\)/g;
+  return text.replace(linkRegex, '$1');
 }
 
 /**

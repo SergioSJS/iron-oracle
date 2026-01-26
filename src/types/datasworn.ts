@@ -37,10 +37,12 @@ export type ChildRoll = {
   roll: number;
   result: string;
   originalResult?: string; // Texto original em inglês
+  childRolls?: ChildRoll[]; // Rolls aninhados (para referências)
 };
 
 export type LogEntry = {
   id: number;
+  timestamp: number;
   oracleName: string;
   oracleId?: string; // ID do oráculo para buscar ícone
   roll: number;

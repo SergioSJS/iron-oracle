@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
-  padding-bottom: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
   position: relative;
   z-index: 1;
   transition: border-color 0.5s ease;
@@ -98,19 +98,19 @@
 }
 
 .theme-dark.theme-ironsworn .app-header {
-  border-bottom: 2px solid rgba(120, 80, 40, 0.3);
+  border-bottom: 2px solid rgba(120, 80, 40, 0.4);
 }
 
 .theme-dark.theme-starforged .app-header {
-  border-bottom: 2px solid rgba(100, 120, 200, 0.4);
+  border-bottom: 2px solid rgba(100, 120, 200, 0.5);
 }
 
 .theme-light.theme-ironsworn .app-header {
-  border-bottom: 2px solid rgba(139, 115, 85, 0.4);
+  border-bottom: 2px solid rgba(139, 115, 85, 0.5);
 }
 
 .theme-light.theme-starforged .app-header {
-  border-bottom: 2px solid rgba(100, 120, 200, 0.5);
+  border-bottom: 2px solid rgba(100, 120, 200, 0.6);
 }
 
 .app-title {
@@ -251,7 +251,7 @@
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   border: 1px solid;
-  height: 36px; /* Altura fixa para todos */
+  height: 36px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -275,7 +275,7 @@
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-right: 32px;
-  font-size: 12px !important; /* Garantir tamanho consistente */
+  font-size: 12px !important;
   box-sizing: border-box;
 }
 
@@ -493,6 +493,178 @@
 .clear-btn:hover {
   border-color: rgba(180, 60, 40, 0.6);
   color: #d4a090;
+}
+
+/* ===== SEARCH IN HEADER ===== */
+.search-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid;
+  height: 36px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.theme-dark.theme-ironsworn .header-controls .search-btn {
+  background: linear-gradient(135deg, rgba(26, 20, 16, 0.9) 0%, rgba(40, 32, 24, 0.9) 100%);
+  color: #d4c4a8;
+  border-color: rgba(120, 80, 40, 0.4);
+}
+
+.theme-dark.theme-ironsworn .header-controls .search-btn:hover {
+  border-color: rgba(120, 80, 40, 0.7);
+  box-shadow: 0 4px 12px rgba(120, 80, 40, 0.3);
+  background: linear-gradient(135deg, rgba(40, 32, 24, 0.95) 0%, rgba(52, 44, 32, 0.95) 100%);
+}
+
+.theme-dark.theme-starforged .header-controls .search-btn {
+  background: linear-gradient(135deg, rgba(20, 20, 30, 0.9) 0%, rgba(30, 30, 45, 0.9) 100%);
+  color: #b4c4d8;
+  border-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-dark.theme-starforged .header-controls .search-btn:hover {
+  border-color: rgba(100, 120, 200, 0.7);
+  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.3);
+  background: linear-gradient(135deg, rgba(30, 30, 45, 0.95) 0%, rgba(40, 40, 60, 0.95) 100%);
+}
+
+.theme-light.theme-ironsworn .header-controls .search-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 240, 232, 0.9) 100%);
+  color: #2a2418;
+  border-color: rgba(139, 115, 85, 0.5);
+}
+
+.theme-light.theme-ironsworn .header-controls .search-btn:hover {
+  border-color: rgba(139, 115, 85, 0.8);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 245, 238, 0.95) 100%);
+}
+
+.theme-light.theme-starforged .header-controls .search-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(232, 234, 246, 0.9) 100%);
+  color: #1a1f2e;
+  border-color: rgba(100, 120, 200, 0.5);
+}
+
+.theme-light.theme-starforged .header-controls .search-btn:hover {
+  border-color: rgba(100, 120, 200, 0.8);
+  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 242, 250, 0.95) 100%);
+}
+
+.search-btn.active {
+  opacity: 0.8;
+}
+
+.theme-ironsworn .search-btn.active {
+  background: rgba(120, 80, 40, 0.4) !important;
+  border-color: rgba(120, 80, 40, 0.7) !important;
+}
+
+.theme-starforged .search-btn.active {
+  background: rgba(100, 120, 200, 0.4) !important;
+  border-color: rgba(100, 120, 200, 0.7) !important;
+}
+
+.header-search-bar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  animation: slideDown 0.2s ease;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-search-bar .search-icon {
+  color: var(--text-color);
+  opacity: 0.5;
+  font-size: 16px;
+}
+
+.header-search-bar .search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 4px 0;
+  outline: none;
+}
+
+.header-search-bar .search-input::placeholder {
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+.header-search-bar .search-clear {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+  font-size: 16px;
+}
+
+.header-search-bar .search-clear:hover {
+  opacity: 1;
+}
+
+.theme-dark.theme-ironsworn .header-search-bar {
+  background: rgba(10, 8, 6, 0.9);
+  border-color: rgba(120, 80, 40, 0.4);
+}
+
+.theme-dark.theme-starforged .header-search-bar {
+  background: rgba(10, 10, 18, 0.9);
+  border-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-ironsworn .header-search-bar {
+  background: rgba(250, 245, 235, 0.95);
+  border-color: rgba(139, 115, 85, 0.4);
+}
+
+.theme-light.theme-starforged .header-search-bar {
+  background: rgba(240, 245, 255, 0.95);
+  border-color: rgba(100, 120, 200, 0.4);
 }
 
 .log-modal-btn {

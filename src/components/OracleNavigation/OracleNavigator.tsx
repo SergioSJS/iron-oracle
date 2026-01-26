@@ -14,6 +14,8 @@ type OracleNavigatorProps = {
   hasRegionStructure?: (data: OracleTable | OracleCollection) => boolean;
   selectedRegion?: StarforgedRegion;
   gameMode?: 'starforged' | 'ironsworn';
+  isFavorite?: (oracleId: string) => boolean;
+  toggleFavorite?: (oracleId: string) => void;
 };
 
 export function OracleNavigator({ 
@@ -29,118 +31,70 @@ export function OracleNavigator({
   const { language } = useI18n();
   const translatedName = translateOracleName(data._id, data.name, language);
   
-  // Verificar PRIMEIRO se é o grupo "Nomes" do Ironsworn - deve ser feito ANTES de tudo
-  // O ID correto é classic/collections/oracles/name, não classic/oracles/name!
+  // Verificar se é o grupo "Nomes" do Ironsworn
   const isIronswornNames = gameMode === 'ironsworn' && 
     (data._id === 'classic/oracles/name' || data._id === 'classic/collections/oracles/name');
   
-  // Verificar PRIMEIRO se é um subgrupo de nomes do Ironsworn - deve ser feito ANTES de tudo
-  // Subgrupos são collections que contêm tabelas: ironlander, other
-  // NÃO são subgrupos: elf (é tabela direta), tabelas individuais (a, b, giants, varou, trolls)
+  // Verificar se é um subgrupo de nomes do Ironsworn
   const isIronswornNameSubgroup = gameMode === 'ironsworn' && 
     data._id && 
     typeof data._id === 'string' &&
     (data._id === 'classic/collections/oracles/name/ironlander' || 
      data._id === 'classic/collections/oracles/name/other');
   
-  // DEBUG LOGS
-  if (gameMode === 'ironsworn' && data._id && typeof data._id === 'string' && data._id.includes('name')) {
-    console.log('🔍 OracleNavigator:', {
-      id: data._id,
-      name: data.name,
-      translatedName,
-      isIronswornNames,
-      isIronswornNameSubgroup,
-      hasRows: 'rows' in data && data.rows && data.rows.length > 0,
-      hasContents: 'contents' in data && data.contents && Object.keys(data.contents || {}).length > 0,
-      level
-    });
-  }
-  
-  // Carregar estado inicial do LocalStorage (sempre priorizar localStorage)
-  // O localStorage tem prioridade absoluta sobre defaultOpen
+  // Estado de aberto/fechado
   const storageKey = `oracleGroupExpanded-${data._id}`;
   const [isOpen, setIsOpen] = useState(() => {
+    // Quando o componente é recriado (key muda), usa defaultOpen diretamente
+    // O localStorage só é verificado se não foi limpo pelo toggle global
     try {
       const saved = localStorage.getItem(storageKey);
-      console.log(`🔍 [OracleNavigator] Inicializando ${data._id}:`, {
-        storageKey,
-        saved,
-        defaultOpen,
-        level,
-        willUseSaved: saved !== null,
-        finalValue: saved !== null ? saved === 'true' : (defaultOpen || level < 1)
-      });
       if (saved !== null) {
-        // Se há valor salvo, usar ele (ignorar defaultOpen)
         return saved === 'true';
       }
-    } catch (e) {
+    } catch {
       // Se houver erro ao acessar localStorage, continuar
-      console.warn('Erro ao acessar localStorage:', e);
     }
-    // Se não há estado salvo, usar defaultOpen ou nível
-    return defaultOpen || level < 1;
+    // Se não há valor salvo, usa defaultOpen (que vem do estado global)
+    return defaultOpen;
   });
+  
   const detailsRef = useRef<HTMLDetailsElement>(null);
-  const skipNextToggle = useRef(false);
-  const justSavedFromClick = useRef(false);
-  const prevDefaultOpen = useRef<boolean | undefined>(undefined);
 
-  // Sincronizar o elemento details com o estado inicial na montagem
+  // Sincronizar o elemento details com o estado
   useEffect(() => {
     if (detailsRef.current) {
-      console.log(`🔧 [OracleNavigator] Sincronizando details na montagem ${data._id}:`, {
-        isOpen,
-        detailsOpen: detailsRef.current.open,
-        willSetTo: isOpen
-      });
-      // Marcar para ignorar o próximo onToggle (que será disparado pela mudança do open)
-      skipNextToggle.current = true;
       detailsRef.current.open = isOpen;
-      // Resetar a flag após um pequeno delay
-      setTimeout(() => {
-        skipNextToggle.current = false;
-      }, 100);
     }
-  }, []); // Apenas na montagem inicial
+  }, [isOpen]);
 
-  // Atualizar quando defaultOpen mudar externamente (botão expandir/colapsar todos)
-  // Mas apenas se não for a montagem inicial
-  useEffect(() => {
-    // Na primeira montagem, apenas salvar o defaultOpen atual e não fazer nada
-    if (prevDefaultOpen.current === undefined) {
-      prevDefaultOpen.current = defaultOpen;
-      console.log(`🚫 [OracleNavigator] Primeira montagem ${data._id}, ignorando defaultOpen`);
-      return;
+  // Handler para toggle do details
+  const handleDetailsToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+    const target = e.currentTarget;
+    if (target.open !== isOpen) {
+      setIsOpen(target.open);
+      try {
+        localStorage.setItem(storageKey, String(target.open));
+      } catch {
+        // Ignorar erros de localStorage
+      }
     }
+  };
 
-    // Só atualizar se defaultOpen realmente mudou
-    if (prevDefaultOpen.current === defaultOpen) {
-      return;
-    }
-
-    prevDefaultOpen.current = defaultOpen;
-
-    // Quando defaultOpen muda (ex: botão expandir/colapsar todos), atualizar
-    const shouldBeOpen = defaultOpen || level < 1;
-    console.log(`🌐 [OracleNavigator] defaultOpen mudou ${data._id}:`, {
-      defaultOpen,
-      level,
-      shouldBeOpen,
-      currentIsOpen: isOpen
-    });
-    setIsOpen(shouldBeOpen);
+  // Handler para click no summary
+  const handleSummaryClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const newState = !isOpen;
+    setIsOpen(newState);
     if (detailsRef.current) {
-      skipNextToggle.current = true;
-      detailsRef.current.open = shouldBeOpen;
-      setTimeout(() => {
-        skipNextToggle.current = false;
-      }, 100);
+      detailsRef.current.open = newState;
     }
-    // Salvar no LocalStorage quando mudado pelo botão global
-    localStorage.setItem(storageKey, String(shouldBeOpen));
-  }, [defaultOpen, level, storageKey]);
+    try {
+      localStorage.setItem(storageKey, String(newState));
+    } catch {
+      // Ignorar erros de localStorage
+    }
+  };
 
   // Se tem rows, é uma tabela rolável
   if ('rows' in data && data.rows && data.rows.length > 0) {
@@ -162,7 +116,6 @@ export function OracleNavigator({
   const isRegionBased = hasRegionStructure && hasRegionStructure(data) && gameMode === 'starforged';
   
   // Se tem estrutura de região, mostrar botão de rolar que usa a região selecionada
-  // NÃO mostrar os filhos (terminus/outlands/expanse) como opções separadas
   if (isRegionBased && data.contents) {
     const icon = getOracleIcon(data._id, translatedName);
     return (
@@ -184,19 +137,16 @@ export function OracleNavigator({
   const collectAllTables = (item: OracleTable | OracleCollection): OracleTable[] => {
     const tables: OracleTable[] = [];
     
-    // Se é uma tabela rolável, adicionar
     if ('rows' in item && item.rows && item.rows.length > 0) {
       tables.push(item as OracleTable);
     }
     
-    // Se tem contents, processar recursivamente
     if ('contents' in item && item.contents) {
       Object.values(item.contents).forEach((subItem) => {
         tables.push(...collectAllTables(subItem));
       });
     }
     
-    // Se tem collections, processar recursivamente
     if ('collections' in item && item.collections) {
       Object.values(item.collections).forEach((subItem) => {
         tables.push(...collectAllTables(subItem));
@@ -206,14 +156,10 @@ export function OracleNavigator({
     return tables;
   };
 
-
-  // Para subgrupos de nomes do Ironsworn, renderizar tabelas diretamente sem criar categoria
-  // VERIFICAR ANTES de processar contents/collections
+  // Para subgrupos de nomes do Ironsworn, renderizar tabelas diretamente
   if (isIronswornNameSubgroup) {
-    // Coletar todas as tabelas recursivamente deste subgrupo
     const allTables = collectAllTables(data);
     
-    // Renderizar apenas as tabelas, sem criar categoria - SEMPRE retornar aqui
     return (
       <>
         {allTables.map((table, index) => {
@@ -244,37 +190,22 @@ export function OracleNavigator({
     return null;
   }
 
-  // Para o grupo "Nomes" do Ironsworn, SEMPRE coletar todas as tabelas e renderizar diretamente
-  // NUNCA renderizar os subgrupos recursivamente
+  // Para o grupo "Nomes" do Ironsworn, coletar todas as tabelas
   if (isIronswornNames) {
-    console.log('✅ PROCESSANDO GRUPO NOMES - coletando tabelas de subgrupos');
-    // Coletar todas as tabelas recursivamente de todos os subgrupos
     const allTables: OracleTable[] = [];
     
-    // Processar contents (ex: elf)
     if (hasContents && data.contents) {
       Object.values(data.contents).forEach((subGroup) => {
-        console.log('  📦 Processando subgrupo (contents):', (subGroup as any)._id, (subGroup as any).name);
-        const tables = collectAllTables(subGroup);
-        console.log('  📊 Encontradas', tables.length, 'tabelas neste subgrupo');
-        allTables.push(...tables);
+        allTables.push(...collectAllTables(subGroup));
       });
     }
     
-    // Processar collections (ex: ironlander, other)
     if (hasCollections && data.collections) {
       Object.values(data.collections).forEach((subGroup) => {
-        console.log('  📦 Processando subgrupo (collections):', (subGroup as any)._id, (subGroup as any).name);
-        const tables = collectAllTables(subGroup);
-        console.log('  📊 Encontradas', tables.length, 'tabelas neste subgrupo');
-        allTables.push(...tables);
+        allTables.push(...collectAllTables(subGroup));
       });
     }
-    
-    console.log('✅ TOTAL de tabelas coletadas:', allTables.length);
 
-    // Renderizar o grupo "Nomes" com todas as tabelas diretamente
-    // SEMPRE retornar aqui, mesmo se não houver tabelas, para evitar renderizar subgrupos
     return (
       <div className="oracle-category" style={{ marginLeft: `${level * 4}px` }}>
         <details 
@@ -282,52 +213,9 @@ export function OracleNavigator({
           open={isOpen} 
           className="oracle-details"
           data-level={level}
-        onToggle={(e) => {
-          // Ignorar se for a montagem inicial ou mudança programática
-          if (skipNextToggle.current) {
-            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (mudança programática)`);
-            return;
-          }
-          
-          // Ignorar se já salvamos do onClick
-          if (justSavedFromClick.current) {
-            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (já salvo do onClick)`);
-            return;
-          }
-          
-          const target = e.currentTarget;
-          // Só processar se o estado realmente mudou
-          if (target.open === isOpen) {
-            console.log(`⏭️ [OracleNavigator] Ignorando onToggle ${data._id} (estado não mudou)`);
-            return;
-          }
-          
-          console.log(`🔄 [OracleNavigator] onToggle ${data._id}:`, {
-            oldState: isOpen,
-            newState: target.open,
-            storageKey
-          });
-          setIsOpen(target.open);
-          // Salvar no LocalStorage quando mudar (apenas se não foi do onClick)
-          try {
-            localStorage.setItem(storageKey, String(target.open));
-            console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, target.open);
-          } catch (e) {
-            console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
-          }
-        }}
+          onToggle={handleDetailsToggle}
         >
-          <summary
-            onClick={(e) => {
-              e.preventDefault();
-              const newState = !isOpen;
-              setIsOpen(newState);
-              if (detailsRef.current) {
-                detailsRef.current.open = newState;
-              }
-            }}
-            className="oracle-summary"
-          >
+          <summary onClick={handleSummaryClick} className="oracle-summary">
             <span className="category-icon">{isOpen ? <FaChevronDown /> : <FaChevronRight />}</span>
             <span className="category-icon-oracle">{getOracleIcon(data._id, translatedName)}</span>
             <span className="category-name">{translatedName}</span>
@@ -357,7 +245,6 @@ export function OracleNavigator({
     );
   }
 
-
   return (
     <div className="oracle-category" style={{ marginLeft: `${level * 4}px` }}>
       <details 
@@ -365,54 +252,9 @@ export function OracleNavigator({
         open={isOpen} 
         className="oracle-details"
         data-level={level}
-        onToggle={(e) => {
-          // Sincronizar estado quando o usuário clica diretamente no details
-          const target = e.currentTarget;
-          console.log(`🔄 [OracleNavigator] onToggle ${data._id}:`, {
-            oldState: isOpen,
-            newState: target.open,
-            storageKey
-          });
-          setIsOpen(target.open);
-          // Salvar no LocalStorage quando mudar
-          try {
-            localStorage.setItem(storageKey, String(target.open));
-            console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, target.open);
-          } catch (e) {
-            console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
-          }
-        }}
+        onToggle={handleDetailsToggle}
       >
-          <summary
-            onClick={(e) => {
-              e.preventDefault();
-              const newState = !isOpen;
-              console.log(`🖱️ [OracleNavigator] Click no summary ${data._id}:`, {
-                oldState: isOpen,
-                newState,
-                storageKey
-              });
-              setIsOpen(newState);
-              // Forçar o details a abrir/fechar
-              if (detailsRef.current) {
-                detailsRef.current.open = newState;
-              }
-              // Marcar que já salvamos do click, para o onToggle não salvar novamente
-              justSavedFromClick.current = true;
-              // Salvar no LocalStorage quando mudar manualmente
-              try {
-                localStorage.setItem(storageKey, String(newState));
-                console.log(`💾 [OracleNavigator] Salvo no localStorage ${storageKey}:`, newState);
-              } catch (e) {
-                console.error(`❌ [OracleNavigator] Erro ao salvar no localStorage:`, e);
-              }
-              // Resetar a flag após um pequeno delay
-              setTimeout(() => {
-                justSavedFromClick.current = false;
-              }, 100);
-            }}
-            className="oracle-summary"
-          >
+        <summary onClick={handleSummaryClick} className="oracle-summary">
           <span className="category-icon">{isOpen ? <FaChevronDown /> : <FaChevronRight />}</span>
           <span className="category-icon-oracle">{getOracleIcon(data._id, translatedName)}</span>
           <span className="category-name">{translatedName}</span>
@@ -421,30 +263,26 @@ export function OracleNavigator({
         {isOpen && (
           <div className="oracle-children">
             {/* Renderizar contents se existir */}
-            {hasContents && data.contents && !isIronswornNames && (() => {
-              console.log('⚠️ RENDERIZANDO CONTENTS - ID:', data._id, 'isIronswornNames:', isIronswornNames);
-              return Object.values(data.contents).map((item, index) => {
-                console.log('  🔄 Renderizando item:', (item as any)._id, (item as any).name);
-                return (
-                  <OracleNavigator
-                    key={`${item._id || index}-${defaultOpen}`}
-                    data={item}
-                    level={level + 1}
-                    rollOracle={rollOracle}
-                    findOracleById={findOracleById}
-                    defaultOpen={defaultOpen}
-                    hasRegionStructure={hasRegionStructure}
-                    selectedRegion={selectedRegion}
-                    gameMode={gameMode}
-                  />
-                );
-              });
-            })()}
+            {hasContents && data.contents && !isIronswornNames && 
+              Object.values(data.contents).map((item, index) => (
+                <OracleNavigator
+                  key={item._id || index}
+                  data={item}
+                  level={level + 1}
+                  rollOracle={rollOracle}
+                  findOracleById={findOracleById}
+                  defaultOpen={defaultOpen}
+                  hasRegionStructure={hasRegionStructure}
+                  selectedRegion={selectedRegion}
+                  gameMode={gameMode}
+                />
+              ))
+            }
             
             {/* Renderizar collections se existir */}
             {hasCollections && data.collections && Object.values(data.collections).map((item, index) => (
               <OracleNavigator
-                key={`${item._id || index}-${defaultOpen}`}
+                key={item._id || index}
                 data={item}
                 level={level + 1}
                 rollOracle={rollOracle}
@@ -462,7 +300,7 @@ export function OracleNavigator({
               if (oracle) {
                 return (
                   <OracleNavigator
-                    key={`${oracle._id}-${defaultOpen}`}
+                    key={oracle._id}
                     data={oracle}
                     level={level + 1}
                     rollOracle={rollOracle}

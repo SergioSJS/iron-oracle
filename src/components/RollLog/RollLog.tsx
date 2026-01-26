@@ -2,7 +2,8 @@ import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { OracleText } from '../OracleText/OracleText';
 import { useI18n } from '../../i18n/context';
 import { getOracleIcon } from '../../utils/oracleIcons';
-import { FaBook, FaTrash } from 'react-icons/fa';
+import { formatLogsAsMarkdown } from '../../utils/logUtils';
+import { FaBook, FaTrash, FaFileExport } from 'react-icons/fa';
 
 type RollLogProps = {
   logs: LogEntry[];
@@ -23,6 +24,19 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog, autoSho
     }
   };
 
+  const handleExport = () => {
+    const markdown = formatLogsAsMarkdown(logs);
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `oracle-rolls-${new Date().toISOString().split('T')[0]}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="roll-log-container">
       <div className="roll-log-title-bar">
@@ -39,6 +53,15 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog, autoSho
               />
               <span className="switch-label">{t('log.autoModal') || 'Modal automático'}</span>
             </label>
+          )}
+          {logs.length > 0 && (
+            <button 
+              onClick={handleExport}
+              className="export-log-btn"
+              title={t('export.history')}
+            >
+              <FaFileExport />
+            </button>
           )}
           {onClearLog && (
             <button 
@@ -101,14 +124,15 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog, autoSho
                   )}
                   {log.childRolls.map((childRoll) => (
                     <div key={childRoll.id} className="roll-log-child-simple">
-                      <span className="roll-log-child-icon">
-                        {childRoll.oracleId && getOracleIcon(childRoll.oracleId, childRoll.oracleName)}
+                      <span className="roll-log-child-header">
+                        <span className="roll-log-child-icon">
+                          {childRoll.oracleId && getOracleIcon(childRoll.oracleId, childRoll.oracleName)}
+                        </span>
+                        <span className="roll-log-child-name-simple">{childRoll.oracleName}</span>
+                        <span className="roll-log-child-roll-simple">
+                          <span className="roll-value">{childRoll.roll}</span>
+                        </span>
                       </span>
-                      <span className="roll-log-child-name-simple">{childRoll.oracleName}</span>
-                      <span className="roll-log-child-roll-simple">
-                        <span className="roll-value">{childRoll.roll}</span>
-                      </span>
-                      <span className="roll-log-child-separator">:</span>
                       <span className="roll-log-child-result-simple">
                         <OracleText 
                           text={childRoll.result}
@@ -117,6 +141,33 @@ export function RollLog({ logs, onRollAgain, findOracleById, onClearLog, autoSho
                           findOracleById={findOracleById}
                         />
                       </span>
+                      
+                      {/* Renderizar childRolls aninhados com indentação */}
+                      {childRoll.childRolls && childRoll.childRolls.length > 0 && (
+                        <div className="roll-log-nested-children">
+                          {childRoll.childRolls.map((nestedRoll) => (
+                            <div key={nestedRoll.id} className="roll-log-child-nested">
+                              <span className="roll-log-child-header">
+                                <span className="roll-log-child-icon">
+                                  {nestedRoll.oracleId && getOracleIcon(nestedRoll.oracleId, nestedRoll.oracleName)}
+                                </span>
+                                <span className="roll-log-child-name-simple">{nestedRoll.oracleName}</span>
+                                <span className="roll-log-child-roll-simple">
+                                  <span className="roll-value">{nestedRoll.roll}</span>
+                                </span>
+                              </span>
+                              <span className="roll-log-child-result-simple">
+                                <OracleText 
+                                  text={nestedRoll.result}
+                                  originalText={nestedRoll.originalResult}
+                                  onOracleClick={handleOracleClick}
+                                  findOracleById={findOracleById}
+                                />
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

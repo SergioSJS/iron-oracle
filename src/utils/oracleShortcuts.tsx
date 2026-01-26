@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
 import type { OracleTable, StarforgedRegion, GameMode } from '../types/datasworn';
 import { 
-  FaHandRock, FaStar, FaUser, FaMapMarkerAlt, FaCity, FaRocket, FaBolt
+  FaHandRock, FaStar, FaUser, FaMapMarkerAlt, FaCity, FaRocket, FaBolt, FaDungeon
 } from 'react-icons/fa';
 import { 
   GiPlanetCore, GiSpaceship
@@ -15,6 +15,7 @@ export type ShortcutRoll = {
 
 export type ShortcutDefinition = {
   name: string;
+  nameKey: string; // Chave de tradução para o nome
   rolls: ShortcutRoll[];
 };
 
@@ -272,6 +273,11 @@ export function getShortcutIcon(shortcutName: string, _gameMode: GameMode): Reac
     return <GiSpaceship />;
   }
   
+  // Cofre/Vault Precursor
+  if (name.includes('cofre') || name.includes('vault') || name.includes('precursor')) {
+    return <FaDungeon />;
+  }
+  
   // Padrão
   return <FaRocket />;
 }
@@ -282,6 +288,7 @@ export function getShortcutIcon(shortcutName: string, _gameMode: GameMode): Reac
 export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
   {
     name: 'Ação e Tema',
+    nameKey: 'shortcut.actionAndTheme',
     rolls: [
       { oracleId: 'classic/oracles/action_and_theme/action' }, // Ação
       { oracleId: 'classic/oracles/action_and_theme/theme' } // Tema
@@ -289,6 +296,7 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Personagem Completo',
+    nameKey: 'shortcut.fullCharacter',
     rolls: [
       { oracleId: ['classic/oracles/name/ironlander', 'classic/oracles/name/elf', 'classic/oracles/name/giant', 'classic/oracles/name/varou', 'classic/oracles/name/troll'] }, // Nome aleatório
       { oracleId: 'classic/oracles/character/role' }, // Background/Papel
@@ -298,6 +306,7 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Local',
+    nameKey: 'shortcut.place',
     rolls: [
       { oracleId: 'classic/oracles/place/location' }, // Localização
       { oracleId: 'classic/oracles/place/descriptor', count: 2 } // Descritor de localização (2x)
@@ -305,6 +314,7 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Local Costeiro',
+    nameKey: 'shortcut.coastalPlace',
     rolls: [
       { oracleId: 'classic/oracles/place/coastal_waters_location' }, // Localização de águas costeiras
       { oracleId: 'classic/oracles/place/descriptor', count: 2 } // Descritor de localização (2x)
@@ -312,6 +322,7 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Assentamento',
+    nameKey: 'shortcut.settlement',
     rolls: [
       { oracleId: ['classic/oracles/settlement/name', 'classic/oracles/settlement/name/landscape_feature', 'classic/oracles/settlement/name/manmade_edifice', 'classic/oracles/settlement/name/creature', 'classic/oracles/settlement/name/historical_event', 'classic/oracles/settlement/name/old_world_language', 'classic/oracles/settlement/name/environmental_aspect', 'classic/oracles/settlement/name/something_else', 'classic/oracles/settlement/quick_name/prefix', 'classic/oracles/settlement/quick_name/suffix'] }, // Nome aleatório entre todas as opções
       { oracleId: 'classic/oracles/settlement/trouble' } // Problema
@@ -325,6 +336,7 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
 export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   {
     name: 'Ação e Tema',
+    nameKey: 'shortcut.actionAndTheme',
     rolls: [
       { oracleId: 'starforged/oracles/core/action' }, // Ação
       { oracleId: 'starforged/oracles/core/theme' } // Tema
@@ -332,6 +344,7 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Descritor e Foco',
+    nameKey: 'shortcut.descriptorAndFocus',
     rolls: [
       { oracleId: 'starforged/oracles/core/descriptor' }, // Descritor
       { oracleId: 'starforged/oracles/core/focus' } // Foco
@@ -339,6 +352,7 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Planeta',
+    nameKey: 'shortcut.planet',
     rolls: [
       { oracleId: 'starforged/oracles/planets/class' }, // Classe de planeta
       { oracleId: 'starforged/oracles/planets/desert/name' }, // Nome (será ajustado pela classe)
@@ -352,6 +366,7 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Personagem Completo',
+    nameKey: 'shortcut.fullCharacter',
     rolls: [
       { oracleId: ['starforged/oracles/characters/name/given', 'starforged/oracles/characters/name/callsign', 'starforged/oracles/characters/name/family_name'] }, // Nome aleatório
       { oracleId: 'starforged/oracles/characters/role' }, // Papel
@@ -362,6 +377,7 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Nave Espacial',
+    nameKey: 'shortcut.starship',
     rolls: [
       { oracleId: 'starforged/oracles/starships/starship_name' }, // Nome
       { oracleId: 'starforged/oracles/starships/type' }, // Tipo/Classe
@@ -371,6 +387,7 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
   },
   {
     name: 'Assentamento',
+    nameKey: 'shortcut.settlement',
     rolls: [
       { oracleId: 'starforged/oracles/settlements/name' }, // Nome
       { oracleId: 'starforged/oracles/settlements/location' }, // Localização
@@ -378,6 +395,18 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
       { oracleId: 'starforged/oracles/settlements/first_look' }, // Primeira Impressão
       { oracleId: 'starforged/oracles/settlements/authority' }, // Autoridade
       { oracleId: 'starforged/oracles/settlements/trouble' } // Problema
+    ]
+  },
+  {
+    name: 'Câmara dos Precursores',
+    nameKey: 'shortcut.precursorVault',
+    rolls: [
+      { oracleId: 'starforged/oracles/vaults/location' }, // Localização
+      { oracleId: 'starforged/oracles/vaults/scale' }, // Escala
+      { oracleId: 'starforged/oracles/vaults/form' }, // Forma
+      { oracleId: 'starforged/oracles/vaults/shape' }, // Formato
+      { oracleId: 'starforged/oracles/vaults/material' }, // Material
+      { oracleId: 'starforged/oracles/vaults/outer_first_look', count: 2 } // Primeira Impressão Externa (2x)
     ]
   }
 ];

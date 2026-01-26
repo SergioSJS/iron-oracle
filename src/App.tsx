@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useGameData } from './hooks/useGameData';
 import { useScreenSize } from './hooks/useScreenSize';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { useI18n } from './i18n/context';
 import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import { ChangelogModal } from './components/Modals/ChangelogModal';
 import { AskTheOracle } from './components/AskTheOracle/AskTheOracle';
 import { OracleNavigation } from './components/OracleNavigation/OracleNavigation';
 import { RollLog } from './components/RollLog/RollLog';
 import { ResultModal } from './components/Modals/ResultModal';
 import { LogModal } from './components/Modals/LogModal';
-import { findAskTheOracleCollection, extractAskTheOracleTables, filterOtherOracles } from './utils/oracleDataUtils';
+import { findAskTheOracleCollection, extractAskTheOracleTables, filterOtherOracles, searchOracles } from './utils/oracleDataUtils';
 import './styles/index.css';
 
 function App() {
+  const { language } = useI18n();
   const {
     gameMode,
     setGameMode,
@@ -28,8 +33,10 @@ function App() {
     const saved = localStorage.getItem('allGroupsOpen');
     return saved !== null ? saved === 'true' : false;
   });
+  const [searchQuery, setSearchQuery] = useState('');
   const [showLogModal, setShowLogModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
+  const [showChangelog, setShowChangelog] = useState(false);
   const [autoShowModal, setAutoShowModal] = useState(() => {
     const saved = localStorage.getItem('autoShowModal');
     return saved !== null ? saved === 'true' : true;
@@ -41,15 +48,7 @@ function App() {
     return saved !== null ? saved === 'true' : true;
   });
 
-  // Handler para rolar novamente a partir do log
-  const handleRollAgain = (oracleId: string) => {
-    const oracle = findOracleById(oracleId);
-    if (oracle) {
-      rollOracle(oracle.name, oracle);
-    }
-  };
-
-  // Handler para clicar em oráculo no texto
+  // Handler para rolar oráculo pelo ID (usado no log e nos links de texto)
   const handleOracleClick = (oracleId: string) => {
     const oracle = findOracleById(oracleId);
     if (oracle) {
@@ -68,13 +67,16 @@ function App() {
     setAllGroupsOpen(newState);
     localStorage.setItem('allGroupsOpen', String(newState));
     
-    // Manipular diretamente todos os elementos details
-    requestAnimationFrame(() => {
-      const allDetails = document.querySelectorAll('.oracle-details');
-      allDetails.forEach((detail) => {
-        (detail as HTMLDetailsElement).open = newState;
-      });
-    });
+    // Limpar todos os estados individuais de grupos do localStorage
+    // para que o estado global prevaleça
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('oracleGroupExpanded-') || key === 'shortcutsExpanded')) {
+        keysToRemove.push(key);
+      }
+    }
+    keysToRemove.forEach(key => localStorage.removeItem(key));
   };
 
   // Fechar modais quando a tela cresce
@@ -108,14 +110,24 @@ function App() {
     ? findAskTheOracleCollection(currentRuleset.oracles)
     : null;
   const askTheOracleTables = extractAskTheOracleTables(askTheOracleCollection);
-  const otherOracles = currentRuleset.oracles 
+  const allOtherOracles = currentRuleset.oracles 
     ? filterOtherOracles(currentRuleset.oracles)
     : [];
+  
+  // Aplicar busca se houver query
+  const otherOracles = searchQuery 
+    ? searchOracles(allOtherOracles, searchQuery, language)
+    : allOtherOracles;
 
-  // Salvar preferência quando mudar
-  useEffect(() => {
-    localStorage.setItem('darkMode', String(isDarkMode));
-  }, [isDarkMode]);
+  // Atalhos de teclado para Ask the Oracle (teclas 1-5)
+  useKeyboardShortcuts(
+    askTheOracleTables.slice(0, 5).map((table, index) => ({
+      key: (index + 1).toString(),
+      action: () => rollOracle(table.name, table),
+      description: table.name
+    })),
+    !showLogModal && !showResultModal // Desabilitar quando modais estão abertos
+  );
 
   return (
     <div className={`app-container ${gameMode === 'starforged' ? 'theme-starforged' : 'theme-ironsworn'} ${isDarkMode ? 'theme-dark' : 'theme-light'}`}>
@@ -129,10 +141,11 @@ function App() {
         onShowLogModal={() => setShowLogModal(!showLogModal)}
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
       />
 
-      <div className="oracle-container">
-        <AskTheOracle
+      <div className="oracle-container"><AskTheOracle
           tables={askTheOracleTables}
           onRoll={(name, table) => rollOracle(name, table)}
           allGroupsOpen={allGroupsOpen}
@@ -153,7 +166,7 @@ function App() {
           <section className="log-section">
             <RollLog 
               logs={logs} 
-              onRollAgain={handleRollAgain}
+              onRollAgain={handleOracleClick}
               findOracleById={findOracleById}
               onClearLog={handleClearLog}
               autoShowModal={autoShowModal}
@@ -162,6 +175,13 @@ function App() {
           </section>
         )}
       </div>
+
+      <Footer onShowChangelog={() => setShowChangelog(true)} />
+
+      <ChangelogModal 
+        isOpen={showChangelog}
+        onClose={() => setShowChangelog(false)}
+      />
 
       <ResultModal
         log={logs[0]}
@@ -175,7 +195,7 @@ function App() {
         isOpen={showLogModal}
         onClose={() => setShowLogModal(false)}
         logs={logs}
-        onRollAgain={handleRollAgain}
+        onRollAgain={handleOracleClick}
         findOracleById={findOracleById}
         onClearLog={handleClearLog}
         autoShowModal={autoShowModal}

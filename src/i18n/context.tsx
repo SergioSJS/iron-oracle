@@ -48,7 +48,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     const translation = translations[language][key as keyof Translations] as string;
     
     if (!translation) {
-      console.warn(`Translation missing for key: ${key}`);
+      if (import.meta.env.DEV) {
+        console.warn(`Translation missing for key: ${key}`);
+      }
       return key;
     }
 

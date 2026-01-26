@@ -14,7 +14,8 @@ import {
   hasRegionStructure, 
   getTableForRegion, 
   extractOracleReferences,
-  generateLogId
+  generateLogId,
+  cleanOracleLinks
 } from '../utils/oracleUtils';
 import { useI18n } from '../i18n/context';
 import { translateOracleName, translateOracleResult } from '../i18n/oracleTranslations';
@@ -132,15 +133,25 @@ export function useGameData() {
 
     // Se é uma rolagem filha (tem parentLogId), adicionar ao log pai
     if (parentLogId) {
+      // Criar o child roll com o resultado
+      const translatedOracleName = translateOracleName(tableToUse._id, finalOracleName, language);
+      
+      const childRoll: ChildRoll = {
+        id: generateLogId() + Math.random(),
+        oracleName: translatedOracleName,
+        oracleId: tableToUse._id,
+        roll: roll,
+        result: resultText,
+        originalResult: originalResultText
+      };
+
+      // Adicionar ao log pai
       setLogs((prev) => prev.map((log) => {
         if (log.id === parentLogId) {
-          const childRoll = rollSingleOracle(finalOracleName, tableToUse);
-          if (childRoll) {
-            return {
-              ...log,
-              childRolls: [...(log.childRolls || []), { ...childRoll, oracleId: tableToUse._id }]
-            };
-          }
+          return {
+            ...log,
+            childRolls: [...(log.childRolls || []), childRoll]
+          };
         }
         return log;
       }));
@@ -162,6 +173,7 @@ export function useGameData() {
     // É uma rolagem principal - criar novo log
     const logId = generateLogId();
     const translatedOracleName = translateOracleName(tableToUse._id, finalOracleName, language);
+    
     const newLog: LogEntry = {
       id: logId,
       oracleName: translatedOracleName,
@@ -171,7 +183,8 @@ export function useGameData() {
       originalResult: originalResultText,
       // Não mostrar botões extras se vamos rolar automaticamente
       extraRolls: undefined,
-      childRolls: []
+      childRolls: [],
+      timestamp: Date.now()
     };
 
     setLogs((prev) => [newLog, ...prev]);
@@ -305,6 +318,8 @@ export function useGameData() {
             originalResult: originalResultText
           });
           
+          // Processar referências automaticamente (ainda não temos logId, será processado depois)
+          
           // Extrair a classe do texto ou do ID da linha
           if (row.text) {
             const classMatch = row.text.toLowerCase().match(/(desert|furnace|grave|ice|jovian|jungle|ocean|rocky|shattered|tainted|vital)/);
@@ -427,13 +442,40 @@ export function useGameData() {
         const resultText = translateOracleResult(table._id, roll, originalResultText, language, row?.min);
         const translatedOracleName = translateOracleName(table._id, oracleName, language);
 
+        // Processar referências imediatamente e criar childRolls aninhados
+        const nestedChildRolls: ChildRoll[] = [];
+        if (row) {
+          const references = extractOracleReferences(row);
+          for (const refOracleId of references) {
+            const referencedOracle = findOracleById(refOracleId);
+            if (referencedOracle && referencedOracle.rows && referencedOracle.rows.length > 0) {
+              const refMaxRoll = getTableMaxRoll(referencedOracle.rows);
+              const refRoll = Math.floor(Math.random() * refMaxRoll) + 1;
+              const refRow = findRollResult(refRoll, referencedOracle.rows);
+              const refOriginalText = refRow ? refRow.text : t('result.notFound');
+              const refResultText = translateOracleResult(referencedOracle._id, refRoll, refOriginalText, language, refRow?.min);
+              const refTranslatedName = translateOracleName(referencedOracle._id, referencedOracle.name, language);
+              
+              nestedChildRolls.push({
+                id: generateLogId() + Math.random(),
+                oracleName: refTranslatedName,
+                oracleId: referencedOracle._id,
+                roll: refRoll,
+                result: refResultText,
+                originalResult: refOriginalText
+              });
+            }
+          }
+        }
+
         childRolls.push({
           id: generateLogId() + Math.random(),
           oracleName: translatedOracleName,
           oracleId: table._id,
           roll: roll,
           result: resultText,
-          originalResult: originalResultText
+          originalResult: originalResultText,
+          childRolls: nestedChildRolls.length > 0 ? nestedChildRolls : undefined
         });
       }
     }
@@ -450,13 +492,40 @@ export function useGameData() {
         const resultText = translateOracleResult(diversityTable._id, roll, originalResultText, language, row?.min);
         const translatedOracleName = translateOracleName(diversityTable._id, diversityTable.name, language);
 
+        // Processar referências inline
+        const nestedChildRolls: ChildRoll[] = [];
+        if (row) {
+          const references = extractOracleReferences(row);
+          for (const refOracleId of references) {
+            const referencedOracle = findOracleById(refOracleId);
+            if (referencedOracle && referencedOracle.rows && referencedOracle.rows.length > 0) {
+              const refMaxRoll = getTableMaxRoll(referencedOracle.rows);
+              const refRoll = Math.floor(Math.random() * refMaxRoll) + 1;
+              const refRow = findRollResult(refRoll, referencedOracle.rows);
+              const refOriginalText = refRow ? refRow.text : t('result.notFound');
+              const refResultText = translateOracleResult(referencedOracle._id, refRoll, refOriginalText, language, refRow?.min);
+              const refTranslatedName = translateOracleName(referencedOracle._id, referencedOracle.name, language);
+              
+              nestedChildRolls.push({
+                id: generateLogId() + Math.random(),
+                oracleName: refTranslatedName,
+                oracleId: referencedOracle._id,
+                roll: refRoll,
+                result: refResultText,
+                originalResult: refOriginalText
+              });
+            }
+          }
+        }
+
         childRolls.push({
           id: generateLogId() + Math.random(),
           oracleName: translatedOracleName,
           oracleId: diversityTable._id,
           roll: roll,
           result: resultText,
-          originalResult: originalResultText
+          originalResult: originalResultText,
+          childRolls: nestedChildRolls.length > 0 ? nestedChildRolls : undefined
         });
       }
 
@@ -470,13 +539,40 @@ export function useGameData() {
         const resultText = translateOracleResult(biomesTable._id, roll, originalResultText, language, row?.min);
         const translatedOracleName = translateOracleName(biomesTable._id, biomesTable.name, language);
 
+        // Processar referências inline
+        const nestedChildRolls: ChildRoll[] = [];
+        if (row) {
+          const references = extractOracleReferences(row);
+          for (const refOracleId of references) {
+            const referencedOracle = findOracleById(refOracleId);
+            if (referencedOracle && referencedOracle.rows && referencedOracle.rows.length > 0) {
+              const refMaxRoll = getTableMaxRoll(referencedOracle.rows);
+              const refRoll = Math.floor(Math.random() * refMaxRoll) + 1;
+              const refRow = findRollResult(refRoll, referencedOracle.rows);
+              const refOriginalText = refRow ? refRow.text : t('result.notFound');
+              const refResultText = translateOracleResult(referencedOracle._id, refRoll, refOriginalText, language, refRow?.min);
+              const refTranslatedName = translateOracleName(referencedOracle._id, referencedOracle.name, language);
+              
+              nestedChildRolls.push({
+                id: generateLogId() + Math.random(),
+                oracleName: refTranslatedName,
+                oracleId: referencedOracle._id,
+                roll: refRoll,
+                result: refResultText,
+                originalResult: refOriginalText
+              });
+            }
+          }
+        }
+
         childRolls.push({
           id: generateLogId() + Math.random(),
           oracleName: translatedOracleName,
           oracleId: biomesTable._id,
           roll: roll,
           result: resultText,
-          originalResult: originalResultText
+          originalResult: originalResultText,
+          childRolls: nestedChildRolls.length > 0 ? nestedChildRolls : undefined
         });
       }
     }
@@ -490,7 +586,8 @@ export function useGameData() {
       roll: 0,
       result: '',
       originalResult: '',
-      childRolls: childRolls
+      childRolls: childRolls,
+      timestamp: Date.now()
     };
 
     setLogs((prev) => [mainLog, ...prev]);

@@ -31,9 +31,10 @@ export function AskTheOracle({ tables, onRoll, allGroupsOpen, onToggleAllGroups 
         </button>
       </div>
       <div className="ask-the-oracle-buttons">
-        {tables.map((table) => {
+        {tables.map((table, index) => {
           const translatedName = translateOracleName(table._id, table.name, language);
           const icon = getOracleIcon(table._id, translatedName);
+          const shortcutKey = index < 5 ? (index + 1).toString() : undefined;
           return (
             <button
               key={table._id}
@@ -42,6 +43,7 @@ export function AskTheOracle({ tables, onRoll, allGroupsOpen, onToggleAllGroups 
             >
               <span className="dice-icon">{icon}</span>
               <span className="ask-the-oracle-btn-text">{translatedName}</span>
+              {shortcutKey && <span className="keyboard-hint">{shortcutKey}</span>}
             </button>
           );
         })}

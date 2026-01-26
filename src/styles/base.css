@@ -21,10 +21,11 @@
 /* Tema Starforged */
 .theme-starforged {
   --font-title: 'Orbitron', sans-serif;
-  --font-body: 'Jura', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
   --bg-color: #0b1015;
   --text-color: #e0e0e0;
   --accent-color: #e0bb40;
+  font-weight: 400;
 }
 
 /* ===== APP CONTAINER ===== */
@@ -117,8 +118,8 @@
 .oracle-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 30px;
+  gap: 16px;
+  margin-top: 16px;
   align-items: start;
 }
 
@@ -132,5 +133,160 @@
   display: flex;
   flex-direction: column;
   align-self: start;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 16px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: center;
+  border-top: 1px solid var(--border-color, rgba(128, 128, 128, 0.2));
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+.app-footer a {
+  color: var(--accent-color, #c49d40);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.theme-light.theme-ironsworn .app-footer a {
+  color: #6b5840;
+  font-weight: 600;
+}
+
+.theme-light.theme-starforged .app-footer a {
+  color: #4a5a84;
+  font-weight: 600;
+}
+
+.app-footer a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.app-footer .footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-footer .changelog-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--accent-color, #c49d40);
+  color: var(--accent-color, #c49d40);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-light.theme-ironsworn .app-footer .changelog-link {
+  border-color: #6b5840;
+  color: #6b5840;
+}
+
+.theme-light.theme-starforged .app-footer .changelog-link {
+  border-color: #4a5a84;
+  color: #4a5a84;
+}
+
+.app-footer .changelog-link:hover {
+  background: var(--accent-color, #c49d40);
+  color: #000;
+  opacity: 1;
+}
+
+.theme-light.theme-ironsworn .app-footer .changelog-link:hover {
+  background: #6b5840;
+  color: #fff;
+}
+
+.theme-light.theme-starforged .app-footer .changelog-link:hover {
+  background: #4a5a84;
+  color: #fff;
+}
+
+.app-footer .github-link {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.app-footer .github-link:hover {
+  text-decoration: none;
+}
+
+/* ===== ORACLE SEARCH ===== */
+.oracle-search {
+  position: relative;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.oracle-search .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.oracle-search .search-input {
+  width: 100%;
+  padding: 10px 40px 10px 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.oracle-search .search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.oracle-search .search-input::placeholder {
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+.oracle-search .search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.oracle-search .search-clear:hover {
+  opacity: 1;
 }
 

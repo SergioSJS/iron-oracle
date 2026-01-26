@@ -31,7 +31,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
     name: 'Naves Abandonadas',
   },
   'starforged/collections/oracles/vaults': {
-    name: 'Cofres Precursores',
+    name: 'Câmara dos Precursores',
   },
   'starforged/collections/oracles/starships': {
     name: 'Naves Espaciais',
@@ -74,7 +74,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
     name: 'Naves Abandonadas',
   },
   'starforged/oracles/vaults': {
-    name: 'Cofres Precursores',
+    name: 'Câmara dos Precursores',
   },
   'starforged/oracles/starships': {
     name: 'Naves Espaciais',
@@ -202,6 +202,41 @@ export const starforgedTranslations: OracleTranslationsMap = {
   // ===== COLLECTIONS - SETTLEMENTS =====
   'starforged/collections/oracles/settlements/population': {
     name: 'População',
+  },
+
+  // ===== COLLECTIONS - PLANETS SETTLEMENTS =====
+  'starforged/collections/oracles/planets/desert/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/furnace/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/grave/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/ice/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/jovian/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/jungle/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/ocean/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/rocky/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/shattered/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/tainted/settlements': {
+    name: 'Assentamentos',
+  },
+  'starforged/collections/oracles/planets/vital/settlements': {
+    name: 'Assentamentos',
   },
 
   // ===== COLLECTIONS - CREATURES =====
@@ -1110,7 +1145,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       77: 'Estruturas espalhadas ou dispersas',
       81: 'Localização temporária ou sazonal',
       84: 'Habitat tóxico ou poluído',
-      88: 'Dentro ou perto de [Cofre Precursor](id:starforged/collections/oracles/vaults)',
+      88: 'Dentro ou perto de [Câmara dos Precursores](id:starforged/collections/oracles/vaults)',
       91: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
     },
   },
@@ -2377,7 +2412,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       66: 'Resgatar uma tripulação de nave espacial mantida cativa por amotinados',
       71: 'Recuperar um cache de armas roubadas de uma nave pirata',
       76: 'Sabotar uma instalação inimiga',
-      81: 'Procurar uma expedição desaparecida nas profundezas de um cofre precursor',
+      81: 'Procurar uma expedição desaparecida nas profundezas de um câmara dos precursores',
       86: 'Proteger uma forma de vida maravilhosa daqueles que buscam destruí-la',
       91: 'Rastrear e matar uma besta saqueadora',
       96: 'Transportar um povo deslocado para seu novo lar',
@@ -3723,7 +3758,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Planaltos vastos',
       78: 'Cores vibrantes do terreno',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/desert/feature': {
@@ -3743,7 +3778,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Tempestades elétricas violentas',
       85: 'Areia metálica transportada pelo vento',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/desert/life': {
@@ -3782,7 +3817,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Cordilheiras imponentes',
       78: 'Fissuras que atravessam o mundo',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/furnace/feature': {
@@ -3802,7 +3837,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Tempestades de sílica ou metal',
       85: 'Lamaçais fumegantes',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/furnace/life': {
@@ -3841,7 +3876,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Atmosfera irradiada',
       78: 'Cemitério de naves em órbita',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/grave/feature': {
@@ -3861,7 +3896,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Cemitérios de naves',
       85: 'Sussurros dos mortos',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/grave/life': {
@@ -3899,7 +3934,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Montanhas cobertas de neve',
       78: 'Gêiseres que perfuram o céu',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/ice/feature': {
@@ -3919,7 +3954,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Auroras vibrantes',
       85: 'Formações de gelo esculpidas pelo vento',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/ice/life': {
@@ -3957,7 +3992,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Atmosfera superaquecida',
       78: 'Cores atmosféricas incomuns',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/jovian/feature': {
@@ -3977,7 +4012,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Turbulência violenta',
       85: 'Zonas de atmosfera localizada',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/jovian/life': {
@@ -4016,7 +4051,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Cânions massivos',
       78: 'Cobertura de nuvens persistente',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/jungle/feature': {
@@ -4036,7 +4071,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Tempestades elétricas violentas',
       85: 'Cavernas alagadas',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/jungle/life': {
@@ -4074,7 +4109,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Oceanos semi-congelados',
       78: 'Cor incomum da água',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/ocean/feature': {
@@ -4094,7 +4129,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Correntes violentas',
       85: 'Trombas d\'água transportadas pelo vento',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/ocean/life': {
@@ -4132,7 +4167,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Noite perpétua',
       78: 'Planaltos imponentes',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/rocky/feature': {
@@ -4152,7 +4187,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Gases de baixa altitude em turbilhão',
       85: 'Torres rochosas imponentes',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/rocky/life': {
@@ -4191,7 +4226,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Tempestades geomagnéticas',
       78: 'Radiação solar intensa',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/shattered/feature': {
@@ -4211,7 +4246,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Terreno instável e fragmentado',
       85: 'Magma em erupção',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/shattered/life': {
@@ -4248,7 +4283,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Fungo que perfura o céu',
       78: 'Redes de rios cheias de lodo',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/tainted/feature': {
@@ -4268,7 +4303,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Chuva tóxica',
       85: 'Infestações fúngicas virulentas',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/tainted/life': {
@@ -4304,7 +4339,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       67: 'Lua grande',
       78: 'Faixa habitável estreita',
       89: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (orbital)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (orbital)',
     },
   },
   'starforged/oracles/planets/vital/feature': {
@@ -4324,7 +4359,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       78: 'Flutuações climáticas súbitas',
       85: 'Formações geológicas imponentes',
       92: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
-      99: '[Cofre Precursor](id:starforged/collections/oracles/vaults) (planetário)',
+      99: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults) (planetário)',
     },
   },
   'starforged/oracles/planets/vital/life': {
@@ -5058,7 +5093,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       36: '[Assentamento](id:starforged/collections/oracles/settlements)',
       41: '[Nave Espacial](id:starforged/collections/oracles/starships)',
       48: '[Naufrágio](id:starforged/collections/oracles/derelicts)',
-      52: '[Cofre Precursor](id:starforged/collections/oracles/vaults)',
+      52: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults)',
       54: '[Criatura](id:starforged/collections/oracles/creatures)',
       56: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
       61: 'Campo de detritos: Asteroides minerais',
@@ -5084,7 +5119,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       36: '[Assentamento](id:starforged/collections/oracles/settlements)',
       39: '[Nave Espacial](id:starforged/collections/oracles/starships)',
       44: '[Naufrágio](id:starforged/collections/oracles/derelicts)',
-      47: '[Cofre Precursor](id:starforged/collections/oracles/vaults)',
+      47: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults)',
       50: '[Criatura](id:starforged/collections/oracles/creatures)',
       53: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
       59: 'Campo de detritos: Asteroides minerais',
@@ -5110,7 +5145,7 @@ export const starforgedTranslations: OracleTranslationsMap = {
       36: '[Assentamento](id:starforged/collections/oracles/settlements)',
       38: '[Nave Espacial](id:starforged/collections/oracles/starships)',
       40: '[Naufrágio](id:starforged/collections/oracles/derelicts)',
-      42: '[Cofre Precursor](id:starforged/collections/oracles/vaults)',
+      42: '[Câmara dos Precursores](id:starforged/collections/oracles/vaults)',
       46: '[Criatura](id:starforged/collections/oracles/creatures)',
       50: '[Descritor](id:starforged/oracles/core/descriptor) + [Foco](id:starforged/oracles/core/focus)',
       57: 'Campo de detritos: Asteroides minerais',

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { RollLog } from '../RollLog/RollLog';
 import type { LogEntry, OracleTable } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
@@ -25,6 +26,16 @@ export function LogModal({
   onToggleAutoShowModal
 }: LogModalProps) {
   const { t } = useI18n();
+  
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
   
   if (!isOpen) return null;
 
