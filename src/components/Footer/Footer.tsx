@@ -38,7 +38,7 @@ export function Footer({ onShowChangelog }: FooterProps) {
           <FaNewspaper /> {t('changelog.button')}
         </button>
         <a 
-          href="https://github.com/sergioroeder/iron-oracle" 
+          href="https://github.com/sergiosjs/iron-oracle" 
           target="_blank" 
           rel="noopener noreferrer"
           className="github-link"
