@@ -14,8 +14,7 @@ import {
   hasRegionStructure, 
   getTableForRegion, 
   extractOracleReferences,
-  generateLogId,
-  cleanOracleLinks
+  generateLogId
 } from '../utils/oracleUtils';
 import { useI18n } from '../i18n/context';
 import { translateOracleName, translateOracleResult } from '../i18n/oracleTranslations';
@@ -78,30 +77,6 @@ export function useGameData() {
     // Se o máximo encontrado for menor que 100, usar esse valor
     // Caso contrário, usar 100 (padrão para tabelas d100)
     return maxValue < 100 ? maxValue : 100;
-  };
-
-  // Função auxiliar para rolar um oráculo e retornar o resultado
-  const rollSingleOracle = (oracleName: string, table: OracleTable): ChildRoll | null => {
-    if (!table.rows || table.rows.length === 0) {
-      return null;
-    }
-
-    // Calcular o range máximo da tabela
-    const maxRoll = getTableMaxRoll(table.rows);
-    const roll = Math.floor(Math.random() * maxRoll) + 1;
-    const row = findRollResult(roll, table.rows);
-    const originalResultText = row ? row.text : t('result.notFound');
-    const resultText = translateOracleResult(table._id, roll, originalResultText, language, row?.min);
-    const translatedOracleName = translateOracleName(table._id, oracleName, language);
-
-    return {
-      id: generateLogId() + Math.random(),
-      oracleName: translatedOracleName,
-      oracleId: table._id,
-      roll: roll,
-      result: resultText,
-      originalResult: originalResultText
-    };
   };
 
   // Função de rolar o oráculo - versão melhorada
