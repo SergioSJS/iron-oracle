@@ -22,7 +22,7 @@ type DelveExplorationProps = {
 };
 
 export function DelveExploration({ findOracleById }: DelveExplorationProps) {
-  const { state, startExpedition, addProgress, adjustProgress, resetExpedition, updateTheme, updateDomain, updateRank } = useDelveState();
+  const { state, startExpedition, addProgress, adjustProgress, updateTheme, updateDomain, updateRank } = useDelveState();
   const { themes, domains } = useCustomDelveData();
   const [history, setHistory] = useState<any[]>(() => {
     // Carregar histórico do localStorage se existir
@@ -514,7 +514,7 @@ export function DelveExploration({ findOracleById }: DelveExplorationProps) {
           // Se ainda há pendingChoice, ele será limpo quando a escolha for feita no modal
         }}
         onOracleClick={(oracleId: string) => {
-          const oracle = findOracleById(oracleId);
+          findOracleById(oracleId);
           // Não fazemos nada por enquanto, mas podemos adicionar funcionalidade depois
         }}
         findOracleById={findOracleById}

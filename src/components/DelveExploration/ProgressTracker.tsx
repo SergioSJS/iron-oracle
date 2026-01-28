@@ -1,5 +1,5 @@
 import type { SiteRank } from '../../types/delve';
-import { getProgressBoxes, isProgressComplete, getBoxFillLevel, getProgressForRank } from '../../utils/delveUtils';
+import { isProgressComplete, getBoxFillLevel, getProgressForRank } from '../../utils/delveUtils';
 import { useI18n } from '../../i18n/context';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 

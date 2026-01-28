@@ -401,58 +401,6 @@ export function ActionPanel({ theme, domain, rank, onResult, findOracleById, sta
     }
   };
 
-  const handleMarkProgress = () => {
-    if (!pendingChoice) return;
-    const progressAmount = getProgressForRank(rank);
-    // Se for weak_hit_choice, pode precisar marcar progresso duas vezes
-    let finalProgress = progressAmount;
-    if (pendingChoice.choiceType === 'weak_hit_choice' && pendingChoice.delveTableResult?.text) {
-      const tableText = pendingChoice.delveTableResult.text;
-      if (tableText.includes('Mark progress twice') || tableText.includes('Marque progresso duas vezes')) {
-        finalProgress = progressAmount * 2;
-      }
-    }
-    const finalResult = {
-      ...pendingChoice,
-      progressAdded: finalProgress,
-      choiceType: 'mark_progress',
-      requiresChoice: false // Marcar como não requer mais escolha
-    };
-    setPendingChoice(null);
-    onResult(finalResult);
-  };
-
-  const handleFindOpportunity = () => {
-    if (!pendingChoice) return;
-    const opportunityTable = findOracleById('delve/oracles/moves/find_an_opportunity');
-    if (opportunityTable && opportunityTable.rows) {
-      const roll = Math.floor(Math.random() * 100) + 1;
-      const opportunityRow = opportunityTable.rows.find((r: any) => 
-        roll >= r.min && roll <= (r.max || r.min)
-      );
-      if (opportunityRow) {
-        const originalText = opportunityRow.text;
-        const translatedText = translateOracleResult('delve/oracles/moves/find_an_opportunity', roll, opportunityRow.text, language, opportunityRow.min);
-        // Se for weak_hit_choice e "Do both", também marca progresso
-        let progressAdded = 0;
-        if (pendingChoice.choiceType === 'weak_hit_choice' && pendingChoice.delveTableResult?.text) {
-          const tableText = pendingChoice.delveTableResult.text;
-          if (tableText.includes('Do both') || tableText.includes('Faça ambos')) {
-            progressAdded = getProgressForRank(rank);
-          }
-        }
-        const finalResult = {
-          ...pendingChoice,
-          progressAdded: progressAdded,
-          choiceType: 'find_opportunity',
-          opportunity: { ...opportunityRow, text: translatedText, originalText: originalText, roll: roll },
-          requiresChoice: false // Marcar como não requer mais escolha
-        };
-        setPendingChoice(null);
-        onResult(finalResult);
-      }
-    }
-  };
 
   const handleRollFeature = () => {
     const featureRoll = Math.floor(Math.random() * 100) + 1;
