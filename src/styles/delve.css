@@ -2,6 +2,9 @@
 
 .delve-exploration {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .delve-exploration h2 {
@@ -15,6 +18,9 @@
   border: 1px solid rgba(120, 80, 40, 0.3);
   border-radius: 8px;
   padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .delve-setup-form {
@@ -122,6 +128,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .delve-theme-domain-box {
@@ -130,6 +139,9 @@
   border: 1px solid rgba(120, 80, 40, 0.3);
   border-radius: 8px;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .delve-theme-domain-header {
@@ -399,6 +411,10 @@
   background: rgba(120, 80, 40, 0.1);
   border: 1px solid rgba(120, 80, 40, 0.3);
   border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .delve-progress-header {
@@ -408,6 +424,8 @@
   margin-bottom: 15px;
   font-weight: bold;
   gap: 15px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .delve-progress-header-left {
@@ -415,6 +433,7 @@
   align-items: center;
   gap: 15px;
   flex: 1;
+  min-width: 0;
 }
 
 .delve-progress-label {
@@ -423,6 +442,8 @@
 
 .delve-rank-label {
   white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .delve-progress-controls {
@@ -442,9 +463,12 @@
   justify-content: center;
   font-size: 12px;
   min-width: 32px;
+  max-width: 32px;
   height: 32px;
   border: 2px solid;
   font-weight: bold;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 /* Tema Escuro - Ironsworn */
@@ -577,6 +601,9 @@
 }
 
 .delve-action-panel {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 20px;
   background: rgba(120, 80, 40, 0.1);
   border: 1px solid rgba(120, 80, 40, 0.3);
@@ -593,6 +620,9 @@
   margin-bottom: 15px;
   border-radius: 8px;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Tema Escuro - Ironsworn */
@@ -701,8 +731,37 @@
 
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
+  .delve-exploration {
+    padding: 0;
+  }
+  
+  .delve-action-panel {
+    padding: 12px;
+  }
+  
+  .delve-progress-tracker {
+    padding: 12px;
+  }
+  
+  .delve-progress-header {
+    flex-wrap: wrap;
+  }
+  
+  .delve-progress-controls {
+    margin-left: auto;
+  }
+  
+  .delve-rank-label {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 4px;
+    text-align: left;
+  }
+  
   .delve-stat-table {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
   }
   
   .delve-stat-table-header {

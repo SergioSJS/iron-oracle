@@ -31,6 +31,8 @@
   flex-direction: column;
   transform: scale(0.9);
   transition: all 0.3s ease;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .theme-dark.theme-ironsworn .log-modal-content {
@@ -195,6 +197,8 @@
   transform: scale(0.9) translateY(20px);
   transition: all 0.3s ease;
   overflow: hidden;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .theme-dark.theme-ironsworn .result-modal-content {
@@ -748,6 +752,12 @@
 
 /* Ajustes mobile para modal */
 @media (max-width: 768px) {
+  .log-modal-content,
+  .result-modal-content,
+  .changelog-modal-content {
+    max-width: calc(100vw - 32px);
+    margin: 0 16px;
+  }
   .result-modal-child-simple {
     gap: 5px;
   }
@@ -1172,11 +1182,22 @@
 .changelog-modal-content {
   border-radius: 16px;
   width: 100%;
-  max-width: 800px;
+  max-width: 90vw;
+  min-width: 600px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .changelog-modal-content {
+    min-width: auto;
+    max-width: calc(100vw - 32px);
+    margin: 0 16px;
+  }
 }
 
 .theme-dark.theme-ironsworn .changelog-modal-content {

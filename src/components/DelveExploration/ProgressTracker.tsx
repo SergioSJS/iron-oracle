@@ -48,7 +48,6 @@ export function ProgressTracker({ progress, rank, onAdjustProgress }: ProgressTr
       <div className="delve-progress-header">
         <div className="delve-progress-header-left">
           <span className="delve-progress-label">{t('delve.progress.label')} {progress}/40</span>
-          <span className="delve-rank-label">{t('delve.progress.rank')} {rankLabels[rank]}</span>
         </div>
         {onAdjustProgress && (
           <div className="delve-progress-controls">
@@ -70,6 +69,7 @@ export function ProgressTracker({ progress, rank, onAdjustProgress }: ProgressTr
             </button>
           </div>
         )}
+        <span className="delve-rank-label">{t('delve.progress.rank')} {rankLabels[rank]}</span>
       </div>
       <div className="delve-progress-boxes">
         {Array.from({ length: maxBoxes }, (_, i) => {
