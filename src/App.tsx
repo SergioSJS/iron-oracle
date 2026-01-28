@@ -11,6 +11,7 @@ import { OracleNavigation } from './components/OracleNavigation/OracleNavigation
 import { RollLog } from './components/RollLog/RollLog';
 import { ResultModal } from './components/Modals/ResultModal';
 import { LogModal } from './components/Modals/LogModal';
+import { DelveExploration } from './components/DelveExploration/DelveExploration';
 import { findAskTheOracleCollection, extractAskTheOracleTables, filterOtherOracles, searchOracles } from './utils/oracleDataUtils';
 import './styles/index.css';
 
@@ -40,6 +41,10 @@ function App() {
   const [autoShowModal, setAutoShowModal] = useState(() => {
     const saved = localStorage.getItem('autoShowModal');
     return saved !== null ? saved === 'true' : true;
+  });
+  const [showDelve, setShowDelve] = useState(() => {
+    const saved = localStorage.getItem('showDelve');
+    return saved !== null ? saved === 'true' : false;
   });
   const { isSmallScreen } = useScreenSize();
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -105,6 +110,14 @@ function App() {
     localStorage.setItem('darkMode', String(isDarkMode));
   }, [isDarkMode]);
 
+  // Salvar preferência de Delve quando mudar
+  useEffect(() => {
+    localStorage.setItem('showDelve', String(showDelve));
+  }, [showDelve]);
+
+  // Só mostrar Delve se estiver em modo Ironsworn
+  const canShowDelve = gameMode === 'ironsworn';
+
   // Preparar dados para os componentes
   const askTheOracleCollection = currentRuleset.oracles 
     ? findAskTheOracleCollection(currentRuleset.oracles)
@@ -143,36 +156,45 @@ function App() {
         setIsDarkMode={setIsDarkMode}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        showDelve={showDelve}
+        onToggleDelve={canShowDelve ? () => setShowDelve(!showDelve) : undefined}
       />
 
-      <div className="oracle-container"><AskTheOracle
-          tables={askTheOracleTables}
-          onRoll={(name, table) => rollOracle(name, table)}
-          allGroupsOpen={allGroupsOpen}
-          onToggleAllGroups={handleToggleAllGroups}
-        />
-
-        <OracleNavigation
-          oracles={otherOracles}
-          rollOracle={rollOracle}
-          findOracleById={findOracleById}
-          rollMultipleOracles={rollMultipleOracles}
-          allGroupsOpen={allGroupsOpen}
-          selectedRegion={selectedRegion}
-          gameMode={gameMode}
-        />
-
-        {!isSmallScreen && (
-          <section className="log-section">
-            <RollLog 
-              logs={logs} 
-              onRollAgain={handleOracleClick}
-              findOracleById={findOracleById}
-              onClearLog={handleClearLog}
-              autoShowModal={autoShowModal}
-              onToggleAutoShowModal={() => setAutoShowModal(!autoShowModal)}
+      <div className="oracle-container">
+        {canShowDelve && showDelve ? (
+          <DelveExploration findOracleById={findOracleById} />
+        ) : (
+          <>
+            <AskTheOracle
+              tables={askTheOracleTables}
+              onRoll={(name, table) => rollOracle(name, table)}
+              allGroupsOpen={allGroupsOpen}
+              onToggleAllGroups={handleToggleAllGroups}
             />
-          </section>
+
+            <OracleNavigation
+              oracles={otherOracles}
+              rollOracle={rollOracle}
+              findOracleById={findOracleById}
+              rollMultipleOracles={rollMultipleOracles}
+              allGroupsOpen={allGroupsOpen}
+              selectedRegion={selectedRegion}
+              gameMode={gameMode}
+            />
+
+            {!isSmallScreen && (
+              <section className="log-section">
+                <RollLog 
+                  logs={logs} 
+                  onRollAgain={handleOracleClick}
+                  findOracleById={findOracleById}
+                  onClearLog={handleClearLog}
+                  autoShowModal={autoShowModal}
+                  onToggleAutoShowModal={() => setAutoShowModal(!autoShowModal)}
+                />
+              </section>
+            )}
+          </>
         )}
       </div>
 

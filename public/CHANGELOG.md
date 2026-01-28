@@ -2,6 +2,43 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [2.1.0] - 2026-01-27
+
+### ✨ Novos Recursos
+
+#### Temas e Domínios Customizados do Delve
+- **Sistema de extensão**: Adicione novos Site Themes e Site Domains customizados facilmente
+- **Arquivos JSON externos**: Crie novos temas/domínios adicionando arquivos JSON em `src/data/customThemes/` e `src/data/customDomains/`
+- **Carregamento automático**: Novos arquivos são carregados automaticamente sem necessidade de modificar o código
+- **Templates práticos**: Templates JSON simples e diretos para facilitar a criação
+- **Suporte a listas**: Suporte para arquivos com arrays de temas/domínios, além de arquivos individuais
+- **Traduções inline**: Suporte para traduções em português diretamente nos arquivos JSON (`name_pt`, `text_pt`)
+- **Documentação completa**: READMEs em Português e Inglês com instruções detalhadas
+- **Exemplos incluídos**: Arquivos de exemplo para referência
+
+### 🎨 Melhorias de Interface
+
+#### Sistema Delve
+- **Persistência de histórico**: Histórico de rolagens do Delve agora é salvo no localStorage
+- **Estado persistente**: Expedição ativa (tema, domínio, rank, progresso) é mantida entre sessões
+- **Labels identificadores**: Labels "TEMA" e "DOMÍNIO" adicionados para identificação clara
+- **Ícones compactos**: Ícones de tema/domínio reduzidos e integrados ao layout
+- **Botões melhorados**: Contraste aprimorado em todos os botões para temas claro e escuro
+- **Radio buttons estilizados**: Seleção de atributos (Gume, Sombra, Centelha) com estilo de botão
+- **Controles de atributo**: Botões de incremento/decremento para valor de atributo, similar à trilha de progresso
+- **Caixas de progresso**: Tamanho das caixas de progresso reduzido para melhor proporção visual
+- **Campo de atributo**: Substituição do input numérico por botões de + e - com valor centralizado
+
+### 🛠️ Mudanças Técnicas
+
+- Novo hook: `useCustomDelveData` para carregar e mesclar dados customizados
+- Nova estrutura: Diretórios `src/data/customThemes/` e `src/data/customDomains/`
+- Templates: `theme-template.json`, `domain-template.json`, `themes-list-template.json`, `domains-list-template.json`
+- Nova utilidade: `customDelveTranslations.ts` para gerenciar traduções inline
+- Documentação: READMEs atualizados com guias completos em PT/EN
+
+---
+
 ## [2.0.0] - 2026-01-26
 
 ### ✨ Novos Recursos

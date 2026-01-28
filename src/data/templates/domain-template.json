@@ -1,0 +1,33 @@
+{
+  "id": "meu_domain_id",
+  "name": "Nome do Domain em Inglês",
+  "name_pt": "Nome do Domain em Português (opcional)",
+  "text": "Descrição do domain em inglês.",
+  "text_pt": "Descrição do domain em português (opcional).",
+  "features": [
+    {
+      "min": 21,
+      "max": 30,
+      "text": "Primeira feature em inglês (ranges 21-100)",
+      "text_pt": "Primeira feature em português (opcional)"
+    },
+    {
+      "min": 31,
+      "max": 40,
+      "text": "Segunda feature em inglês"
+    }
+  ],
+  "dangers": [
+    {
+      "min": 16,
+      "max": 20,
+      "text": "Primeiro danger em inglês (ranges 16-30)",
+      "text_pt": "Primeiro danger em português (opcional)"
+    },
+    {
+      "min": 21,
+      "max": 25,
+      "text": "Segundo danger em inglês"
+    }
+  ]
+}

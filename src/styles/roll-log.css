@@ -386,6 +386,43 @@
   transform: translateX(2px);
 }
 
+/* Cores de borda baseadas no resultado da rolagem (Delve) */
+.theme-dark.theme-ironsworn .roll-log-entry-strong-hit,
+.theme-dark.theme-starforged .roll-log-entry-strong-hit {
+  border-left-color: #5ba3f5 !important; /* Azul para sucesso completo */
+  border-color: rgba(91, 163, 245, 0.5) !important;
+}
+
+.theme-light.theme-ironsworn .roll-log-entry-strong-hit,
+.theme-light.theme-starforged .roll-log-entry-strong-hit {
+  border-left-color: #4a90e2 !important; /* Azul para sucesso completo */
+  border-color: rgba(74, 144, 226, 0.6) !important;
+}
+
+.theme-dark.theme-ironsworn .roll-log-entry-weak-hit,
+.theme-dark.theme-starforged .roll-log-entry-weak-hit {
+  border-left-color: #ffd966 !important; /* Amarelo para sucesso parcial */
+  border-color: rgba(255, 217, 102, 0.5) !important;
+}
+
+.theme-light.theme-ironsworn .roll-log-entry-weak-hit,
+.theme-light.theme-starforged .roll-log-entry-weak-hit {
+  border-left-color: #f5c842 !important; /* Amarelo para sucesso parcial */
+  border-color: rgba(245, 200, 66, 0.6) !important;
+}
+
+.theme-dark.theme-ironsworn .roll-log-entry-miss,
+.theme-dark.theme-starforged .roll-log-entry-miss {
+  border-left-color: #ff6666 !important; /* Vermelho para falha */
+  border-color: rgba(255, 102, 102, 0.5) !important;
+}
+
+.theme-light.theme-ironsworn .roll-log-entry-miss,
+.theme-light.theme-starforged .roll-log-entry-miss {
+  border-left-color: #e24a4a !important; /* Vermelho para falha */
+  border-color: rgba(226, 74, 74, 0.6) !important;
+}
+
 .roll-log-header {
   display: flex;
   justify-content: space-between;
@@ -431,7 +468,7 @@
 .roll-log-roll {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
   font-size: 12px;
 }
 
@@ -453,6 +490,26 @@
   padding: 2px 6px;
   border-radius: 4px;
   transition: all 0.5s ease;
+}
+
+.roll-value-dice {
+  font-weight: 600;
+  font-size: 11px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  opacity: 0.8;
+  margin: 0 2px;
+  font-family: monospace;
+}
+
+.theme-dark .roll-value-dice {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-light .roll-value-dice {
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .theme-dark.theme-ironsworn .roll-value {
@@ -477,6 +534,19 @@
   color: #5a6b94;
   background: rgba(100, 120, 200, 0.15);
   border: 1px solid rgba(100, 120, 200, 0.5);
+}
+
+/* Contorno para dados de desafio baseado no resultado */
+.roll-value-challenge.roll-value-fail {
+  border-color: #d44 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 4px rgba(212, 68, 68, 0.5);
+}
+
+.roll-value-challenge.roll-value-success {
+  border-color: #4d8 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 4px rgba(68, 136, 136, 0.5);
 }
 
 .roll-log-result {

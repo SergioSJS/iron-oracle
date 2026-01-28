@@ -11,6 +11,111 @@ Este arquivo controla o progresso das traduções dos oráculos do Ironsworn e S
 
 ## IRONSWORN (Classic) - 38 oráculos
 
+Todos os oráculos do Ironsworn Classic foram traduzidos (100%).
+
+---
+
+## IRONSWORN: DELVE - ~30+ oráculos
+
+### Character
+- ✅ `delve/oracles/character/activity` | Atividade | 50 rows
+- ✅ `delve/oracles/character/disposition` | Disposição | 12 rows
+
+### Combat Event
+- ✅ `delve/oracles/combat_event/method` | Método | 50 rows
+- ✅ `delve/oracles/combat_event/target` | Alvo | 50 rows
+
+### Feature
+- ✅ `delve/oracles/feature/aspect` | Aspecto | 50 rows
+- ✅ `delve/oracles/feature/focus` | Foco | 50 rows
+
+### Monstrosity
+- ✅ `delve/oracles/monstrosity/size` | Tamanho | 6 rows
+- ✅ `delve/oracles/monstrosity/primary_form` | Forma Primária | 20 rows
+- ✅ `delve/oracles/monstrosity/characteristics` | Características | 30 rows
+- ✅ `delve/oracles/monstrosity/abilities` | Habilidades | 35 rows
+
+### Moves
+- ✅ `delve/oracles/moves/find_an_opportunity` | Encontrar uma Oportunidade | 10 rows
+- ✅ `delve/oracles/moves/reveal_a_danger` | Revelar um Perigo | 12 rows
+- ✅ `delve/oracles/moves/reveal_a_danger_alt` | Revelar um Perigo (versão alternativa) | 10 rows
+- ✅ `delve/oracles/moves/advance_a_threat` | Avançar uma Ameaça | 3 rows
+- ✅ `delve/oracles/moves/delve_the_depths/edge` | Edge | 5 rows
+- ✅ `delve/oracles/moves/delve_the_depths/shadow` | Shadow | 5 rows
+- ✅ `delve/oracles/moves/delve_the_depths/wits` | Wits | 5 rows
+
+### Site Name
+- 🟡 `delve/oracles/site_name/format` | Formato | (tabela de templates - não traduzir)
+- ✅ `delve/oracles/site_name/description` | Descrição | 50 rows
+- ✅ `delve/oracles/site_name/detail` | Detalhe | 50 rows
+- 🟡 `delve/oracles/site_name/namesake` | Epônimo | (nomes próprios - não traduzir)
+- ✅ `delve/oracles/site_name/place` | Lugar | (com sub-tabelas traduzidas)
+- ✅ `delve/oracles/site_name/place/barrow` | Barrow | 6 rows
+- ✅ `delve/oracles/site_name/place/cavern` | Caverna | 10 rows
+- ✅ `delve/oracles/site_name/place/frozen_cavern` | Caverna Congelada | 10 rows
+- ✅ `delve/oracles/site_name/place/icereach` | Território Gelado | 6 rows
+- ✅ `delve/oracles/site_name/place/mine` | Mina | 6 rows
+- ✅ `delve/oracles/site_name/place/pass` | Passo | 10 rows
+- ✅ `delve/oracles/site_name/place/ruin` | Ruína | 10 rows
+- ✅ `delve/oracles/site_name/place/sea_cave` | Caverna Marinha | 6 rows
+- ✅ `delve/oracles/site_name/place/shadowfen` | Pântano Sombrio | 10 rows
+- ✅ `delve/oracles/site_name/place/stronghold` | Fortaleza | 10 rows
+- ✅ `delve/oracles/site_name/place/tanglewood` | Bosque Emaranhado | 8 rows
+- ✅ `delve/oracles/site_name/place/underkeep` | Subterrâneo | 10 rows
+
+### Site Nature
+- 🟡 `delve/oracles/site_nature/theme` | Tema | (referências a temas - não traduzir)
+- 🟡 `delve/oracles/site_nature/domain` | Domínio | (referências a domínios - não traduzir)
+
+### Site Domains (Domínios de Site)
+- ✅ `delve/site_domains/barrow` | Barrow | Nome e descrição traduzidos
+- ✅ `delve/site_domains/cavern` | Caverna | Nome e descrição traduzidos
+- ✅ `delve/site_domains/frozen_cavern` | Caverna Congelada | Nome e descrição traduzidos
+- ✅ `delve/site_domains/icereach` | Território Gelado | Nome e descrição traduzidos
+- ✅ `delve/site_domains/mine` | Mina | Nome e descrição traduzidos
+- ✅ `delve/site_domains/pass` | Passo | Nome e descrição traduzidos
+- ✅ `delve/site_domains/ruin` | Ruína | Nome e descrição traduzidos
+- ✅ `delve/site_domains/sea_cave` | Caverna Marinha | Nome e descrição traduzidos
+- ✅ `delve/site_domains/shadowfen` | Pântano Sombrio | Nome e descrição traduzidos
+- ✅ `delve/site_domains/stronghold` | Fortaleza | Nome e descrição traduzidos
+- ✅ `delve/site_domains/tanglewood` | Bosque Emaranhado | Nome e descrição traduzidos
+- ✅ `delve/site_domains/underkeep` | Subterrâneo | Nome e descrição traduzidos
+- 🟡 Features e Dangers de cada Domain | (arrays de features/dangers - podem ser traduzidos no futuro se necessário)
+
+### Site Themes (Temas de Site)
+- ✅ `delve/site_themes/ancient` | Antigo | Nome e descrição traduzidos
+- ✅ `delve/site_themes/corrupted` | Corrompido | Nome e descrição traduzidos
+- ✅ `delve/site_themes/fortified` | Fortificado | Nome e descrição traduzidos
+- ✅ `delve/site_themes/hallowed` | Sagrado | Nome e descrição traduzidos
+- ✅ `delve/site_themes/haunted` | Assombrado | Nome e descrição traduzidos
+- ✅ `delve/site_themes/infested` | Infestado | Nome e descrição traduzidos
+- ✅ `delve/site_themes/ravaged` | Devastado | Nome e descrição traduzidos
+- ✅ `delve/site_themes/wild` | Selvagem | Nome e descrição traduzidos
+- 🟡 Features e Dangers de cada Theme | (arrays de features/dangers - podem ser traduzidos no futuro se necessário)
+
+### Threat
+- 🟡 `delve/oracles/threat/category` | Categoria | (referências a outras ameaças - não traduzir)
+- ✅ `delve/oracles/threat/burgeoning_conflict` | Conflito Crescente | 10 rows
+- ✅ `delve/oracles/threat/cursed_site` | Site Amaldiçoado | 10 rows
+- ✅ `delve/oracles/threat/environmental_calamity` | Calamidade Ambiental | 10 rows
+- ✅ `delve/oracles/threat/malignant_plague` | Praga Maligna | 10 rows
+- ✅ `delve/oracles/threat/rampaging_creature` | Criatura Desenfreada | 10 rows
+- ✅ `delve/oracles/threat/ravaging_horde` | Horda Devastadora | 10 rows
+- ✅ `delve/oracles/threat/scheming_leader` | Líder Conspirador | 10 rows
+- ✅ `delve/oracles/threat/power_hungry_mystic` | Místico Sedento de Poder | 10 rows
+- ✅ `delve/oracles/threat/zealous_cult` | Culto Zeloso | 10 rows
+
+### Trap
+- ✅ `delve/oracles/trap/trap` | Evento | 25 rows
+- ✅ `delve/oracles/trap/component` | Componente | 25 rows
+
+### Status do Delve
+- **Total de oráculos principais:** ~30+
+- **Completamente traduzidos:** ~25 (83%)
+- **Apenas nome traduzido:** ~5 (17%) - Format, Namesake, Theme, Domain, Category (tabelas de referência/nomes próprios)
+- **Domains e Themes:** 12 Domains + 8 Themes (nomes e descrições traduzidos)
+- **Não traduzidos:** 0 (0%)
+
 ### Action and Theme Oracles
 - ✅ `classic/oracles/action_and_theme/action` | Action | 100 rows
 - ✅ `classic/oracles/action_and_theme/theme` | Theme | 100 rows
@@ -276,10 +381,16 @@ Este arquivo controla o progresso das traduções dos oráculos do Ironsworn e S
 
 ## Estatísticas
 
-### Ironsworn
+### Ironsworn (Classic)
 - **Total de oráculos:** 38
 - **Completamente traduzidos:** 38 (100%)
 - **Apenas nome traduzido:** 0 (0%)
+- **Não traduzidos:** 0 (0%)
+
+### Ironsworn: Delve
+- **Total de oráculos:** ~30+
+- **Completamente traduzidos:** ~25 (83%)
+- **Apenas nome traduzido:** ~5 (17%) - Format, Namesake, Theme, Domain, Category
 - **Não traduzidos:** 0 (0%)
 
 ### Starforged
@@ -289,10 +400,10 @@ Este arquivo controla o progresso das traduções dos oráculos do Ironsworn e S
 - **Não traduzidos:** 25 (10%)
 
 ### Geral
-- **Total:** 300 oráculos
-- **Completamente traduzidos:** 270 (90%) - Ironsworn 100% completo, Starforged 89%
-- **Apenas nome traduzido:** 5 (2%)
-- **Não traduzidos:** 25 (8%) - Starforged em progresso (principalmente nomes próprios restantes)
+- **Total:** ~330+ oráculos (Ironsworn Classic: 38, Delve: ~30+, Starforged: 262)
+- **Completamente traduzidos:** ~295 (89%) - Ironsworn Classic 100%, Delve 83%, Starforged 89%
+- **Apenas nome traduzido:** ~10 (3%) - Principalmente nomes próprios e tabelas de referência
+- **Não traduzidos:** ~25 (8%) - Starforged em progresso (principalmente nomes próprios restantes)
 
 ---
 

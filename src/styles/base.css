@@ -3,6 +3,14 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  scrollbar-gutter: stable;
+}
+
 #root {
   max-width: 1400px;
   margin: 0 auto;

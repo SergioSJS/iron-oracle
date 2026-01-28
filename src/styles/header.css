@@ -242,6 +242,56 @@
 .language-selector,
 .region-selector,
 .theme-toggle-btn,
+.delve-toggle-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid;
+  height: 36px;
+  min-width: 36px;
+  line-height: 1;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.theme-dark.theme-ironsworn .header-controls .delve-toggle-btn {
+  background: linear-gradient(135deg, rgba(40, 32, 24, 0.9) 0%, rgba(52, 44, 32, 0.9) 100%);
+  color: #d4c4a8;
+  border-color: rgba(120, 80, 40, 0.4);
+}
+
+.theme-dark.theme-ironsworn .header-controls .delve-toggle-btn:hover {
+  border-color: rgba(120, 80, 40, 0.7);
+  box-shadow: 0 4px 12px rgba(120, 80, 40, 0.3);
+  background: linear-gradient(135deg, rgba(40, 32, 24, 0.95) 0%, rgba(52, 44, 32, 0.95) 100%);
+}
+
+.theme-light.theme-ironsworn .header-controls .delve-toggle-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 240, 232, 0.9) 100%);
+  color: #2a2418;
+  border-color: rgba(139, 115, 85, 0.5);
+}
+
+.theme-light.theme-ironsworn .header-controls .delve-toggle-btn:hover {
+  border-color: rgba(139, 115, 85, 0.8);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 245, 238, 0.95) 100%);
+}
+
+.delve-toggle-btn.active {
+  opacity: 0.8;
+}
+
+.theme-ironsworn .delve-toggle-btn.active {
+  background: rgba(120, 80, 40, 0.4) !important;
+  border-color: rgba(120, 80, 40, 0.7) !important;
+}
+
 .mode-btn {
   padding: 8px 12px;
   border-radius: 6px;
@@ -393,14 +443,18 @@
   .language-selector,
   .region-selector,
   .theme-toggle-btn,
-  .mode-btn {
+  .mode-btn,
+  .delve-toggle-btn,
+  .search-btn {
     padding: 8px 10px;
     padding-right: 30px;
     font-size: 11px !important; /* Garantir tamanho consistente em mobile */
     height: 34px; /* Altura ligeiramente menor em mobile */
   }
   
-  .header-controls .theme-toggle-btn {
+  .header-controls .theme-toggle-btn,
+  .header-controls .delve-toggle-btn,
+  .header-controls .search-btn {
     padding: 8px 10px !important;
     padding-right: 10px !important;
   }

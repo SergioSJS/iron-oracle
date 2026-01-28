@@ -1,11 +1,14 @@
 import { type ReactElement } from 'react';
 import type { OracleTable, StarforgedRegion, GameMode } from '../types/datasworn';
 import { 
-  FaHandRock, FaStar, FaUser, FaMapMarkerAlt, FaCity, FaRocket, FaBolt, FaDungeon
+  FaHandRock, FaStar, FaUser, FaMapMarkerAlt, FaCity, FaRocket, FaBolt, FaDungeon, FaSkull, FaCrosshairs, FaEye, FaFlag, FaShip
 } from 'react-icons/fa';
 import { 
-  GiPlanetCore, GiSpaceship
+  GiPlanetCore, GiSpaceship, GiAlienBug, GiMonsterGrasp
 } from 'react-icons/gi';
+import { 
+  MdTerrain
+} from 'react-icons/md';
 
 export type ShortcutRoll = {
   oracleId: string | string[]; // ID ou array de IDs (para seleção aleatória)
@@ -270,12 +273,73 @@ export function getShortcutIcon(shortcutName: string, _gameMode: GameMode): Reac
   
   // Nave Espacial
   if (name.includes('nave') || name.includes('starship') || name.includes('ship')) {
+    if (name.includes('abandonada') || name.includes('derelict')) {
+      return <FaShip />;
+    }
     return <GiSpaceship />;
   }
   
   // Cofre/Vault Precursor
   if (name.includes('cofre') || name.includes('vault') || name.includes('precursor')) {
     return <FaDungeon />;
+  }
+  
+  // Facção
+  if (name.includes('facção') || name.includes('faction')) {
+    return <FaFlag />;
+  }
+  
+  // Monstrosidade (Delve) - verificar antes de criatura genérica
+  if (name.includes('monstrosidade') || name.includes('monstrosity')) {
+    return <GiMonsterGrasp />;
+  }
+  
+  // Criatura (Starforged)
+  if (name.includes('criatura') || name.includes('creature')) {
+    return <GiAlienBug />;
+  }
+  
+  // Tema de Localização
+  if (name.includes('tema de localização') || name.includes('location theme')) {
+    return <MdTerrain />;
+  }
+  
+  // Avistamento Espacial
+  if (name.includes('avistamento') || name.includes('sighting')) {
+    return <FaEye />;
+  }
+  
+  // Feature (Delve)
+  if (name.includes('característica') || name.includes('feature')) {
+    return <FaEye />;
+  }
+  
+  // Site (Delve)
+  if (name.includes('site') || name.includes('local do delve')) {
+    if (name.includes('completo') || name.includes('full')) {
+      return <FaDungeon />;
+    }
+    return <FaDungeon />;
+  }
+  
+  // Domain e Theme (Delve)
+  if ((name.includes('domain') || name.includes('domínio')) && (name.includes('theme') || name.includes('tema'))) {
+    return <FaDungeon />;
+  }
+  
+  // Threat (Delve)
+  if (name.includes('ameaça') || name.includes('threat')) {
+    return <FaSkull />;
+  }
+  
+  // Trap (Delve)
+  if (name.includes('armadilha') || name.includes('trap')) {
+    return <FaCrosshairs />;
+  }
+  
+  // Combat Event (Delve)
+  if (name.includes('evento de combate') || name.includes('combat event')) {
+    return <FaCrosshairs />;
   }
   
   // Padrão
@@ -326,6 +390,77 @@ export const IRONSWORN_SHORTCUTS: ShortcutDefinition[] = [
     rolls: [
       { oracleId: ['classic/oracles/settlement/name', 'classic/oracles/settlement/name/landscape_feature', 'classic/oracles/settlement/name/manmade_edifice', 'classic/oracles/settlement/name/creature', 'classic/oracles/settlement/name/historical_event', 'classic/oracles/settlement/name/old_world_language', 'classic/oracles/settlement/name/environmental_aspect', 'classic/oracles/settlement/name/something_else', 'classic/oracles/settlement/quick_name/prefix', 'classic/oracles/settlement/quick_name/suffix'] }, // Nome aleatório entre todas as opções
       { oracleId: 'classic/oracles/settlement/trouble' } // Problema
+    ]
+  },
+  // ===== IRONSWORN: DELVE - ATALHOS =====
+  {
+    name: 'Monstrosidade Completa',
+    nameKey: 'shortcut.fullMonstrosity',
+    rolls: [
+      { oracleId: 'delve/oracles/monstrosity/size' }, // Tamanho
+      { oracleId: 'delve/oracles/monstrosity/primary_form' }, // Forma Primária
+      { oracleId: 'delve/oracles/monstrosity/characteristics' }, // Características
+      { oracleId: 'delve/oracles/monstrosity/abilities' } // Habilidades
+    ]
+  },
+  {
+    name: 'Característica Completa',
+    nameKey: 'shortcut.fullFeature',
+    rolls: [
+      { oracleId: 'delve/oracles/feature/aspect' }, // Aspecto
+      { oracleId: 'delve/oracles/feature/focus' } // Foco
+    ]
+  },
+  {
+    name: 'Personagem do Delve',
+    nameKey: 'shortcut.delveCharacter',
+    rolls: [
+      { oracleId: 'delve/oracles/character/activity' }, // Atividade
+      { oracleId: 'delve/oracles/character/disposition' } // Disposição
+    ]
+  },
+  {
+    name: 'Evento de Combate',
+    nameKey: 'shortcut.combatEvent',
+    rolls: [
+      { oracleId: 'delve/oracles/combat_event/method' }, // Método
+      { oracleId: 'delve/oracles/combat_event/target' } // Alvo
+    ]
+  },
+  {
+    name: 'Nome do Site',
+    nameKey: 'shortcut.siteName',
+    rolls: [
+      { oracleId: 'delve/oracles/site_name/description' }, // Descrição
+      { oracleId: 'delve/oracles/site_name/detail' }, // Detalhe
+      { oracleId: ['delve/oracles/site_name/place/barrow', 'delve/oracles/site_name/place/cavern', 'delve/oracles/site_name/place/frozen_cavern', 'delve/oracles/site_name/place/icereach', 'delve/oracles/site_name/place/mine', 'delve/oracles/site_name/place/pass', 'delve/oracles/site_name/place/ruin', 'delve/oracles/site_name/place/sea_cave', 'delve/oracles/site_name/place/shadowfen', 'delve/oracles/site_name/place/stronghold', 'delve/oracles/site_name/place/tanglewood', 'delve/oracles/site_name/place/underkeep'] } // Lugar (aleatório)
+    ]
+  },
+  {
+    name: 'Armadilha',
+    nameKey: 'shortcut.trap',
+    rolls: [
+      { oracleId: 'delve/oracles/trap/trap' }, // Evento
+      { oracleId: 'delve/oracles/trap/component' } // Componente
+    ]
+  },
+  {
+    name: 'Domain e Theme',
+    nameKey: 'shortcut.domainAndTheme',
+    rolls: [
+      { oracleId: 'delve/oracles/site_nature/domain' }, // Domínio
+      { oracleId: 'delve/oracles/site_nature/theme' } // Tema
+    ]
+  },
+  {
+    name: 'Site Completo',
+    nameKey: 'shortcut.fullSite',
+    rolls: [
+      { oracleId: 'delve/oracles/site_nature/domain' }, // Domínio
+      { oracleId: 'delve/oracles/site_nature/theme' }, // Tema
+      { oracleId: 'delve/oracles/site_name/description' }, // Descrição
+      { oracleId: 'delve/oracles/site_name/detail' }, // Detalhe
+      { oracleId: ['delve/oracles/site_name/place/barrow', 'delve/oracles/site_name/place/cavern', 'delve/oracles/site_name/place/frozen_cavern', 'delve/oracles/site_name/place/icereach', 'delve/oracles/site_name/place/mine', 'delve/oracles/site_name/place/pass', 'delve/oracles/site_name/place/ruin', 'delve/oracles/site_name/place/sea_cave', 'delve/oracles/site_name/place/shadowfen', 'delve/oracles/site_name/place/stronghold', 'delve/oracles/site_name/place/tanglewood', 'delve/oracles/site_name/place/underkeep'] } // Lugar (aleatório)
     ]
   }
 ];
@@ -407,6 +542,62 @@ export const STARFORGED_SHORTCUTS: ShortcutDefinition[] = [
       { oracleId: 'starforged/oracles/vaults/shape' }, // Formato
       { oracleId: 'starforged/oracles/vaults/material' }, // Material
       { oracleId: 'starforged/oracles/vaults/outer_first_look', count: 2 } // Primeira Impressão Externa (2x)
+    ]
+  },
+  {
+    name: 'Facção Completa',
+    nameKey: 'shortcut.fullFaction',
+    rolls: [
+      { oracleId: 'starforged/oracles/factions/type' }, // Tipo
+      { oracleId: 'starforged/oracles/factions/influence' }, // Influência
+      { oracleId: ['starforged/oracles/factions/dominion', 'starforged/oracles/factions/guild', 'starforged/oracles/factions/fringe_group'] }, // Tipo específico (aleatório baseado no tipo)
+      { oracleId: 'starforged/oracles/factions/projects' }, // Projetos
+      { oracleId: 'starforged/oracles/factions/relationships' }, // Relacionamentos
+      { oracleId: 'starforged/oracles/factions/quirks' } // Peculiaridades
+    ]
+  },
+  {
+    name: 'Nave Abandonada',
+    nameKey: 'shortcut.derelict',
+    rolls: [
+      { oracleId: 'starforged/oracles/derelicts/location' }, // Localização
+      { oracleId: 'starforged/oracles/derelicts/condition' }, // Condição
+      { oracleId: 'starforged/oracles/derelicts/outer_first_look' }, // Primeira Impressão Externa
+      { oracleId: 'starforged/oracles/derelicts/inner_first_look' }, // Primeira Impressão Interna
+      { oracleId: ['starforged/oracles/derelicts/type/planetside', 'starforged/oracles/derelicts/type/orbital', 'starforged/oracles/derelicts/type/deep_space'] }, // Tipo (ajustado pela localização)
+      { oracleId: ['starforged/oracles/derelicts/zones/starship', 'starforged/oracles/derelicts/zones/settlement'] } // Zonas (ajustado pelo tipo)
+    ]
+  },
+  {
+    name: 'Criatura Completa',
+    nameKey: 'shortcut.fullCreature',
+    rolls: [
+      { oracleId: 'starforged/oracles/creatures/environment' }, // Ambiente
+      { oracleId: 'starforged/oracles/creatures/scale' }, // Escala
+      { oracleId: 'starforged/oracles/creatures/first_look' }, // Primeira Impressão
+      { oracleId: 'starforged/oracles/creatures/encountered_behavior' }, // Comportamento Encontrado
+      { oracleId: 'starforged/oracles/creatures/revealed_aspect' }, // Aspecto Revelado
+      { oracleId: ['starforged/oracles/creatures/basic_form/space', 'starforged/oracles/creatures/basic_form/interior', 'starforged/oracles/creatures/basic_form/land', 'starforged/oracles/creatures/basic_form/liquid', 'starforged/oracles/creatures/basic_form/air'] } // Forma Básica (ajustado pelo ambiente)
+    ]
+  },
+  {
+    name: 'Tema de Localização',
+    nameKey: 'shortcut.locationTheme',
+    rolls: [
+      { oracleId: 'starforged/oracles/location_themes/type' }, // Tipo
+      { oracleId: 'starforged/oracles/location_themes/chaotic/feature' }, // Feature (será ajustado pelo tipo)
+      { oracleId: 'starforged/oracles/location_themes/chaotic/peril' }, // Peril (será ajustado pelo tipo)
+      { oracleId: 'starforged/oracles/location_themes/chaotic/opportunity' } // Opportunity (será ajustado pelo tipo)
+    ]
+  },
+  {
+    name: 'Avistamento Espacial',
+    nameKey: 'shortcut.spaceSighting',
+    rolls: [
+      { oracleId: 'starforged/oracles/space/stellar_object' }, // Objeto Estelar
+      { oracleId: 'starforged/oracles/space/sighting/terminus', count: 1 }, // Avistamento (será ajustado pela região)
+      { oracleId: 'starforged/oracles/space/peril' }, // Perigo Espacial
+      { oracleId: 'starforged/oracles/space/opportunity' } // Oportunidade Espacial
     ]
   }
 ];

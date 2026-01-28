@@ -1,0 +1,107 @@
+{
+  "id": "mystical",
+  "name": "Mystical",
+  "name_pt": "Místico",
+  "text": "This place is imbued with arcane energies and mystical forces.",
+  "text_pt": "Este lugar está imbuído de energias arcanas e forças místicas.",
+  "features": [
+    {
+      "min": 1,
+      "max": 3,
+      "text": "Mystical runes carved into the walls",
+      "text_pt": "Runas místicas esculpidas nas paredes",
+      "suggestions": {
+        "oracles": ["delve/oracles/feature/aspect"]
+      }
+    },
+    {
+      "min": 4,
+      "max": 6,
+      "text": "A shimmering portal of arcane energy",
+      "text_pt": "Um portal cintilante de energia arcana"
+    },
+    {
+      "min": 7,
+      "max": 9,
+      "text": "Crystal formations that pulse with magic",
+      "text_pt": "Formações de cristal que pulsam com magia"
+    },
+    {
+      "min": 10,
+      "max": 12,
+      "text": "An ancient altar covered in glowing symbols",
+      "text_pt": "Um altar antigo coberto de símbolos brilhantes"
+    },
+    {
+      "min": 13,
+      "max": 15,
+      "text": "A library of spell books and magical tomes",
+      "text_pt": "Uma biblioteca de livros de feitiços e tomos mágicos"
+    },
+    {
+      "min": 16,
+      "max": 18,
+      "text": "A pool of liquid starlight",
+      "text_pt": "Uma piscina de luz estelar líquida"
+    },
+    {
+      "min": 19,
+      "max": 20,
+      "text": "A nexus point where ley lines converge",
+      "text_pt": "Um ponto de nexo onde as linhas ley convergem"
+    }
+  ],
+  "dangers": [
+    {
+      "min": 1,
+      "max": 2,
+      "text": "Arcane energy backlash",
+      "text_pt": "Contra-ataque de energia arcana",
+      "suggestions": {
+        "oracles": ["delve/oracles/threat/cursed_site"]
+      }
+    },
+    {
+      "min": 3,
+      "max": 4,
+      "text": "A magical trap triggered by your presence",
+      "text_pt": "Uma armadilha mágica acionada pela sua presença"
+    },
+    {
+      "min": 5,
+      "max": 6,
+      "text": "Reality begins to warp and shift",
+      "text_pt": "A realidade começa a se distorcer e mudar"
+    },
+    {
+      "min": 7,
+      "max": 8,
+      "text": "An enchanted guardian awakens",
+      "text_pt": "Um guardião encantado desperta"
+    },
+    {
+      "min": 9,
+      "max": 10,
+      "text": "A spell gone wrong creates chaos",
+      "text_pt": "Um feitiço que deu errado cria caos"
+    },
+    {
+      "min": 11,
+      "max": 12,
+      "text": "Magical wards block your path",
+      "text_pt": "Barreiras mágicas bloqueiam seu caminho"
+    },
+    {
+      "min": 13,
+      "max": 14,
+      "text": "A curse begins to take effect",
+      "text_pt": "Uma maldição começa a fazer efeito"
+    },
+    {
+      "min": 15,
+      "max": 15,
+      "text": "A powerful magical entity manifests",
+      "text_pt": "Uma entidade mágica poderosa se manifesta"
+    }
+  ]
+}

@@ -297,6 +297,7 @@
 .result-modal-copy {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 8px 12px;
   background: rgba(80, 120, 180, 0.25);
@@ -307,6 +308,8 @@
   font-size: 14px;
   font-family: var(--font-body);
   transition: all 0.2s ease;
+  line-height: 1;
+  min-height: 36px;
 }
 
 .result-modal-copy:hover {
@@ -331,6 +334,10 @@
   font-weight: bold;
   transition: all 0.2s ease;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
 }
 
 .result-modal-close:hover {
@@ -771,9 +778,317 @@
   color: #1a1f2e;
 }
 
+/* Painel de escolha no modal de resultado */
+.result-modal-choice-panel {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid;
+  transition: border-color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-choice-panel {
+  border-top-color: rgba(120, 80, 40, 0.4);
+}
+
+.theme-dark.theme-starforged .result-modal-choice-panel {
+  border-top-color: rgba(100, 120, 200, 0.5);
+}
+
+.theme-light.theme-ironsworn .result-modal-choice-panel {
+  border-top-color: rgba(139, 115, 85, 0.5);
+}
+
+.theme-light.theme-starforged .result-modal-choice-panel {
+  border-top-color: rgba(100, 120, 200, 0.6);
+}
+
+.result-modal-choice-text {
+  margin: 0 0 16px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-choice-text {
+  color: #c9a961;
+}
+
+.theme-dark.theme-starforged .result-modal-choice-text {
+  color: #8ba3d4;
+}
+
+.theme-light.theme-ironsworn .result-modal-choice-text {
+  color: #6b5a45;
+}
+
+.theme-light.theme-starforged .result-modal-choice-text {
+  color: #5a6b94;
+}
+
+.result-modal-choice-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.result-modal-choice-button {
+  flex: 1;
+  min-width: 150px;
+  padding: 14px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid;
+  font-family: var(--font-body);
+}
+
+.theme-dark.theme-ironsworn .result-modal-choice-button {
+  background: rgba(120, 80, 40, 0.2);
+  color: #c9a961;
+  border-color: rgba(120, 80, 40, 0.6);
+}
+
+.theme-dark.theme-ironsworn .result-modal-choice-button:hover {
+  background: rgba(120, 80, 40, 0.4);
+  border-color: rgba(201, 169, 97, 0.8);
+  box-shadow: 0 4px 12px rgba(120, 80, 40, 0.4);
+  transform: translateY(-2px);
+}
+
+.theme-dark.theme-starforged .result-modal-choice-button {
+  background: rgba(100, 120, 200, 0.2);
+  color: #8ba3d4;
+  border-color: rgba(100, 120, 200, 0.6);
+}
+
+.theme-dark.theme-starforged .result-modal-choice-button:hover {
+  background: rgba(100, 120, 200, 0.4);
+  border-color: rgba(139, 163, 212, 0.8);
+  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.4);
+  transform: translateY(-2px);
+}
+
+.theme-light.theme-ironsworn .result-modal-choice-button {
+  background: rgba(139, 115, 85, 0.1);
+  color: #6b5a45;
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+.theme-light.theme-ironsworn .result-modal-choice-button:hover {
+  background: rgba(139, 115, 85, 0.25);
+  border-color: rgba(139, 115, 85, 0.8);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+  transform: translateY(-2px);
+}
+
+.theme-light.theme-starforged .result-modal-choice-button {
+  background: rgba(100, 120, 200, 0.1);
+  color: #5a6b94;
+  border-color: rgba(100, 120, 200, 0.6);
+}
+
+.theme-light.theme-starforged .result-modal-choice-button:hover {
+  background: rgba(100, 120, 200, 0.25);
+  border-color: rgba(100, 120, 200, 0.8);
+  box-shadow: 0 4px 12px rgba(100, 120, 200, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Estilos para visualização Delve no modal (igual ao histórico) */
+.result-modal-delve-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid;
+  transition: border-color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-delve-header {
+  border-bottom-color: rgba(120, 80, 40, 0.3);
+}
+
+.theme-dark.theme-starforged .result-modal-delve-header {
+  border-bottom-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-ironsworn .result-modal-delve-header {
+  border-bottom-color: rgba(139, 115, 85, 0.4);
+}
+
+.theme-light.theme-starforged .result-modal-delve-header {
+  border-bottom-color: rgba(100, 120, 200, 0.5);
+}
+
+.result-modal-delve-name {
+  font-weight: 700;
+  font-size: 1.1em;
+  transition: all 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-delve-name {
+  color: #c9a961;
+  text-shadow: 0 0 8px rgba(201, 169, 97, 0.3);
+}
+
+.theme-dark.theme-starforged .result-modal-delve-name {
+  color: #8ba3d4;
+  text-shadow: 0 0 8px rgba(139, 163, 212, 0.4);
+}
+
+.theme-light.theme-ironsworn .result-modal-delve-name {
+  color: #6b5a45;
+  text-shadow: none;
+}
+
+.theme-light.theme-starforged .result-modal-delve-name {
+  color: #5a6b94;
+  text-shadow: none;
+}
+
+.result-modal-delve-roll {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.9em;
+}
+
+.result-modal-delve-table-result {
+  margin-top: 8px;
+  font-size: 1em;
+  line-height: 1.5;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  transition: color 0.5s ease;
+}
+
+.theme-dark .result-modal-delve-table-result {
+  color: #d4c4a8;
+}
+
+.theme-light .result-modal-delve-table-result {
+  color: #2a2418;
+}
+
+.result-modal-delve-children {
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-delve-children {
+  border-left-color: rgba(78, 205, 196, 0.4);
+}
+
+.theme-dark.theme-starforged .result-modal-delve-children {
+  border-left-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-ironsworn .result-modal-delve-children {
+  border-left-color: rgba(78, 205, 196, 0.5);
+}
+
+.theme-light.theme-starforged .result-modal-delve-children {
+  border-left-color: rgba(100, 120, 200, 0.5);
+}
+
+.result-modal-delve-child-simple {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  line-height: 1.5;
+  row-gap: 2px;
+  column-gap: 6px;
+}
+
+.result-modal-delve-child-header {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.result-modal-delve-child-name {
+  font-weight: 600;
+  font-size: 0.95em;
+  transition: color 0.5s ease;
+}
+
+.theme-dark.theme-ironsworn .result-modal-delve-child-name {
+  color: #8b7355;
+}
+
+.theme-dark.theme-starforged .result-modal-delve-child-name {
+  color: #7b8bb4;
+}
+
+.theme-light.theme-ironsworn .result-modal-delve-child-name {
+  color: #6b5a45;
+}
+
+.theme-light.theme-starforged .result-modal-delve-child-name {
+  color: #5a6b94;
+}
+
+.result-modal-delve-child-roll {
+  flex-shrink: 0;
+}
+
+.result-modal-delve-child-result {
+  flex: 1 1 auto;
+  font-size: 0.95em;
+  line-height: 1.5;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 150px;
+}
+
+.theme-dark.theme-ironsworn .result-modal-delve-child-result {
+  color: #b4a490;
+}
+
+.theme-dark.theme-starforged .result-modal-delve-child-result {
+  color: #a4b4c4;
+}
+
+.theme-light.theme-ironsworn .result-modal-delve-child-result {
+  color: #2a2418;
+}
+
+.theme-light.theme-starforged .result-modal-delve-child-result {
+  color: #1a1f2e;
+}
+
+/* Contorno para dados de desafio no modal baseado no resultado */
+.result-modal-delve-roll .roll-value-challenge.roll-value-fail {
+  border-color: #d44 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 4px rgba(212, 68, 68, 0.5);
+}
+
+.result-modal-delve-roll .roll-value-challenge.roll-value-success {
+  border-color: #4d8 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 4px rgba(68, 136, 136, 0.5);
+}
+
 /* Links clicáveis no modal de resultado */
 .result-modal-result button,
-.result-modal-child-result button {
+.result-modal-child-result button,
+.result-modal-delve-table-result button,
+.result-modal-delve-child-result button {
   padding: 3px 8px;
   margin: 0 3px;
   background: transparent;

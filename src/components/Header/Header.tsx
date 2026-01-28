@@ -1,7 +1,7 @@
 import type { GameMode, StarforgedRegion } from '../../types/datasworn';
 import { useI18n } from '../../i18n/context';
 import { FaSun, FaMoon, FaBook, FaSearch, FaTimes } from 'react-icons/fa';
-import { GiPlanetCore, GiBattleAxe, GiSpaceship } from 'react-icons/gi';
+import { GiPlanetCore, GiBattleAxe, GiSpaceship, GiDungeonGate } from 'react-icons/gi';
 import { useState, useRef, useEffect } from 'react';
 
 type HeaderProps = {
@@ -16,6 +16,8 @@ type HeaderProps = {
   setIsDarkMode: (dark: boolean) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  showDelve?: boolean;
+  onToggleDelve?: () => void;
 };
 
 export function Header({
@@ -29,7 +31,9 @@ export function Header({
   isDarkMode,
   setIsDarkMode,
   searchQuery,
-  onSearchChange
+  onSearchChange,
+  showDelve = false,
+  onToggleDelve
 }: HeaderProps) {
   const { t, language, setLanguage } = useI18n();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -57,7 +61,11 @@ export function Header({
     <header className="app-header">
       <h1 className="app-title">
         <span className="title-text">
-          <span className="title-game">{t(`gameMode.${gameMode}` as any)}</span>
+          <span className="title-game">
+            {showDelve && gameMode === 'ironsworn' 
+              ? `${t(`gameMode.${gameMode}` as any)} - Delve`
+              : t(`gameMode.${gameMode}` as any)}
+          </span>
         </span>
       </h1>
       
@@ -76,6 +84,17 @@ export function Header({
             </select>
             <GiPlanetCore className="region-selector-icon" />
           </div>
+        )}
+        {gameMode === 'ironsworn' && onToggleDelve !== undefined && (
+          <button
+            onClick={onToggleDelve}
+            className={`delve-toggle-btn ${showDelve ? 'active' : ''}`}
+            title={showDelve ? 'Voltar aos Oráculos' : 'Exploração Delve'}
+            aria-label={showDelve ? 'Voltar aos Oráculos' : 'Exploração Delve'}
+            style={{ display: 'flex' }}
+          >
+            <GiDungeonGate />
+          </button>
         )}
         <button
           onClick={handleSearchToggle}

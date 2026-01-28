@@ -182,6 +182,7 @@ export default defineConfig({
           // Separate Datasworn data into its own chunk
           'datasworn-starforged': ['@datasworn/starforged/json/starforged.json'],
           'datasworn-ironsworn': ['@datasworn/ironsworn-classic/json/classic.json'],
+          'datasworn-delve': ['@datasworn/ironsworn-classic-delve/json/delve.json'],
           // Separate react-icons into its own chunk
           'react-icons': ['react-icons/fa', 'react-icons/gi', 'react-icons/md'],
           // Separate React and ReactDOM

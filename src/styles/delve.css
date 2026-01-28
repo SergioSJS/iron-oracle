@@ -1,0 +1,1804 @@
+/* Estilos para o sistema de exploração Delve */
+
+.delve-exploration {
+  width: 100%;
+}
+
+.delve-exploration h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.delve-site-setup {
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.delve-setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.delve-setup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.delve-setup-field label {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.delve-setup-field select {
+  padding: 8px;
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.delve-start-button,
+.delve-reset-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-start-button,
+.theme-dark.theme-ironsworn .delve-reset-button {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.6);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-start-button:hover:not(:disabled),
+.theme-dark.theme-ironsworn .delve-reset-button:hover {
+  background: rgba(120, 80, 40, 1);
+  border-color: rgba(201, 169, 97, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-start-button,
+.theme-light.theme-ironsworn .delve-reset-button {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-start-button:hover:not(:disabled),
+.theme-light.theme-ironsworn .delve-reset-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-start-button,
+.theme-dark.theme-starforged .delve-reset-button {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.6);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-start-button:hover:not(:disabled),
+.theme-dark.theme-starforged .delve-reset-button:hover {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(139, 163, 212, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-start-button,
+.theme-light.theme-starforged .delve-reset-button {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-start-button:hover:not(:disabled),
+.theme-light.theme-starforged .delve-reset-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.delve-start-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.delve-active-expedition {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.delve-theme-domain-box {
+  padding: 8px 16px 8px 16px;
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+  position: relative;
+}
+
+.delve-theme-domain-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.delve-theme-domain-title {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  color: var(--text-primary);
+}
+
+.delve-theme-domain-edit {
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border: 2px solid;
+  background: transparent;
+  min-width: 40px;
+  height: 40px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-theme-domain-edit {
+  border-color: rgba(201, 169, 97, 0.3);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-theme-domain-edit:hover {
+  background: rgba(120, 80, 40, 0.3);
+  border-color: rgba(201, 169, 97, 0.5);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-theme-domain-edit {
+  border-color: rgba(139, 115, 85, 0.4);
+  color: #6b5840;
+}
+
+.theme-light.theme-ironsworn .delve-theme-domain-edit:hover {
+  background: rgba(139, 115, 85, 0.2);
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-theme-domain-edit {
+  border-color: rgba(139, 163, 212, 0.3);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-theme-domain-edit:hover {
+  background: rgba(100, 120, 200, 0.3);
+  border-color: rgba(139, 163, 212, 0.5);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-theme-domain-edit {
+  border-color: rgba(100, 120, 200, 0.4);
+  color: #4a5a84;
+}
+
+.theme-light.theme-starforged .delve-theme-domain-edit:hover {
+  background: rgba(100, 120, 200, 0.2);
+  border-color: rgba(100, 120, 200, 0.6);
+}
+
+.delve-theme-domain-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.delve-theme-domain-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delve-theme-domain-icon {
+  font-size: 28px;
+  opacity: 0.9;
+}
+
+.delve-theme-domain-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.delve-theme-domain-separator {
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0.5;
+  color: var(--text-primary);
+}
+
+.delve-site-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+  gap: 15px;
+}
+
+.delve-site-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.delve-site-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+}
+
+.delve-site-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+}
+
+.delve-site-icon-small {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.delve-site-name-text {
+  font-weight: 500;
+}
+
+.delve-site-separator {
+  color: var(--text-primary);
+  opacity: 0.6;
+  font-weight: bold;
+}
+
+.delve-site-names {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.delve-site-name-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.delve-site-label {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.delve-site-info h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delve-edit-button {
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0.7;
+  border: 1px solid;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-edit-button {
+  background: rgba(120, 80, 40, 0.4);
+  border-color: rgba(201, 169, 97, 0.3);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-edit-button:hover {
+  background: rgba(120, 80, 40, 0.6);
+  border-color: rgba(201, 169, 97, 0.5);
+  opacity: 1;
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-edit-button {
+  background: rgba(139, 115, 85, 0.6);
+  border-color: rgba(107, 88, 64, 0.5);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-edit-button:hover {
+  background: rgba(139, 115, 85, 0.8);
+  border-color: rgba(107, 88, 64, 0.7);
+  opacity: 1;
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-edit-button {
+  background: rgba(100, 120, 200, 0.4);
+  border-color: rgba(139, 163, 212, 0.3);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-edit-button:hover {
+  background: rgba(100, 120, 200, 0.6);
+  border-color: rgba(139, 163, 212, 0.5);
+  opacity: 1;
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-edit-button {
+  background: rgba(100, 120, 200, 0.6);
+  border-color: rgba(74, 90, 132, 0.5);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-edit-button:hover {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(74, 90, 132, 0.7);
+  opacity: 1;
+}
+
+.delve-site-select {
+  padding: 4px 8px;
+  border: 1px solid rgba(120, 80, 40, 0.5);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+  min-width: 150px;
+}
+
+.delve-progress-tracker {
+  padding: 20px;
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+}
+
+.delve-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+  gap: 15px;
+}
+
+.delve-progress-header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.delve-progress-label {
+  white-space: nowrap;
+}
+
+.delve-rank-label {
+  white-space: nowrap;
+}
+
+.delve-progress-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.delve-progress-button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  min-width: 32px;
+  height: 32px;
+  border: 2px solid;
+  font-weight: bold;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-progress-button {
+  background: rgba(120, 80, 40, 0.7);
+  border-color: rgba(201, 169, 97, 0.5);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-progress-button:hover:not(:disabled) {
+  background: rgba(120, 80, 40, 0.9);
+  border-color: rgba(201, 169, 97, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-progress-button {
+  background: rgba(139, 115, 85, 0.85);
+  border-color: rgba(107, 88, 64, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-progress-button:hover:not(:disabled) {
+  background: rgba(139, 115, 85, 1);
+  border-color: rgba(107, 88, 64, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-progress-button {
+  background: rgba(100, 120, 200, 0.7);
+  border-color: rgba(139, 163, 212, 0.5);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-progress-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(139, 163, 212, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-progress-button {
+  background: rgba(100, 120, 200, 0.85);
+  border-color: rgba(74, 90, 132, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-progress-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(74, 90, 132, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.delve-progress-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.delve-progress-boxes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.delve-progress-box {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(120, 80, 40, 0.5);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  font-size: 20px;
+  color: var(--text-primary);
+  font-weight: bold;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.delve-progress-box.fill-level-0 {
+  background: var(--bg-secondary);
+  border-color: rgba(120, 80, 40, 0.3);
+  color: transparent;
+}
+
+.delve-progress-box.fill-level-1 {
+  background: rgba(120, 80, 40, 0.15);
+  border-color: rgba(120, 80, 40, 0.5);
+  color: var(--text-primary);
+}
+
+.delve-progress-box.fill-level-2 {
+  background: rgba(120, 80, 40, 0.3);
+  border-color: rgba(120, 80, 40, 0.6);
+  color: var(--text-primary);
+}
+
+.delve-progress-box.fill-level-3 {
+  background: rgba(120, 80, 40, 0.5);
+  border-color: rgba(120, 80, 40, 0.7);
+  color: var(--text-primary);
+}
+
+.delve-progress-box.fill-level-4,
+.delve-progress-box.complete {
+  background: rgba(120, 80, 40, 0.7);
+  border-color: rgba(120, 80, 40, 0.9);
+  color: var(--text-primary);
+}
+
+.delve-progress-box.complete {
+  background: rgba(40, 200, 40, 0.6);
+  border-color: rgba(40, 200, 40, 0.8);
+}
+
+.delve-progress-complete {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(40, 200, 40, 0.2);
+  border: 1px solid rgba(40, 200, 40, 0.5);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.delve-action-panel {
+  padding: 20px;
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+}
+
+.delve-action-panel h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.delve-stat-table {
+  display: block;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-stat-table {
+  border: 1px solid rgba(120, 80, 40, 0.3);
+}
+
+.theme-dark.theme-ironsworn .delve-stat-table-cell-header {
+  background: rgba(120, 80, 40, 0.15);
+  border-bottom: 1px solid rgba(120, 80, 40, 0.3);
+  color: #d4c4a8;
+}
+
+.theme-dark.theme-ironsworn .delve-stat-table-cell:not(:last-child) {
+  border-right: 1px solid rgba(120, 80, 40, 0.3);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-stat-table {
+  border: 1px solid rgba(139, 115, 85, 0.4);
+}
+
+.theme-light.theme-ironsworn .delve-stat-table-cell-header {
+  background: rgba(139, 115, 85, 0.1);
+  border-bottom: 1px solid rgba(139, 115, 85, 0.4);
+  color: #2a2418;
+}
+
+.theme-light.theme-ironsworn .delve-stat-table-cell:not(:last-child) {
+  border-right: 1px solid rgba(139, 115, 85, 0.4);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-stat-table {
+  border: 1px solid rgba(100, 120, 200, 0.3);
+}
+
+.theme-dark.theme-starforged .delve-stat-table-cell-header {
+  background: rgba(100, 120, 200, 0.15);
+  border-bottom: 1px solid rgba(100, 120, 200, 0.3);
+  color: #b4c4d8;
+}
+
+.theme-dark.theme-starforged .delve-stat-table-cell:not(:last-child) {
+  border-right: 1px solid rgba(100, 120, 200, 0.3);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-stat-table {
+  border: 1px solid rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-starforged .delve-stat-table-cell-header {
+  background: rgba(100, 120, 200, 0.1);
+  border-bottom: 1px solid rgba(100, 120, 200, 0.4);
+  color: #1a1f2e;
+}
+
+.theme-light.theme-starforged .delve-stat-table-cell:not(:last-child) {
+  border-right: 1px solid rgba(100, 120, 200, 0.4);
+}
+
+.delve-stat-table-header {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 0;
+}
+
+.delve-stat-table-row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 0;
+}
+
+.delve-stat-table-cell {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.delve-stat-table-cell-header {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.delve-stat-table-cell-header:last-child {
+  text-align: center;
+}
+
+.delve-stat-table-cell-attribute {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.delve-stat-table-cell-value {
+  justify-content: center;
+}
+
+.delve-stat-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .delve-stat-table {
+    grid-template-columns: 1fr;
+  }
+  
+  .delve-stat-table-header {
+    grid-template-columns: 1fr;
+  }
+  
+  .delve-stat-table-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .delve-stat-table-cell:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid;
+  }
+  
+  .theme-dark.theme-ironsworn .delve-stat-table-cell:not(:last-child) {
+    border-bottom-color: rgba(120, 80, 40, 0.3);
+  }
+  
+  .theme-light.theme-ironsworn .delve-stat-table-cell:not(:last-child) {
+    border-bottom-color: rgba(139, 115, 85, 0.4);
+  }
+  
+  .theme-dark.theme-starforged .delve-stat-table-cell:not(:last-child) {
+    border-bottom-color: rgba(100, 120, 200, 0.3);
+  }.delve-stat-selector
+  
+  .theme-light.theme-starforged .delve-stat-table-cell:not(:last-child) {
+    border-bottom-color: rgba(100, 120, 200, 0.4);
+  }
+}
+
+.delve-stat-selector label {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 8px 4px;
+  border-radius: 6px;
+  border: 2px solid;
+  transition: all 0.2s;
+  font-weight: 500;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-stat-selector label {
+  background: rgba(120, 80, 40, 0.2);
+  border-color: rgba(201, 169, 97, 0.3);
+}
+
+.theme-dark.theme-ironsworn .delve-stat-selector label:hover {
+  background: rgba(120, 80, 40, 0.3);
+  border-color: rgba(201, 169, 97, 0.5);
+}
+
+.theme-dark.theme-ironsworn .delve-stat-selector input[type="radio"]:checked + span {
+  color: #e8dcc0;
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-stat-selector label {
+  background: rgba(245, 240, 232, 0.8);
+  border-color: rgba(139, 115, 85, 0.4);
+}
+
+.theme-light.theme-ironsworn .delve-stat-selector label:hover {
+  background: rgba(232, 224, 208, 0.9);
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+.theme-light.theme-ironsworn .delve-stat-selector input[type="radio"]:checked + span {
+  color: #6b5840;
+  font-weight: 600;
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-stat-selector label {
+  background: rgba(100, 120, 200, 0.2);
+  border-color: rgba(139, 163, 212, 0.3);
+}
+
+.theme-dark.theme-starforged .delve-stat-selector label:hover {
+  background: rgba(100, 120, 200, 0.3);
+  border-color: rgba(139, 163, 212, 0.5);
+}
+
+.theme-dark.theme-starforged .delve-stat-selector input[type="radio"]:checked + span {
+  color: #e0e8f0;
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-stat-selector label {
+  background: rgba(232, 234, 246, 0.8);
+  border-color: rgba(100, 120, 200, 0.4);
+}
+
+.theme-light.theme-starforged .delve-stat-selector label:hover {
+  background: rgba(220, 224, 240, 0.9);
+  border-color: rgba(100, 120, 200, 0.6);
+}
+
+.theme-light.theme-starforged .delve-stat-selector input[type="radio"]:checked + span {
+  color: #4a5a84;
+  font-weight: 600;
+}
+
+.delve-stat-selector input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: currentColor;
+}
+
+.theme-dark.theme-ironsworn .delve-stat-selector input[type="radio"] {
+  accent-color: #c9a961;
+}
+
+.theme-light.theme-ironsworn .delve-stat-selector input[type="radio"] {
+  accent-color: #8b7355;
+}
+
+.theme-dark.theme-starforged .delve-stat-selector input[type="radio"] {
+  accent-color: #8ba3d4;
+}
+
+.theme-light.theme-starforged .delve-stat-selector input[type="radio"] {
+  accent-color: #6478b4;
+}
+
+/* Removido - não é mais necessário pois o label foi removido */
+
+.delve-stat-value-controls {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.delve-stat-value-button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  min-width: 32px;
+  height: 32px;
+  border: 2px solid;
+  font-weight: bold;
+}
+
+.delve-stat-value-display {
+  min-width: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 0 8px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-stat-value-button {
+  background: rgba(120, 80, 40, 0.7);
+  border-color: rgba(201, 169, 97, 0.5);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-stat-value-button:hover:not(:disabled) {
+  background: rgba(120, 80, 40, 0.9);
+  border-color: rgba(201, 169, 97, 0.8);
+  transform: translateY(-1px);
+}
+
+.theme-dark.theme-ironsworn .delve-stat-value-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-stat-value-button {
+  background: rgba(139, 115, 85, 0.85);
+  border-color: rgba(107, 88, 64, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-stat-value-button:hover:not(:disabled) {
+  background: rgba(139, 115, 85, 1);
+  border-color: rgba(107, 88, 64, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-light.theme-ironsworn .delve-stat-value-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-stat-value-button {
+  background: rgba(100, 120, 200, 0.7);
+  border-color: rgba(139, 163, 212, 0.5);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-stat-value-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(139, 163, 212, 0.8);
+  transform: translateY(-1px);
+}
+
+.theme-dark.theme-starforged .delve-stat-value-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-stat-value-button {
+  background: rgba(100, 120, 200, 0.85);
+  border-color: rgba(74, 90, 132, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-stat-value-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(74, 90, 132, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-light.theme-starforged .delve-stat-value-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.delve-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.delve-action-button,
+.delve-feature-button,
+.delve-danger-button {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.delve-action-button svg,
+.delve-feature-button svg,
+.delve-danger-button svg {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-action-button {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.6);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-feature-button {
+  background: rgba(80, 120, 40, 0.8);
+  border-color: rgba(120, 180, 80, 0.6);
+  color: #d0e8c0;
+}
+
+.theme-dark.theme-ironsworn .delve-danger-button {
+  background: rgba(120, 40, 40, 0.8);
+  border-color: rgba(200, 80, 80, 0.6);
+  color: #e8c0c0;
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-action-button {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-feature-button {
+  background: rgba(85, 139, 85, 0.9);
+  border-color: rgba(64, 107, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-danger-button {
+  background: rgba(139, 85, 85, 0.9);
+  border-color: rgba(107, 64, 64, 0.8);
+  color: #ffffff;
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-action-button {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.6);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-feature-button {
+  background: rgba(80, 150, 120, 0.8);
+  border-color: rgba(100, 200, 150, 0.6);
+  color: #d0f0e0;
+}
+
+.theme-dark.theme-starforged .delve-danger-button {
+  background: rgba(150, 80, 120, 0.8);
+  border-color: rgba(200, 100, 150, 0.6);
+  color: #f0d0e0;
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-action-button {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-feature-button {
+  background: rgba(80, 150, 120, 0.9);
+  border-color: rgba(60, 112, 90, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-danger-button {
+  background: rgba(150, 100, 120, 0.9);
+  border-color: rgba(112, 74, 90, 0.8);
+  color: #ffffff;
+}
+
+.delve-feature-button {
+  background: rgba(80, 120, 40, 0.7);
+  border-color: rgba(80, 120, 40, 0.9);
+}
+
+.delve-danger-button {
+  background: rgba(120, 40, 40, 0.7);
+  border-color: rgba(120, 40, 40, 0.9);
+}
+
+.theme-dark.theme-ironsworn .delve-action-button:hover:not(:disabled) {
+  background: rgba(120, 80, 40, 1);
+  border-color: rgba(201, 169, 97, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-ironsworn .delve-feature-button:hover:not(:disabled) {
+  background: rgba(80, 120, 40, 1);
+  border-color: rgba(120, 180, 80, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-ironsworn .delve-danger-button:hover:not(:disabled) {
+  background: rgba(120, 40, 40, 1);
+  border-color: rgba(200, 80, 80, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-light.theme-ironsworn .delve-action-button:hover:not(:disabled),
+.theme-light.theme-ironsworn .delve-feature-button:hover:not(:disabled),
+.theme-light.theme-ironsworn .delve-danger-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
+}
+
+.theme-dark.theme-starforged .delve-action-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(139, 163, 212, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-starforged .delve-feature-button:hover:not(:disabled) {
+  background: rgba(80, 150, 120, 1);
+  border-color: rgba(100, 200, 150, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark.theme-starforged .delve-danger-button:hover:not(:disabled) {
+  background: rgba(150, 80, 120, 1);
+  border-color: rgba(200, 100, 150, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.theme-light.theme-starforged .delve-action-button:hover:not(:disabled),
+.theme-light.theme-starforged .delve-feature-button:hover:not(:disabled),
+.theme-light.theme-starforged .delve-danger-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
+}
+
+.delve-action-button:disabled,
+.delve-feature-button:disabled,
+.delve-danger-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.delve-last-result {
+  padding: 20px;
+  background: rgba(120, 80, 40, 0.15);
+  border: 1px solid rgba(120, 80, 40, 0.4);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.delve-last-result h4 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.delve-result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.delve-result-content p {
+  margin: 0;
+}
+
+.delve-result-content em {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.delve-choice-panel {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(120, 80, 40, 0.2);
+  border: 2px solid rgba(120, 80, 40, 0.5);
+  border-radius: 8px;
+}
+
+.delve-choice-panel p {
+  margin: 0 0 15px 0;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.delve-choice-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.delve-choice-button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-choice-button {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.6);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-choice-button:hover {
+  background: rgba(120, 80, 40, 1);
+  border-color: rgba(201, 169, 97, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-choice-button {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-choice-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-choice-button {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.6);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-choice-button:hover {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(139, 163, 212, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-choice-button {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-choice-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Histórico de Rolagens */
+.delve-history {
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.delve-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(120, 80, 40, 0.3);
+}
+
+.delve-history-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.delve-history-clear {
+  padding: 4px 8px;
+  background: rgba(120, 80, 40, 0.3);
+  border: 1px solid rgba(120, 80, 40, 0.5);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delve-history-clear:hover {
+  background: rgba(120, 80, 40, 0.5);
+}
+
+.delve-history-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.delve-history-empty {
+  text-align: center;
+  color: var(--text-primary);
+  opacity: 0.6;
+  padding: 20px;
+  font-style: italic;
+}
+
+.delve-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.delve-history-item {
+  background: rgba(120, 80, 40, 0.05);
+  border: 1px solid rgba(120, 80, 40, 0.2);
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 13px;
+}
+
+.delve-history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.delve-history-item-number {
+  font-weight: bold;
+  color: var(--text-primary);
+  opacity: 0.7;
+}
+
+.delve-history-item-result {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.delve-history-item-result.strong_hit {
+  background: rgba(40, 200, 40, 0.3);
+  color: var(--text-primary);
+}
+
+.delve-history-item-result.weak_hit {
+  background: rgba(255, 200, 0, 0.3);
+  color: var(--text-primary);
+}
+
+.delve-history-item-result.miss {
+  background: rgba(200, 40, 40, 0.3);
+  color: var(--text-primary);
+}
+
+.delve-history-item-result.manual-feature {
+  background: rgba(80, 120, 40, 0.3);
+  color: var(--text-primary);
+}
+
+.delve-history-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-primary);
+}
+
+.delve-history-roll {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.delve-history-feature,
+.delve-history-danger,
+.delve-history-opportunity {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.delve-history-feature strong,
+.delve-history-danger strong,
+.delve-history-opportunity strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.delve-history-progress {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(40, 200, 40, 0.9);
+}
+
+/* Empty State */
+.delve-empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(120, 80, 40, 0.1);
+  border: 1px solid rgba(120, 80, 40, 0.3);
+  border-radius: 8px;
+}
+
+.delve-empty-state p {
+  margin: 0 0 20px 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.delve-start-expedition-button {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-start-expedition-button {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.6);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-start-expedition-button:hover {
+  background: rgba(120, 80, 40, 1);
+  border-color: rgba(201, 169, 97, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-start-expedition-button {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-start-expedition-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-start-expedition-button {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.6);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-start-expedition-button:hover {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(139, 163, 212, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-start-expedition-button {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-start-expedition-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Site Actions */
+.delve-site-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.delve-edit-expedition-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-edit-expedition-button {
+  background: rgba(120, 80, 40, 0.7);
+  border-color: rgba(201, 169, 97, 0.5);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-edit-expedition-button:hover {
+  background: rgba(120, 80, 40, 0.9);
+  border-color: rgba(201, 169, 97, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-edit-expedition-button {
+  background: rgba(139, 115, 85, 0.85);
+  border-color: rgba(107, 88, 64, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-edit-expedition-button:hover {
+  background: rgba(139, 115, 85, 1);
+  border-color: rgba(107, 88, 64, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-edit-expedition-button {
+  background: rgba(100, 120, 200, 0.7);
+  border-color: rgba(139, 163, 212, 0.5);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-edit-expedition-button:hover {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(139, 163, 212, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-edit-expedition-button {
+  background: rgba(100, 120, 200, 0.85);
+  border-color: rgba(74, 90, 132, 0.7);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-edit-expedition-button:hover {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(74, 90, 132, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Expedition Modal Styles */
+.delve-expedition-modal {
+  max-width: 500px;
+}
+
+.delve-expedition-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.delve-expedition-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delve-expedition-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.delve-expedition-field-header label {
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.delve-expedition-select {
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-expedition-select {
+  background: rgba(120, 80, 40, 0.3);
+  border-color: rgba(201, 169, 97, 0.5);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-expedition-select:focus {
+  background: rgba(120, 80, 40, 0.5);
+  border-color: rgba(201, 169, 97, 0.8);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-expedition-select {
+  background: rgba(245, 240, 232, 0.9);
+  border-color: rgba(139, 115, 85, 0.6);
+  color: #2a2418;
+}
+
+.theme-light.theme-ironsworn .delve-expedition-select:focus {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(139, 115, 85, 0.9);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.2);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-expedition-select {
+  background: rgba(100, 120, 200, 0.3);
+  border-color: rgba(139, 163, 212, 0.5);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-expedition-select:focus {
+  background: rgba(100, 120, 200, 0.5);
+  border-color: rgba(139, 163, 212, 0.8);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 163, 212, 0.2);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-expedition-select {
+  background: rgba(232, 234, 246, 0.9);
+  border-color: rgba(100, 120, 200, 0.6);
+  color: #1a1f2e;
+}
+
+.theme-light.theme-starforged .delve-expedition-select:focus {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(100, 120, 200, 0.9);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(100, 120, 200, 0.2);
+}
+
+.delve-random-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(120, 80, 40, 0.3);
+  border-color: rgba(120, 80, 40, 0.5);
+  color: var(--text-primary);
+}
+
+.delve-random-button:hover {
+  background: rgba(120, 80, 40, 0.5);
+  transform: translateY(-1px);
+}
+
+.delve-expedition-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.delve-expedition-actions > button {
+  flex: 1;
+  min-width: 120px;
+}
+
+.delve-random-both-button {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.delve-random-both-button svg {
+  font-size: 18px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-random-both-button {
+  background: rgba(120, 80, 40, 0.6);
+  border-color: rgba(201, 169, 97, 0.5);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-random-both-button:hover {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-random-both-button {
+  background: rgba(139, 115, 85, 0.7);
+  border-color: rgba(107, 88, 64, 0.6);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-random-both-button:hover {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-random-both-button {
+  background: rgba(100, 120, 200, 0.6);
+  border-color: rgba(139, 163, 212, 0.5);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-random-both-button:hover {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-random-both-button {
+  background: rgba(100, 120, 200, 0.7);
+  border-color: rgba(74, 90, 132, 0.6);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-random-both-button:hover {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.delve-save-button {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Tema Escuro - Ironsworn */
+.theme-dark.theme-ironsworn .delve-save-button {
+  background: rgba(120, 80, 40, 0.8);
+  border-color: rgba(201, 169, 97, 0.6);
+  color: #e8dcc0;
+}
+
+.theme-dark.theme-ironsworn .delve-save-button:hover:not(:disabled) {
+  background: rgba(120, 80, 40, 1);
+  border-color: rgba(201, 169, 97, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Ironsworn */
+.theme-light.theme-ironsworn .delve-save-button {
+  background: rgba(139, 115, 85, 0.9);
+  border-color: rgba(107, 88, 64, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-ironsworn .delve-save-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Tema Escuro - Starforged */
+.theme-dark.theme-starforged .delve-save-button {
+  background: rgba(100, 120, 200, 0.8);
+  border-color: rgba(139, 163, 212, 0.6);
+  color: #e0e8f0;
+}
+
+.theme-dark.theme-starforged .delve-save-button:hover:not(:disabled) {
+  background: rgba(100, 120, 200, 1);
+  border-color: rgba(139, 163, 212, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Tema Claro - Starforged */
+.theme-light.theme-starforged .delve-save-button {
+  background: rgba(100, 120, 200, 0.9);
+  border-color: rgba(74, 90, 132, 0.8);
+  color: #ffffff;
+}
+
+.theme-light.theme-starforged .delve-save-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.delve-save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

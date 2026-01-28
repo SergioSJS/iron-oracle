@@ -25,9 +25,8 @@ export function OracleShortcuts({
   const { t } = useI18n();
   const shortcuts = gameMode === 'ironsworn' ? IRONSWORN_SHORTCUTS : STARFORGED_SHORTCUTS;
   
-  // Carregar estado inicial do LocalStorage (sempre priorizar localStorage)
-  // O localStorage tem prioridade absoluta sobre defaultOpen
-  // Padrão: expandido (true) se não houver valor no localStorage
+  // Carregar estado inicial do LocalStorage
+  // Se não houver valor no localStorage, usar defaultOpen
   const storageKey = 'shortcutsExpanded';
   const [isOpen, setIsOpen] = useState(() => {
     try {
@@ -37,18 +36,18 @@ export function OracleShortcuts({
         saved,
         defaultOpen,
         willUseSaved: saved !== null,
-        finalValue: saved !== null ? saved === 'true' : true // Padrão: expandido
+        finalValue: saved !== null ? saved === 'true' : defaultOpen
       });
       if (saved !== null) {
-        // Se há valor salvo, usar ele (ignorar defaultOpen)
+        // Se há valor salvo, usar ele
         return saved === 'true';
       }
     } catch (e) {
       // Se houver erro ao acessar localStorage, continuar
       console.warn('Erro ao acessar localStorage:', e);
     }
-    // Se não há estado salvo, usar true (expandido) como padrão
-    return true;
+    // Se não há estado salvo, usar defaultOpen
+    return defaultOpen;
   });
   const detailsRef = useRef<HTMLDetailsElement>(null);
   const skipNextToggle = useRef(false);
@@ -193,16 +192,17 @@ export function OracleShortcuts({
         {isOpen && (
           <div className="oracle-children">
             {shortcuts.map((shortcut, index) => {
-              const icon = getShortcutIcon(shortcut.name, gameMode);
+              const translatedName = t(shortcut.nameKey) || shortcut.name;
+              const icon = getShortcutIcon(translatedName, gameMode);
               return (
                 <div key={index} className="oracle-item" style={{ marginLeft: '4px' }}>
                   <button
                     onClick={() => rollMultipleOracles(shortcut, selectedRegion)}
                     className="oracle-roll-btn"
-                    title={shortcut.name}
+                    title={translatedName}
                   >
                     <span className="dice-icon">{icon}</span>
-                    <span className="oracle-name">{shortcut.name}</span>
+                    <span className="oracle-name">{translatedName}</span>
                   </button>
                 </div>
               );

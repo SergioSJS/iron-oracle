@@ -1,0 +1,33 @@
+{
+  "id": "meu_theme_id",
+  "name": "Nome do Theme em Inglês",
+  "name_pt": "Nome do Theme em Português (opcional)",
+  "text": "Descrição do theme em inglês.",
+  "text_pt": "Descrição do theme em português (opcional).",
+  "features": [
+    {
+      "min": 1,
+      "max": 3,
+      "text": "Primeira feature em inglês (ranges 1-20)",
+      "text_pt": "Primeira feature em português (opcional)"
+    },
+    {
+      "min": 4,
+      "max": 6,
+      "text": "Segunda feature em inglês"
+    }
+  ],
+  "dangers": [
+    {
+      "min": 1,
+      "max": 2,
+      "text": "Primeiro danger em inglês (ranges 1-15)",
+      "text_pt": "Primeiro danger em português (opcional)"
+    },
+    {
+      "min": 3,
+      "max": 4,
+      "text": "Segundo danger em inglês"
+    }
+  ]
+}

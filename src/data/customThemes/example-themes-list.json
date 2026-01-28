@@ -1,0 +1,66 @@
+[
+  {
+    "id": "mystical",
+    "name": "Mystical",
+    "name_pt": "Místico",
+    "text": "This place is imbued with arcane energies and mystical forces.",
+    "text_pt": "Este lugar está imbuído de energias arcanas e forças místicas.",
+    "features": [
+      {
+        "min": 1,
+        "max": 3,
+        "text": "Mystical runes carved into the walls",
+        "text_pt": "Runas místicas esculpidas nas paredes"
+      },
+      {
+        "min": 4,
+        "max": 6,
+        "text": "A shimmering portal of arcane energy",
+        "text_pt": "Um portal cintilante de energia arcana"
+      }
+    ],
+    "dangers": [
+      {
+        "min": 1,
+        "max": 2,
+        "text": "Arcane energy backlash",
+        "text_pt": "Contra-ataque de energia arcana"
+      }
+    ]
+  },
+  {
+    "id": "cursed_ruins",
+    "name": "Cursed Ruins",
+    "name_pt": "Ruínas Amaldiçoadas",
+    "text": "This place is tainted by dark magic and ancient curses.",
+    "text_pt": "Este lugar está manchado por magia negra e maldições antigas.",
+    "features": [
+      {
+        "min": 1,
+        "max": 5,
+        "text": "Crumbling walls covered in cursed symbols",
+        "text_pt": "Paredes desmoronando cobertas de símbolos amaldiçoados"
+      },
+      {
+        "min": 6,
+        "max": 10,
+        "text": "A cursed altar radiating dark energy",
+        "text_pt": "Um altar amaldiçoado irradiando energia sombria"
+      }
+    ],
+    "dangers": [
+      {
+        "min": 1,
+        "max": 3,
+        "text": "A curse activates as you approach",
+        "text_pt": "Uma maldição se ativa quando você se aproxima"
+      },
+      {
+        "min": 4,
+        "max": 5,
+        "text": "Dark spirits manifest from the ruins",
+        "text_pt": "Espíritos sombrios se manifestam das ruínas"
+      }
+    ]
+  }
+]

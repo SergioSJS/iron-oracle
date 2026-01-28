@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import starforgedData from '@datasworn/starforged/json/starforged.json';
 import ironswornData from '@datasworn/ironsworn-classic/json/classic.json';
+import delveData from '@datasworn/ironsworn-classic-delve/json/delve.json';
 import type { 
   OracleTable, 
   OracleRow, 
@@ -59,7 +60,67 @@ export function useGameData() {
     setSelectedRegionState(region);
   };
 
-  const currentRuleset = gameMode === 'starforged' ? starforgedData : ironswornData;
+  // Função para mesclar dados de expansão (Delve) com dados base (Ironsworn Classic)
+  const mergeExpansionData = (base: any, expansion: any): any => {
+    if (!expansion || !base) return base;
+    
+    // Criar uma cópia profunda do base
+    const merged = JSON.parse(JSON.stringify(base));
+    
+    // Mesclar oráculos recursivamente
+    if (expansion.oracles && merged.oracles) {
+      const mergeOracles = (baseOracles: any, expOracles: any) => {
+        for (const key in expOracles) {
+          if (baseOracles[key]) {
+            // Se já existe, mesclar recursivamente
+            if (expOracles[key].contents && baseOracles[key].contents) {
+              mergeOracles(baseOracles[key].contents, expOracles[key].contents);
+            }
+            if (expOracles[key].collections && baseOracles[key].collections) {
+              mergeOracles(baseOracles[key].collections, expOracles[key].collections);
+            }
+            // Se tem contents no expansion mas não no base, adicionar
+            if (expOracles[key].contents && !baseOracles[key].contents) {
+              baseOracles[key].contents = expOracles[key].contents;
+            }
+            // Se tem collections no expansion mas não no base, adicionar
+            if (expOracles[key].collections && !baseOracles[key].collections) {
+              baseOracles[key].collections = expOracles[key].collections;
+            }
+          } else {
+            // Se não existe, adicionar
+            baseOracles[key] = expOracles[key];
+          }
+        }
+      };
+      mergeOracles(merged.oracles, expansion.oracles);
+    } else if (expansion.oracles) {
+      // Se base não tem oracles mas expansion tem, adicionar
+      merged.oracles = expansion.oracles;
+    }
+    
+    // Mesclar moves se existir
+    if (expansion.moves && merged.moves) {
+      const mergeMoves = (baseMoves: any, expMoves: any) => {
+        for (const key in expMoves) {
+          if (baseMoves[key] && expMoves[key].contents && baseMoves[key].contents) {
+            mergeMoves(baseMoves[key].contents, expMoves[key].contents);
+          } else if (!baseMoves[key]) {
+            baseMoves[key] = expMoves[key];
+          }
+        }
+      };
+      mergeMoves(merged.moves, expansion.moves);
+    } else if (expansion.moves) {
+      merged.moves = expansion.moves;
+    }
+    
+    return merged;
+  };
+
+  // Mesclar dados do Delve com Ironsworn Classic quando estiver em modo Ironsworn
+  const baseIronswornData = gameMode === 'ironsworn' ? mergeExpansionData(ironswornData, delveData) : ironswornData;
+  const currentRuleset = gameMode === 'starforged' ? starforgedData : baseIronswornData;
 
   // Função auxiliar para calcular o range máximo de uma tabela
   const getTableMaxRoll = (rows: OracleRow[]): number => {
@@ -553,7 +614,7 @@ export function useGameData() {
     }
 
     // Criar entrada principal no log
-    const translatedShortcutName = translateOracleName('', shortcut.name, language) || shortcut.name;
+    const translatedShortcutName = t(shortcut.nameKey) || shortcut.name;
     const mainLog: LogEntry = {
       id: logId,
       oracleName: translatedShortcutName,

@@ -11,7 +11,7 @@ import {
   GiPlanetCore, GiAlienBug, GiSpaceship,
   GiDesert, GiJungle, GiMountainCave,
   GiGraveyard, GiGasMask, GiFlowerPot, GiCastle, GiVillage,
-  GiRiver, GiCaveEntrance, GiAncientRuins
+  GiRiver, GiCaveEntrance, GiAncientRuins, GiDungeonGate
 } from 'react-icons/gi';
 import { 
   MdLocationOn,
@@ -202,6 +202,36 @@ export function getOracleIcon(oracleId: string, oracleName: string): ReactElemen
     if (id.includes('clue') || name.includes('pista')) return <FaEye />;
     if (id.includes('anomaly') || name.includes('anomalia')) return <FaBolt />;
     if (id.includes('combat') || name.includes('combate')) return <FaCrosshairs />;
+    return <FaDice />;
+  }
+
+  // Delve - Site Domains
+  if (id.includes('site_domains') || id.includes('site_domain')) {
+    if (id.includes('barrow') || name.includes('barrow')) return <GiGraveyard />;
+    if (id.includes('cavern') && !id.includes('frozen') || name.includes('caverna') && !name.includes('congelada')) return <GiCaveEntrance />;
+    if (id.includes('frozen_cavern') || name.includes('caverna congelada')) return <FaSnowflake />;
+    if (id.includes('icereach') || name.includes('território gelado')) return <FaSnowflake />;
+    if (id.includes('mine') || name.includes('mina')) return <FaMountain />;
+    if (id.includes('pass') || name.includes('passo')) return <FaMountain />;
+    if (id.includes('ruin') || name.includes('ruína')) return <GiAncientRuins />;
+    if (id.includes('sea_cave') || name.includes('caverna marinha')) return <FaWater />;
+    if (id.includes('shadowfen') || name.includes('pântano sombrio')) return <FaTree />;
+    if (id.includes('stronghold') || name.includes('fortaleza')) return <GiCastle />;
+    if (id.includes('tanglewood') || name.includes('bosque emaranhado')) return <GiJungle />;
+    if (id.includes('underkeep') || name.includes('subterrâneo')) return <GiMountainCave />;
+    return <GiDungeonGate />;
+  }
+
+  // Delve - Site Themes
+  if (id.includes('site_themes') || id.includes('site_theme')) {
+    if (id.includes('ancient') || name.includes('antigo')) return <GiAncientRuins />;
+    if (id.includes('corrupted') || name.includes('corrompido')) return <FaSkull />;
+    if (id.includes('fortified') || name.includes('fortificado')) return <GiCastle />;
+    if (id.includes('hallowed') || name.includes('sagrado')) return <FaStar />;
+    if (id.includes('haunted') || name.includes('assombrado')) return <FaSkull />;
+    if (id.includes('infested') || name.includes('infestado')) return <GiAlienBug />;
+    if (id.includes('ravaged') || name.includes('devastado')) return <FaFire />;
+    if (id.includes('wild') || name.includes('selvagem')) return <GiJungle />;
     return <FaDice />;
   }
 

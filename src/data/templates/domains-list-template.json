@@ -1,0 +1,48 @@
+[
+  {
+    "id": "meu_domain_1",
+    "name": "Nome do Domain 1 em Inglês",
+    "name_pt": "Nome do Domain 1 em Português (opcional)",
+    "text": "Descrição do domain 1 em inglês.",
+    "text_pt": "Descrição do domain 1 em português (opcional).",
+    "features": [
+      {
+        "min": 21,
+        "max": 30,
+        "text": "Feature 1 em inglês (ranges 21-100)",
+        "text_pt": "Feature 1 em português (opcional)"
+      }
+    ],
+    "dangers": [
+      {
+        "min": 16,
+        "max": 20,
+        "text": "Danger 1 em inglês (ranges 16-30)",
+        "text_pt": "Danger 1 em português (opcional)"
+      }
+    ]
+  },
+  {
+    "id": "meu_domain_2",
+    "name": "Nome do Domain 2 em Inglês",
+    "name_pt": "Nome do Domain 2 em Português (opcional)",
+    "text": "Descrição do domain 2 em inglês.",
+    "text_pt": "Descrição do domain 2 em português (opcional).",
+    "features": [
+      {
+        "min": 21,
+        "max": 40,
+        "text": "Feature 1 em inglês",
+        "text_pt": "Feature 1 em português (opcional)"
+      }
+    ],
+    "dangers": [
+      {
+        "min": 16,
+        "max": 25,
+        "text": "Danger 1 em inglês",
+        "text_pt": "Danger 1 em português (opcional)"
+      }
+    ]
+  }
+]

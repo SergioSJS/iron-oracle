@@ -2,6 +2,33 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [2.1.0] - 2026-01-27
+
+### ✨ Novos Recursos
+
+#### Temas e Domínios Customizados do Delve
+- **Sistema de extensão**: Adicione novos Site Themes e Site Domains customizados facilmente
+- **Arquivos JSON externos**: Crie novos temas/domínios adicionando arquivos JSON em `src/data/customThemes/` e `src/data/customDomains/`
+- **Carregamento automático**: Novos arquivos são carregados automaticamente sem necessidade de modificar o código
+- **Templates práticos**: Templates JSON simples e diretos para facilitar a criação
+- **Documentação completa**: READMEs em Português e Inglês com instruções detalhadas
+- **Exemplos incluídos**: Arquivos de exemplo (`example-mystical.json`, `example-floating-island.json`) para referência
+
+### 🎨 Melhorias de Interface
+
+#### Sistema Delve
+- **Persistência de histórico**: Histórico de rolagens do Delve agora é salvo no localStorage
+- **Estado persistente**: Expedição ativa (tema, domínio, rank, progresso) é mantida entre sessões
+
+### 🛠️ Mudanças Técnicas
+
+- Novo hook: `useCustomDelveData` para carregar e mesclar dados customizados
+- Nova estrutura: Diretórios `src/data/customThemes/` e `src/data/customDomains/`
+- Templates: `theme-template.json` e `domain-template.json` para facilitar criação
+- Documentação: READMEs atualizados com guias completos em PT/EN
+
+---
+
 ## [2.0.0] - 2026-01-26
 
 ### ✨ Novos Recursos

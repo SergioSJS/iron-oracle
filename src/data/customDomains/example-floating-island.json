@@ -1,0 +1,95 @@
+{
+  "id": "floating_island",
+  "name": "Floating Island",
+  "name_pt": "Ilha Flutuante",
+  "text": "A landmass suspended in the sky by unknown forces.",
+  "text_pt": "Uma massa de terra suspensa no céu por forças desconhecidas.",
+  "features": [
+    {
+      "min": 21,
+      "max": 30,
+      "text": "Crystal formations that float independently",
+      "text_pt": "Formações de cristal que flutuam independentemente",
+      "suggestions": {
+        "oracles": ["delve/oracles/feature/aspect"]
+      }
+    },
+    {
+      "min": 31,
+      "max": 40,
+      "text": "A network of bridges connecting floating platforms",
+      "text_pt": "Uma rede de pontes conectando plataformas flutuantes"
+    },
+    {
+      "min": 41,
+      "max": 50,
+      "text": "Gravity-defying waterfalls that flow upward",
+      "text_pt": "Cachoeiras que desafiam a gravidade e fluem para cima"
+    },
+    {
+      "min": 51,
+      "max": 60,
+      "text": "Ancient ruins built on levitating stones",
+      "text_pt": "Ruínas antigas construídas em pedras levitantes"
+    },
+    {
+      "min": 61,
+      "max": 70,
+      "text": "A garden of floating plants and flowers",
+      "text_pt": "Um jardim de plantas e flores flutuantes"
+    },
+    {
+      "min": 71,
+      "max": 80,
+      "text": "A central spire that anchors multiple islands",
+      "text_pt": "Uma torre central que ancora múltiplas ilhas"
+    },
+    {
+      "min": 81,
+      "max": 90,
+      "text": "Clouds that form solid pathways between islands",
+      "text_pt": "Nuvens que formam caminhos sólidos entre ilhas"
+    },
+    {
+      "min": 91,
+      "max": 100,
+      "text": "A massive floating city in the distance",
+      "text_pt": "Uma cidade flutuante massiva à distância"
+    }
+  ],
+  "dangers": [
+    {
+      "min": 16,
+      "max": 18,
+      "text": "Unstable ground that threatens to collapse",
+      "text_pt": "Terreno instável que ameaça desmoronar",
+      "suggestions": {
+        "oracles": ["delve/oracles/threat/environmental_calamity"]
+      }
+    },
+    {
+      "min": 19,
+      "max": 21,
+      "text": "A sudden shift in gravity orientation",
+      "text_pt": "Uma mudança súbita na orientação da gravidade"
+    },
+    {
+      "min": 22,
+      "max": 24,
+      "text": "Strong winds threaten to push you off the edge",
+      "text_pt": "Ventos fortes ameaçam empurrá-lo para fora da borda"
+    },
+    {
+      "min": 25,
+      "max": 27,
+      "text": "A floating island begins to drift away",
+      "text_pt": "Uma ilha flutuante começa a se afastar"
+    },
+    {
+      "min": 28,
+      "max": 30,
+      "text": "The magical field maintaining the island weakens",
+      "text_pt": "O campo mágico que mantém a ilha enfraquece"
+    }
+  ]
+}
